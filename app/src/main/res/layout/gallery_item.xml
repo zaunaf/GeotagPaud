@@ -1,0 +1,52 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="75dp"
+    android:weightSum="1">
+
+    <ImageView
+        android:layout_width="62dp"
+        android:layout_height="62dp"
+        android:id="@+id/foto_obyek"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:src="@mipmap/ic_image" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/deskripsi_obyek"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textStyle="bold"
+            android:text="Bermain bersama"
+            android:id="@+id/item_judul_foto"
+            tools:text="@sample/dummy.json/data/judul_foto"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Kegiatan"
+            android:id="@+id/item_jenis_foto"
+            tools:text="@sample/dummy.json/data/jenis_foto"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Kegiatan"
+            android:id="@+id/item_tgl_foto"
+            tools:text="@sample/dummy.json/data/tgl_foto"
+            />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,132 @@
+{
+  "data" : [
+    {
+      "id": 1,
+      "tgl_foto": "01/08/2018",
+      "judul_foto": "Profil Guru 1",
+      "jenis_foto": "Profil",
+      "nama_file_foto": "profil_guru_1.jpg",
+      "ukuran_foto": 65
+    },
+    {
+      "id": 2,
+      "tgl_foto": "01/08/2018",
+      "judul_foto": "Profil Guru 2",
+      "jenis_foto": "Profil",
+      "nama_file_foto": "profil_guru_2.jpg",
+      "ukuran_foto": 74
+    },
+    {
+      "id": 3,
+      "tgl_foto": "01/08/2018",
+      "judul_foto": "Prosotan",
+      "jenis_foto": "Sarana",
+      "nama_file_foto": "prosotan.jpg",
+      "ukuran_foto": 67
+    },
+    {
+      "id": 4,
+      "tgl_foto": "01/08/2018",
+      "judul_foto": "Jungkat Jungkit",
+      "jenis_foto": "Sarana",
+      "nama_file_foto": "jungkat_jungkit.jpg",
+      "ukuran_foto": 96
+    },
+    {
+      "id": 5,
+      "tgl_foto": "01/08/2018",
+      "judul_foto": "Kelas TKB",
+      "jenis_foto": "Prasarana",
+      "nama_file_foto": "kelas_tkb.jpg",
+      "ukuran_foto": 60
+    },
+    {
+      "id": 6,
+      "tgl_foto": "01/08/2018",
+      "judul_foto": "Kelas TKA",
+      "jenis_foto": "Prasarana",
+      "nama_file_foto": "kelas_tka.jpg",
+      "ukuran_foto": 59
+    },
+    {
+      "id": 7,
+      "tgl_foto": "01/08/2018",
+      "judul_foto": "KBM",
+      "jenis_foto": "Aktifitas Peserta Didik",
+      "nama_file_foto": "kbm.jpg",
+      "ukuran_foto": 94
+    },
+    {
+      "id": 8,
+      "tgl_foto": "01/08/2018",
+      "judul_foto": "Berkunjung ke KidsZania",
+      "jenis_foto": "Aktifitas Peserta Didik",
+      "nama_file_foto": "berkunjung_ke_kids_zania.jpg",
+      "ukuran_foto": 68
+    },
+    {
+      "id": 9,
+      "tgl_foto": "01/08/2018",
+      "judul_foto": "Outbond",
+      "jenis_foto": "Aktifitas PTK",
+      "nama_file_foto": "outbond.jpg",
+      "ukuran_foto": 79
+    },
+    {
+      "id": 10,
+      "tgl_foto": "01/08/2018",
+      "judul_foto": "Syukuran",
+      "jenis_foto": "Aktifitas PTK",
+      "nama_file_foto": "syukuran.jpg",
+      "ukuran_foto": 97
+    },
+    {
+      "id": 11,
+      "tgl_foto": "01/08/2018",
+      "judul_foto": "Penghargaan Camat",
+      "jenis_foto": "Prestasi Sekolah",
+      "nama_file_foto": "penghargaan_camat.jpg",
+      "ukuran_foto": 127
+    },
+    {
+      "id": 12,
+      "tgl_foto": "01/08/2018",
+      "judul_foto": "Perlombaan Kebersihan",
+      "jenis_foto": "Lomba Sekolah",
+      "nama_file_foto": "perlombaan_kebersihan.jpg",
+      "ukuran_foto": 50
+    },
+    {
+      "id": 13,
+      "tgl_foto": "01/08/2018",
+      "judul_foto": "Plang Sekolah Baru",
+      "jenis_foto": "Plang Sekolah",
+      "nama_file_foto": "plang_sekolah_baru.jpg",
+      "ukuran_foto": 149
+    },
+    {
+      "id": 14,
+      "tgl_foto": "01/08/2018",
+      "judul_foto": "Pembangunan Taman Bermain",
+      "jenis_foto": "Program Pembangunan",
+      "nama_file_foto": "pembangunan_taman_bermain.jpg",
+      "ukuran_foto": 65
+    },
+    {
+      "id": 15,
+      "tgl_foto": "01/08/2018",
+      "judul_foto": "SK Operasional",
+      "jenis_foto": "Sk Operasional",
+      "nama_file_foto": "sk_operasional.jpg",
+      "ukuran_foto": 118
+    },
+    {
+      "id": 16,
+      "tgl_foto": "01/08/2018",
+      "judul_foto": "Kerusakan Paving Block",
+      "jenis_foto": "Kerusakan Sekolah",
+      "nama_file_foto": "kerusakan_paving_block.jpg",
+      "ukuran_foto": 94
+    }
+  ]
+}

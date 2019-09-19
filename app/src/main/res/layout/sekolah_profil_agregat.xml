@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:gravity="center_vertical"-->
+<!--        android:paddingLeft="20dp">-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textAppearance="?android:attr/textAppearanceMedium"-->
+<!--            android:textColor="@color/colorPrimaryDark"-->
+<!--            android:text="Profil" />-->
+
+<!--    </LinearLayout>-->
+
+<!--    <View style="@style/FullDivider"/>-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <RelativeLayout
+            android:id="@+id/lineSiswa"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@drawable/layout_bg_selector"
+            android:descendantFocusability="blocksDescendants">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/ic_siswa"
+                android:tint="@color/lightGrey"
+                android:id="@+id/iconSiswa" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Siswa"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/iconSiswa"
+                android:layout_toEndOf="@+id/iconSiswa"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:id="@+id/labelSiswa" />
+
+            <TextView
+                android:id="@+id/agregatSiswaDapodik"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="310"
+                android:textColor="#007f00"
+                android:layout_toLeftOf="@+id/agregatSiswaSurvey" />
+
+            <TextView
+                android:id="@+id/agregatSiswaSurvey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|right"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="  /  280"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
+
+
+        <View style="@style/Divider"/>
+
+
+
+        <RelativeLayout
+            android:id="@+id/lineGuru"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@drawable/layout_bg_selector"
+            android:descendantFocusability="blocksDescendants">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/ic_guru"
+                android:tint="@color/lightGrey"
+                android:id="@+id/iconGuru" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Guru"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/iconGuru"
+                android:layout_toEndOf="@+id/iconGuru"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:id="@+id/labelGuru" />
+
+            <TextView
+                android:id="@+id/agregatGuruDapodik"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="23"
+                android:textColor="#007f00"
+                android:layout_toLeftOf="@+id/agregatGuruSurvey" />
+
+            <TextView
+                android:id="@+id/agregatGuruSurvey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|right"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="  /  18"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
+
+        <View style="@style/Divider"/>
+
+        <RelativeLayout
+            android:id="@+id/lineRuang"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@drawable/layout_bg_selector"
+            android:descendantFocusability="blocksDescendants">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/ic_ruang"
+                android:tint="@color/lightGrey"
+                android:id="@+id/iconRuang" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Ruang Kelas"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/iconRuang"
+                android:layout_toEndOf="@+id/iconRuang"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:id="@+id/labelRuang" />
+
+            <TextView
+                android:id="@+id/agregatRuangDapodik"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="16"
+                android:textColor="#007f00"
+                android:layout_toLeftOf="@+id/agregatRuangSurvey" />
+
+            <TextView
+                android:id="@+id/agregatRuangSurvey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|right"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="  /  12"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+
+        </RelativeLayout>
+
+        <View style="@style/Divider"/>
+
+        <RelativeLayout
+            android:id="@+id/linePras"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@drawable/layout_bg_selector"
+            android:descendantFocusability="blocksDescendants">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/ic_pras"
+                android:tint="@color/lightGrey"
+                android:id="@+id/iconPras" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Prasarana Lain"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/iconPras"
+                android:layout_toEndOf="@+id/iconPras"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:id="@+id/labelPras" />
+
+            <TextView
+                android:id="@+id/agregatPrasDapodik"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="16"
+                android:textColor="#007f00"
+                android:layout_toLeftOf="@+id/agregatPrasSurvey" />
+
+            <TextView
+                android:id="@+id/agregatPrasSurvey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|right"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="  /  12"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+
+        </RelativeLayout>
+
+        <View style="@style/Divider"/>
+
+        <RelativeLayout
+            android:id="@+id/lineRombel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@drawable/layout_bg_selector"
+            android:descendantFocusability="blocksDescendants">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/ic_rombel"
+                android:tint="@color/lightGrey"
+                android:id="@+id/iconRombel" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Rombel"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/iconRombel"
+                android:layout_toEndOf="@+id/iconRombel"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:id="@+id/labelRombel" />
+
+            <TextView
+                android:id="@+id/agregatRombelDapodik"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="23"
+                android:textColor="#007f00"
+                android:layout_toLeftOf="@+id/agregatRombelSurvey" />
+
+            <TextView
+                android:id="@+id/agregatRombelSurvey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|right"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="  /  20"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
+
+        <View style="@style/Divider"/>
+
+        <RelativeLayout
+            android:id="@+id/lineLuasLahanMilik"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@drawable/layout_bg_selector"
+            android:descendantFocusability="blocksDescendants">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/ic_luas_milik"
+                android:tint="@color/lightGrey"
+                android:id="@+id/iconLuasLahanMilik" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Luas Lahan Milik"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/iconLuasLahanMilik"
+                android:layout_toEndOf="@+id/iconLuasLahanMilik"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:id="@+id/labelLuasLahanMilik" />
+
+            <TextView
+                android:id="@+id/agregatLuasLahanMilikDapodik"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="300"
+                android:textColor="#007f00"
+                android:layout_toLeftOf="@+id/agregatLuasLahanMilikSurvey" />
+
+
+            <TextView
+                android:id="@+id/agregatLuasLahanMilikSurvey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|right"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="  /  280"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
+
+        <View style="@style/Divider"/>
+
+        <RelativeLayout
+            android:id="@+id/lineLuasLahanNonmilik"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@drawable/layout_bg_selector"
+            android:descendantFocusability="blocksDescendants">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/ic_luas_nonmilik"
+                android:tint="@color/lightGrey"
+                android:id="@+id/iconLuasLahanNonmilik" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Luas Lahan Bukan Milik"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/iconLuasLahanNonmilik"
+                android:layout_toEndOf="@+id/iconLuasLahanNonmilik"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:id="@+id/labelLuasLahanNonmilik" />
+
+            <TextView
+                android:id="@+id/agregatLuasLahanNonmilikDapodik"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="300"
+                android:textColor="#007f00"
+                android:layout_toLeftOf="@+id/agregatLuasLahanNonmilikSurvey" />
+
+
+            <TextView
+                android:id="@+id/agregatLuasLahanNonmilikSurvey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|right"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="  /  0"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>
+

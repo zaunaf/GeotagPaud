@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!--LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/colorPrimaryDark"
+                android:text="Identitas" />
+
+        </LinearLayout-->
+
+<!--        <RelativeLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:gravity="center_vertical"-->
+<!--            android:paddingLeft="20dp">-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/labelHeaderKerusakan"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textAppearance="?android:attr/textAppearanceMedium"-->
+<!--                android:textColor="@color/colorPrimaryDark"-->
+<!--                android:layout_centerVertical="true"-->
+<!--                android:text="Identitas" />-->
+
+<!--            <ImageButton-->
+<!--                android:id="@+id/btn_edit_sekolah_info_tambahan"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:gravity="center_vertical|right"-->
+<!--                android:src="@drawable/ic_pencil"-->
+<!--                android:tint="#FFFFFF"-->
+<!--                android:backgroundTint="@color/colorAccent"-->
+<!--                android:layout_alignParentRight="true"-->
+<!--                android:layout_alignParentEnd="true"-->
+<!--                />-->
+
+<!--        </RelativeLayout>-->
+
+
+<!--        <View-->
+<!--            android:id="@+id/viewA"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="1dp"-->
+<!--            android:background="@android:color/darker_gray" />-->
+
+        <LinearLayout
+            android:id="@+id/viewB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="bold"
+                android:text="NPSN" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/npsn"
+                android:text="12839710" />
+
+            <View style="@style/DividerWithMargin"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="bold"
+                android:text="Bentuk Pendidikan" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="PAUD"
+                android:id="@+id/bentuk_pendidikan_str" />
+
+            <View style="@style/DividerWithMargin"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="bold"
+                android:text="Alamat" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="JL. TAMAN CITARUM"
+                android:id="@+id/alamat_jalan"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Kota Bandung"
+                android:id="@+id/nama_kabkota"
+                />
+
+            <View style="@style/DividerWithMargin"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="bold"
+                android:text="No.Telp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="02273819230"
+                android:id="@+id/no_telp"
+                />
+
+            <View style="@style/DividerWithMargin"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="bold"
+                android:text="Nama Kepsek" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/nama_kepsek"
+                android:text="Drs. Wawan Sumarwan KY, M.Pd" />
+
+            <View style="@style/DividerWithMargin"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="bold"
+                android:text="NIP" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/nip_kepsek"
+                android:text="197291909120939001" />
+
+            <View style="@style/DividerWithMargin"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="bold"
+                android:text="No.HP" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/nohp_kepsek"
+                android:autoLink="phone"
+                android:text="08112382912" />
+
+
+<!--            <View style="@style/DividerWithMargin"/>-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textAppearance="?android:attr/textAppearanceSmall"-->
+<!--                android:textStyle="bold"-->
+<!--                android:text="Tahun Sekolah Dibangun" />-->
+
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:id="@+id/tahun_sekolah_dibangun"-->
+<!--                android:text="-" />-->
+
+<!--            <View style="@style/DividerWithMargin"/>-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textAppearance="?android:attr/textAppearanceSmall"-->
+<!--                android:textStyle="bold"-->
+<!--                android:text="Tahun Bantah Terakhir" />-->
+
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:id="@+id/tahun_rehab_terakhir"-->
+<!--                android:text="-" />-->
+
+<!--            <View style="@style/DividerWithMargin"/>-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textAppearance="?android:attr/textAppearanceSmall"-->
+<!--                android:textStyle="bold"-->
+<!--                android:text="Tidak Dapat Bantuan Rehab Lain" />-->
+
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:id="@+id/tidak_dapat_bantuan_rehab_lain"-->
+<!--                android:text="Ya" />-->
+
+<!--            <View style="@style/DividerWithMargin"/>-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textAppearance="?android:attr/textAppearanceSmall"-->
+<!--                android:textStyle="bold"-->
+<!--                android:text="Tanah Milik Pemda Yayasan" />-->
+
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:id="@+id/tanah_milik_pemda_yayasan"-->
+<!--                android:text="Ya" />-->
+
+<!--            <View style="@style/DividerWithMargin"/>-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textAppearance="?android:attr/textAppearanceSmall"-->
+<!--                android:textStyle="bold"-->
+<!--                android:text="Tanah Tidak Sengketa" />-->
+
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:id="@+id/tanah_tidak_sengketa"-->
+<!--                android:text="Ya" />-->
+
+<!--            <View style="@style/DividerWithMargin"/>-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textAppearance="?android:attr/textAppearanceSmall"-->
+<!--                android:textStyle="bold"-->
+<!--                android:text="Masih Operasional" />-->
+
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:id="@+id/masih_operasional"-->
+<!--                android:text="Ya" />-->
+
+
+        </LinearLayout>
+
+    </LinearLayout>
