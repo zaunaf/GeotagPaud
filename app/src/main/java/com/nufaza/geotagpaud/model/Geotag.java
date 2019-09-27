@@ -1,10 +1,12 @@
 package com.nufaza.geotagpaud.model;
 
+import com.nufaza.geotagpaud.AppDatabase;
+
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
-import com.nufaza.geotagpaud.AppDatabase;
+import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.math.BigInteger;
 import java.util.Date;
@@ -16,7 +18,7 @@ import org.json.JSONObject;
 import android.util.Log;
 
 @Table(name = "geotag", database = AppDatabase.class)
-public class Geotag {
+public class Geotag extends BaseModel {
 
     @PrimaryKey
     public UUID geotag_id;

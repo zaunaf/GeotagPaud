@@ -1,10 +1,12 @@
 package com.nufaza.geotagpaud.model;
 
+import com.nufaza.geotagpaud.AppDatabase;
+
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
-import com.nufaza.geotagpaud.AppDatabase;
+import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.math.BigInteger;
 import java.util.Date;
@@ -16,7 +18,7 @@ import org.json.JSONObject;
 import android.util.Log;
 
 @Table(name = "jenis_foto", database = AppDatabase.class)
-public class JenisFoto {
+public class JenisFoto extends BaseModel {
 
     @PrimaryKey
     public Integer jenis_foto_id;

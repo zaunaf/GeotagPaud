@@ -1,10 +1,12 @@
 package com.nufaza.geotagpaud.model;
 
+import com.nufaza.geotagpaud.AppDatabase;
+
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
-import com.nufaza.geotagpaud.AppDatabase;
+import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.math.BigInteger;
 import java.util.Date;
@@ -16,7 +18,7 @@ import org.json.JSONObject;
 import android.util.Log;
 
 @Table(name = "foto", database = AppDatabase.class)
-public class Foto {
+public class Foto extends BaseModel {
 
     @PrimaryKey
     public UUID foto_id;
@@ -29,6 +31,9 @@ public class Foto {
 
     @Column
     public UUID pengguna_id;
+
+    @Column
+    public String judul;
 
     @Column
     public Date tgl_pengambilan;
@@ -97,6 +102,15 @@ public class Foto {
 
     public Pengguna getPengguna(){
         return SQLite.select().from(Pengguna.class).where(Pengguna_Table.pengguna_id.eq(this.getPenggunaId())).querySingle();
+    }
+
+
+    public String getJudul(){
+        return judul;
+    }
+
+    public void setJudul(String judul){
+        this.judul = judul;
     }
 
 
@@ -181,6 +195,10 @@ public class Foto {
                 this.pengguna_id = (UUID) obj.get("pengguna_id");
 
             }
+            if (obj.has("judul") && !obj.isNull("judul")){
+                this.judul = (String) obj.get("judul");
+
+            }
             if (obj.has("tgl_pengambilan") && !obj.isNull("tgl_pengambilan")){
                 this.tgl_pengambilan = (Date) obj.get("tgl_pengambilan");
 
@@ -221,6 +239,7 @@ public class Foto {
             obj.put("jenis_foto_id", jenis_foto_id);
             obj.put("sekolah_id", sekolah_id);
             obj.put("pengguna_id", pengguna_id);
+            obj.put("judul", judul);
             obj.put("tgl_pengambilan", tgl_pengambilan);
             obj.put("tinggi_pixel", tinggi_pixel);
             obj.put("lebar_pixel", lebar_pixel);

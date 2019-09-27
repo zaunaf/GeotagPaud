@@ -24,10 +24,13 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.nufaza.geotagpaud.model.JenisFoto;
+import com.nufaza.geotagpaud.model.JenisFoto_Table;
 import com.nufaza.geotagpaud.ui.data.DataFragment;
 import com.nufaza.geotagpaud.ui.gallery.GalleryFragment;
 import com.nufaza.geotagpaud.ui.geotag.GeotagFragment;
 import com.nufaza.geotagpaud.ui.home.HomeFragment;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -135,10 +138,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     String version = pInfo.versionName;
 //                    String databaseVersion = String.valueOf(RehabDatabase.VERSION);
 
+                    //long jumlahJenisFoto = SQLite.select().from(JenisFoto.class).count();
+                    long jumlahJenisFoto = SQLite.selectCountOf().from(JenisFoto.class).count();
 
                     MaterialDialog dialog = new MaterialDialog.Builder(this)
                             .title("Tentang Aplikasi")
-                            .content(appName + "\r\nVersi App: " + version + "\r\nVersi DB: 0.0.1" )
+                            .content(appName + "\r\nJumlah JenisFoto: " + Long.toString(jumlahJenisFoto) + "\r\nVersi App: " + version + "\r\nVersi DB: " + AppDatabase.VERSION )
                             //.content("Aplikasi Verifikasi Sarana Prasarana\r\nEdisi Custom (Takola SD)" + "\r\nVersi App: 1.0.0\r\nVersi DB: " + databaseVersion)
                             .positiveText("OK")
                             .icon(getResources().getDrawable(R.mipmap.ic_launcher))
@@ -151,6 +156,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 catch (Exception e)
                 {
                     // Do nothing lah.
+                    System.out.println(e.getMessage());
                 }
                 break;
         }
