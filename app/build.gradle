@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 // DBFlow
-def dbflow_version = "5.0.0-alpha1"
+def dbflow_version = "4.2.4"
 
 android {
     compileSdkVersion 29
@@ -37,30 +37,37 @@ dependencies {
 
     // DBFlow
 
-    // Annotation Processor
-    // if only using Java, use this. If using Kotlin do NOT use this.
-    annotationProcessor "com.github.agrosner.dbflow:processor:${dbflow_version}"
+    // Old Version 4-xxx
+    implementation "com.github.Raizlabs.DBFlow:dbflow-sqlcipher:${dbflow_version}@aar"
+    annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}"
+    implementation "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}"
+    implementation "com.github.Raizlabs.DBFlow:dbflow:${dbflow_version}"
 
-
-    // core set of libraries
-    implementation "com.github.agrosner.dbflow:core:${dbflow_version}"
-    implementation "com.github.agrosner.dbflow:lib:${dbflow_version}"
-
-    // sql-cipher database encryption (optional)
-    // implementation "com.github.agrosner.dbflow:sqlcipher:${dbflow_version}"
-    // implementation "net.zetetic:android-database-sqlcipher:${sqlcipher_version}@aar"
-
-    // RXJava 2 support
-    implementation "com.github.agrosner.dbflow:reactive-streams:${dbflow_version}"
-
-    // Kotlin Coroutines
-    // implementation "com.github.agrosner.dbflow:coroutines:${dbflow_version}"
-
-    // Android Architecture Components Paging Library Support
-    implementation "com.github.agrosner.dbflow:paging:${dbflow_version}"
-
-    // adds generated content provider annotations + support.
-    implementation "com.github.agrosner.dbflow:contentprovider:${dbflow_version}"
+    // New version 5-alpha
+//    // Annotation Processor
+//    // if only using Java, use this. If using Kotlin do NOT use this.
+//    annotationProcessor "com.github.raizlabs.dbflow:processor:${dbflow_version}"
+//
+//
+//    // core set of libraries
+//    implementation "com.github.raizlabs.dbflow:core:${dbflow_version}"
+//    implementation "com.github.raizlabs.dbflow:lib:${dbflow_version}"
+//
+//    // sql-cipher database encryption (optional)
+//    // implementation "com.github.raizlabs.dbflow:sqlcipher:${dbflow_version}"
+//    // implementation "net.zetetic:android-database-sqlcipher:${sqlcipher_version}@aar"
+//
+//    // RXJava 2 support
+//    implementation "com.github.raizlabs.dbflow:reactive-streams:${dbflow_version}"
+//
+//    // Kotlin Coroutines
+//    // implementation "com.github.raizlabs.dbflow:coroutines:${dbflow_version}"
+//
+//    // Android Architecture Components Paging Library Support
+//    implementation "com.github.raizlabs.dbflow:paging:${dbflow_version}"
+//
+//    // adds generated content provider annotations + support.
+//    implementation "com.github.raizlabs.dbflow:contentprovider:${dbflow_version}"
 
     // Material Dialog
 
