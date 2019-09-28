@@ -5,6 +5,7 @@ import android.content.pm.PackageInfo;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -30,6 +31,8 @@ import com.nufaza.geotagpaud.ui.data.DataFragment;
 import com.nufaza.geotagpaud.ui.gallery.GalleryFragment;
 import com.nufaza.geotagpaud.ui.geotag.GeotagFragment;
 import com.nufaza.geotagpaud.ui.home.HomeFragment;
+import com.nufaza.geotagpaud.util.HttpCallback;
+import com.nufaza.geotagpaud.util.HttpCaller;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -40,8 +43,13 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.Menu;
+import android.widget.EditText;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
@@ -117,12 +125,60 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         switch (id) {
+            case R.id.nav_login:
+
+                final MaterialDialog loginDialog = new MaterialDialog.Builder(this)
+                    .title("Login")
+                    .customView(R.layout.form_login, true)
+                    .positiveText("OK")
+                    .icon(getResources().getDrawable(R.mipmap.ic_launcher))
+                    .autoDismiss(true)
+                    .show();
+
+                View submitButton = loginDialog.getActionButton(DialogAction.POSITIVE);
+                submitButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        final View theView = view;
+                        View loginForm = loginDialog.getCustomView();
+                        EditText usernameField = loginForm.findViewById(R.id.username);
+                        EditText passwordField = loginForm.findViewById(R.id.password);
+                        // Snackbar.make(theView, "Anda mengirim " + usernameField.getText() + ", " + passwordField.getText(), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+
+                        HashMap<String, String> params = new HashMap<>();
+                        params.put("username", usernameField.getText().toString());
+                        params.put("password", passwordField.getText().toString());
+
+                        HttpCaller hc = new HttpCaller(MainActivity.this, HttpCaller.POST, "/api/login_check", params, HttpCaller.RETURN_TYPE_JSON, new HttpCallback() {
+                            @Override
+                            public void onSuccess(JSONObject responseJSO) {
+
+                                try {
+
+                                    String token = responseJSO.getString("token");
+                                    String id = responseJSO.getString("id");
+                                    Snackbar.make(theView, "Berhasil. ID = " + id, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        });
+
+                    }
+                });
+
+                break;
 
             case R.id.nav_help:
-                String url = "http://takola.ditpsd.net/faq";
+
+                String url = "http://geotagpaud.nufaza.com/faq";
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);
+
                 break;
 
             case R.id.nav_about:
@@ -136,21 +192,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     String appName = getApplicationContext().getString(stringId);
 
                     String version = pInfo.versionName;
-//                    String databaseVersion = String.valueOf(RehabDatabase.VERSION);
+                    // String databaseVersion = String.valueOf(RehabDatabase.VERSION);
 
                     //long jumlahJenisFoto = SQLite.select().from(JenisFoto.class).count();
                     long jumlahJenisFoto = SQLite.selectCountOf().from(JenisFoto.class).count();
 
                     MaterialDialog dialog = new MaterialDialog.Builder(this)
-                            .title("Tentang Aplikasi")
-                            .content(appName + "\r\nJumlah JenisFoto: " + Long.toString(jumlahJenisFoto) + "\r\nVersi App: " + version + "\r\nVersi DB: " + AppDatabase.VERSION )
-                            //.content("Aplikasi Verifikasi Sarana Prasarana\r\nEdisi Custom (Takola SD)" + "\r\nVersi App: 1.0.0\r\nVersi DB: " + databaseVersion)
-                            .positiveText("OK")
-                            .icon(getResources().getDrawable(R.mipmap.ic_launcher))
-                            .autoDismiss(true)
-                            .show();
-
-                    //dialog.on
+                        .title("Tentang Aplikasi")
+                        .content(appName + "\r\nJumlah JenisFoto: " + Long.toString(jumlahJenisFoto) + "\r\nVersi App: " + version + "\r\nVersi DB: " + AppDatabase.VERSION )
+                        //.content("Aplikasi Verifikasi Sarana Prasarana\r\nEdisi Custom (Takola SD)" + "\r\nVersi App: 1.0.0\r\nVersi DB: " + databaseVersion)
+                        .positiveText("OK")
+                        .icon(getResources().getDrawable(R.mipmap.ic_launcher))
+                        .autoDismiss(true)
+                        .show();
 
                 }
                 catch (Exception e)

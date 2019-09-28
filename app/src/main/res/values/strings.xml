@@ -21,5 +21,7 @@
     <string name="info">Info</string>
     <string name="help">Bantuan</string>
     <string name="about">Tentang</string>
+    <string name="http_call_failed">Panggilan HTTP ke server gagal.</string>
+    <string name="server_base_url">http://geotagpaud.nufaza.com</string>
 
 </resources>

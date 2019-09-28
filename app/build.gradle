@@ -81,4 +81,7 @@ dependencies {
     // GoogleMapService
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
 
+    // OKHttp
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+
 }
