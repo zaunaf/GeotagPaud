@@ -1,6 +1,8 @@
 package com.nufaza.geotagpaud;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.net.Uri;
 import android.os.Bundle;
@@ -56,6 +58,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 {
     private AppBarConfiguration mAppBarConfiguration;
 
+    private static final String SPKEY_SESSION = "SPKEY_SESSION";
+    private static final String SPKEY_USERNAME = "SPKEY_USERNAME";
+    private static final String SPKEY_PASSWORD = "SPKEY_PASSWORD";
+
+    private SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -103,6 +111,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // TabLayout and Pager
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
+
+        // Shared Preferences
+        sharedPreferences = getSharedPreferences(SPKEY_SESSION, Context.MODE_PRIVATE);
+
     }
 
     @Override
@@ -125,6 +137,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         switch (id) {
+
             case R.id.nav_login:
 
                 final MaterialDialog loginDialog = new MaterialDialog.Builder(this)
@@ -135,6 +148,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .autoDismiss(true)
                     .show();
 
+                View loginForm = loginDialog.getCustomView();
+                EditText usernameField = loginForm.findViewById(R.id.username);
+                EditText passwordField = loginForm.findViewById(R.id.password);
+                usernameField.setText(getPreference(SPKEY_USERNAME, ""));
+                passwordField.setText(getPreference(SPKEY_PASSWORD, ""));
+
                 View submitButton = loginDialog.getActionButton(DialogAction.POSITIVE);
                 submitButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -142,15 +161,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                         final View theView = view;
                         View loginForm = loginDialog.getCustomView();
+
+                        // Get The Field Values
                         EditText usernameField = loginForm.findViewById(R.id.username);
                         EditText passwordField = loginForm.findViewById(R.id.password);
-                        // Snackbar.make(theView, "Anda mengirim " + usernameField.getText() + ", " + passwordField.getText(), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        String usernameStr = usernameField.getText().toString();
+                        String passwordStr = passwordField.getText().toString();
 
+                        // Save to session
+                        setPreference(SPKEY_USERNAME, usernameStr);
+                        setPreference(SPKEY_PASSWORD, passwordStr);
+
+                        // Create map for JSON
                         HashMap<String, String> params = new HashMap<>();
-                        params.put("username", usernameField.getText().toString());
-                        params.put("password", passwordField.getText().toString());
+                        params.put("username", usernameStr);
+                        params.put("password", passwordStr);
 
-                        HttpCaller hc = new HttpCaller(MainActivity.this, HttpCaller.POST, "/api/login_check", params, HttpCaller.RETURN_TYPE_JSON, new HttpCallback() {
+                        // Create call to backend
+                        HttpCaller hc = new HttpCaller (
+                                MainActivity.this,
+                                HttpCaller.POST,
+                                "/api/login_check",
+                                params,
+                                HttpCaller.RETURN_TYPE_JSON,
+                                new HttpCallback() {
                             @Override
                             public void onSuccess(JSONObject responseJSO) {
 
@@ -216,6 +250,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return false;
     }
+
+    public void setPreference (String key, String value){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(key, value);
+        editor.apply();
+    }
+
+    public String getPreference (String key, String value){
+        return sharedPreferences.getString(key, "");
+    }
+
 }
 
 
@@ -251,6 +296,4 @@ class ViewPagerAdapter extends FragmentPagerAdapter {
         return mFragmentTitleList.get(position);
         //return null;
     }
-
-
 }
