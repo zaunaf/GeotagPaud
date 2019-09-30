@@ -75,7 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/npsn"
-                android:text="12839710" />
+                android:text="-" />
 
             <View style="@style/DividerWithMargin"/>
 
@@ -89,7 +89,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="PAUD"
+                android:text="-"
                 android:id="@+id/bentuk_pendidikan_str" />
 
             <View style="@style/DividerWithMargin"/>
@@ -104,14 +104,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="JL. TAMAN CITARUM"
+                android:text="-"
                 android:id="@+id/alamat_jalan"
                 />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Kota Bandung"
+                android:text=""
                 android:id="@+id/nama_kabkota"
                 />
 
@@ -127,55 +127,55 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="02273819230"
+                android:text="-"
                 android:id="@+id/no_telp"
                 />
 
-            <View style="@style/DividerWithMargin"/>
+<!--            <View style="@style/DividerWithMargin"/>-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textStyle="bold"
-                android:text="Nama Kepsek" />
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textAppearance="?android:attr/textAppearanceSmall"-->
+<!--                android:textStyle="bold"-->
+<!--                android:text="Nama Kepsek" />-->
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/nama_kepsek"
-                android:text="Drs. Wawan Sumarwan KY, M.Pd" />
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:id="@+id/nama_kepsek"-->
+<!--                android:text="Drs. Wawan Sumarwan KY, M.Pd" />-->
 
-            <View style="@style/DividerWithMargin"/>
+<!--            <View style="@style/DividerWithMargin"/>-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textStyle="bold"
-                android:text="NIP" />
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textAppearance="?android:attr/textAppearanceSmall"-->
+<!--                android:textStyle="bold"-->
+<!--                android:text="NIP" />-->
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/nip_kepsek"
-                android:text="197291909120939001" />
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:id="@+id/nip_kepsek"-->
+<!--                android:text="197291909120939001" />-->
 
-            <View style="@style/DividerWithMargin"/>
+<!--            <View style="@style/DividerWithMargin"/>-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textStyle="bold"
-                android:text="No.HP" />
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textAppearance="?android:attr/textAppearanceSmall"-->
+<!--                android:textStyle="bold"-->
+<!--                android:text="No.HP" />-->
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/nohp_kepsek"
-                android:autoLink="phone"
-                android:text="08112382912" />
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:id="@+id/nohp_kepsek"-->
+<!--                android:autoLink="phone"-->
+<!--                android:text="08112382912" />-->
 
 
 <!--            <View style="@style/DividerWithMargin"/>-->
@@ -262,8 +262,8 @@
 <!--                android:textStyle="bold"-->
 <!--                android:text="Masih Operasional" />-->
 
-<!--            <TextView-->
-<!--                android:layout_width="match_parent"-->
+<!--   LinearLayout
+        xmlns:android        android:layout_width="match_parent"-->
 <!--                android:layout_height="wrap_content"-->
 <!--                android:id="@+id/masih_operasional"-->
 <!--                android:text="Ya" />-->

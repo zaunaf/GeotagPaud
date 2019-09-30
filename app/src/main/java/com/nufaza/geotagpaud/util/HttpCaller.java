@@ -1,10 +1,12 @@
 package com.nufaza.geotagpaud.util;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.nufaza.geotagpaud.MainActivity;
 import com.nufaza.geotagpaud.R;
 
 import org.json.JSONObject;
@@ -53,7 +55,7 @@ public class HttpCaller {
      * @param params    passing parameter
      * @param cb        callback
      */
-    public HttpCaller(Context ctx, String method, String route, HashMap<String, String> params, final int returnType, final HttpCallback cb) {
+    public HttpCaller(Context ctx, String method, String route, HashMap<String, String> params, final int returnType, final HttpCallback cb, String token) {
         context = ctx;
         callback = cb;
 
@@ -71,15 +73,15 @@ public class HttpCaller {
         switch (method) {
             case HttpCaller.POST:
 
-                FormBody.Builder formBodyBuilder = new FormBody.Builder();
-
                 // If type form
+                // FormBody.Builder formBodyBuilder = new FormBody.Builder();
                 // for(Map.Entry<String, String> entry: params.entrySet()) {
                 //     String key = entry.getKey();
                 //     String val = entry.getValue();
                 //     formBodyBuilder.add(key, val);
                 // }
                 // RequestBody requestBody = formBodyBuilder.build();
+
                 JSONObject userPassJson = new JSONObject(params);
                 RequestBody requestBody = RequestBody.create(MEDIA_TYPE_JSON, userPassJson.toString());
 
@@ -94,19 +96,28 @@ public class HttpCaller {
 
                 Uri.Builder builder = Uri.parse(url).buildUpon();
 
-                for(Map.Entry<String, String> entry: params.entrySet()) {
-                    String key = entry.getKey();
-                    String val = entry.getValue();
-                    builder.appendQueryParameter(key, val);
+                if (params != null) {
+                    for (Map.Entry<String, String> entry : params.entrySet()) {
+                        String key = entry.getKey();
+                        String val = entry.getValue();
+                        builder.appendQueryParameter(key, val);
+                    }
                 }
 
                 Uri okhUri = builder.build();
                 String okhUrl = okhUri.toString();
 
                 // Build request
-                request = new Request.Builder()
-                        .url(okhUrl)
-                        .build();
+                if (token != null) {
+                    request = new Request.Builder()
+                            .addHeader("Authorization: Bearer ", token)
+                            .url(okhUrl)
+                            .build();
+                } else {
+                    request = new Request.Builder()
+                            .url(okhUrl)
+                            .build();
+                }
                 break;
         }
 
@@ -215,4 +226,9 @@ public class HttpCaller {
         });
 
     }
+
+    public HttpCaller(Context ctx, String method, String route, HashMap<String, String> params, final int returnType, final HttpCallback cb) {
+        this(ctx, method, route, params, returnType, cb, null);
+    }
+
 }

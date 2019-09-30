@@ -24,7 +24,41 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp">
 
-                <include layout="@layout/sekolah_profil_identitas" />
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/foto_sekolah"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/card_image_height"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/sekolah_sample" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/card_title_height"
+                            android:layout_alignBottom="@+id/foto_sekolah"
+                            android:layout_marginLeft="@dimen/md_keylines"
+                            android:text=""
+                            android:shadowColor="@color/md_divider_white"
+                            android:shadowDx="1"
+                            android:shadowDy="1"
+                            android:shadowRadius="10"
+                            android:id="@+id/item_nama_sekolah"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse"
+                            />
+
+                    </RelativeLayout>
+
+                    <include layout="@layout/sekolah_profil_identitas" />
+
+                </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 

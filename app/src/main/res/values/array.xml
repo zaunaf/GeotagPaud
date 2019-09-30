@@ -1,0 +1,1101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="bentukpendidikanArray">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>34</item>
+        <item>51</item>
+        <item>52</item>
+        <item>41</item>
+    </string-array>
+    <string-array name="bentukpendidikanValues">
+        <item>TK</item>
+        <item>KB</item>
+        <item>TPA</item>
+        <item>SPS</item>
+        <item>RA</item>
+        <item>SPK PG</item>
+        <item>SPK TK</item>
+        <item>Taman Seminari</item>
+    </string-array>
+    <string-array name="kabkotaArray">
+        <item>010100</item>
+        <item>016000</item>
+        <item>016100</item>
+        <item>016200</item>
+        <item>016300</item>
+        <item>016400</item>
+        <item>020500</item>
+        <item>020600</item>
+        <item>020700</item>
+        <item>020800</item>
+        <item>021000</item>
+        <item>021100</item>
+        <item>021200</item>
+        <item>021400</item>
+        <item>021500</item>
+        <item>021600</item>
+        <item>021700</item>
+        <item>021800</item>
+        <item>021900</item>
+        <item>022000</item>
+        <item>022100</item>
+        <item>022200</item>
+        <item>022300</item>
+        <item>022500</item>
+        <item>026000</item>
+        <item>026100</item>
+        <item>026200</item>
+        <item>026300</item>
+        <item>026500</item>
+        <item>026600</item>
+        <item>026700</item>
+        <item>026800</item>
+        <item>026900</item>
+        <item>030100</item>
+        <item>030200</item>
+        <item>030300</item>
+        <item>030400</item>
+        <item>030500</item>
+        <item>030600</item>
+        <item>030700</item>
+        <item>030800</item>
+        <item>030900</item>
+        <item>031000</item>
+        <item>031100</item>
+        <item>031200</item>
+        <item>031300</item>
+        <item>031400</item>
+        <item>031500</item>
+        <item>031600</item>
+        <item>031700</item>
+        <item>031800</item>
+        <item>031900</item>
+        <item>032000</item>
+        <item>032100</item>
+        <item>032200</item>
+        <item>032300</item>
+        <item>032400</item>
+        <item>032500</item>
+        <item>032600</item>
+        <item>032700</item>
+        <item>032800</item>
+        <item>032900</item>
+        <item>036000</item>
+        <item>036100</item>
+        <item>036200</item>
+        <item>036300</item>
+        <item>036400</item>
+        <item>036500</item>
+        <item>040100</item>
+        <item>040200</item>
+        <item>040300</item>
+        <item>040400</item>
+        <item>046000</item>
+        <item>050100</item>
+        <item>050200</item>
+        <item>050300</item>
+        <item>050400</item>
+        <item>050500</item>
+        <item>050600</item>
+        <item>050700</item>
+        <item>050800</item>
+        <item>050900</item>
+        <item>051000</item>
+        <item>051100</item>
+        <item>051200</item>
+        <item>051300</item>
+        <item>051400</item>
+        <item>051500</item>
+        <item>051600</item>
+        <item>051700</item>
+        <item>051800</item>
+        <item>051900</item>
+        <item>052000</item>
+        <item>052100</item>
+        <item>052200</item>
+        <item>052300</item>
+        <item>052400</item>
+        <item>052500</item>
+        <item>052600</item>
+        <item>052700</item>
+        <item>052800</item>
+        <item>052900</item>
+        <item>056000</item>
+        <item>056100</item>
+        <item>056200</item>
+        <item>056300</item>
+        <item>056400</item>
+        <item>056500</item>
+        <item>056600</item>
+        <item>056700</item>
+        <item>056800</item>
+        <item>060100</item>
+        <item>060200</item>
+        <item>060300</item>
+        <item>060400</item>
+        <item>060500</item>
+        <item>060600</item>
+        <item>060700</item>
+        <item>060800</item>
+        <item>061100</item>
+        <item>061200</item>
+        <item>061300</item>
+        <item>061400</item>
+        <item>061500</item>
+        <item>061600</item>
+        <item>061700</item>
+        <item>061800</item>
+        <item>061900</item>
+        <item>062000</item>
+        <item>066000</item>
+        <item>066100</item>
+        <item>066200</item>
+        <item>066300</item>
+        <item>066400</item>
+        <item>066500</item>
+        <item>070100</item>
+        <item>070200</item>
+        <item>070300</item>
+        <item>070400</item>
+        <item>070500</item>
+        <item>070600</item>
+        <item>070700</item>
+        <item>070800</item>
+        <item>070900</item>
+        <item>071000</item>
+        <item>071100</item>
+        <item>071500</item>
+        <item>071600</item>
+        <item>071700</item>
+        <item>071800</item>
+        <item>071900</item>
+        <item>072000</item>
+        <item>072100</item>
+        <item>072200</item>
+        <item>072300</item>
+        <item>072400</item>
+        <item>072500</item>
+        <item>072600</item>
+        <item>072700</item>
+        <item>072800</item>
+        <item>076000</item>
+        <item>076100</item>
+        <item>076200</item>
+        <item>076300</item>
+        <item>076400</item>
+        <item>076500</item>
+        <item>076600</item>
+        <item>076700</item>
+        <item>080100</item>
+        <item>080200</item>
+        <item>080300</item>
+        <item>080400</item>
+        <item>080500</item>
+        <item>080600</item>
+        <item>080700</item>
+        <item>080800</item>
+        <item>081000</item>
+        <item>081100</item>
+        <item>081200</item>
+        <item>081300</item>
+        <item>086000</item>
+        <item>086100</item>
+        <item>086200</item>
+        <item>086300</item>
+        <item>086400</item>
+        <item>086500</item>
+        <item>086600</item>
+        <item>090100</item>
+        <item>090200</item>
+        <item>090400</item>
+        <item>090500</item>
+        <item>090800</item>
+        <item>090900</item>
+        <item>091000</item>
+        <item>091100</item>
+        <item>091400</item>
+        <item>091500</item>
+        <item>096000</item>
+        <item>096200</item>
+        <item>100100</item>
+        <item>100200</item>
+        <item>100300</item>
+        <item>100400</item>
+        <item>100500</item>
+        <item>100600</item>
+        <item>100700</item>
+        <item>100800</item>
+        <item>100900</item>
+        <item>106000</item>
+        <item>106100</item>
+        <item>110100</item>
+        <item>110200</item>
+        <item>110300</item>
+        <item>110400</item>
+        <item>110500</item>
+        <item>110600</item>
+        <item>110700</item>
+        <item>110800</item>
+        <item>110900</item>
+        <item>111000</item>
+        <item>111100</item>
+        <item>111200</item>
+        <item>111300</item>
+        <item>116000</item>
+        <item>116100</item>
+        <item>116200</item>
+        <item>116300</item>
+        <item>120100</item>
+        <item>120200</item>
+        <item>120300</item>
+        <item>120400</item>
+        <item>120500</item>
+        <item>120600</item>
+        <item>120700</item>
+        <item>120800</item>
+        <item>120900</item>
+        <item>121000</item>
+        <item>121100</item>
+        <item>121200</item>
+        <item>121300</item>
+        <item>126000</item>
+        <item>126100</item>
+        <item>130100</item>
+        <item>130200</item>
+        <item>130300</item>
+        <item>130400</item>
+        <item>130500</item>
+        <item>130600</item>
+        <item>130800</item>
+        <item>130900</item>
+        <item>131000</item>
+        <item>131100</item>
+        <item>131200</item>
+        <item>131300</item>
+        <item>136000</item>
+        <item>136100</item>
+        <item>140100</item>
+        <item>140200</item>
+        <item>140300</item>
+        <item>140400</item>
+        <item>140500</item>
+        <item>140600</item>
+        <item>140700</item>
+        <item>140800</item>
+        <item>140900</item>
+        <item>141000</item>
+        <item>141100</item>
+        <item>141200</item>
+        <item>141300</item>
+        <item>146000</item>
+        <item>150100</item>
+        <item>150200</item>
+        <item>150300</item>
+        <item>150400</item>
+        <item>150500</item>
+        <item>150600</item>
+        <item>150700</item>
+        <item>150800</item>
+        <item>150900</item>
+        <item>151000</item>
+        <item>151100</item>
+        <item>156000</item>
+        <item>156100</item>
+        <item>160100</item>
+        <item>160200</item>
+        <item>160300</item>
+        <item>160400</item>
+        <item>160700</item>
+        <item>160800</item>
+        <item>160900</item>
+        <item>161000</item>
+        <item>161100</item>
+        <item>161200</item>
+        <item>165400</item>
+        <item>166000</item>
+        <item>166100</item>
+        <item>166200</item>
+        <item>166300</item>
+        <item>170100</item>
+        <item>170200</item>
+        <item>170300</item>
+        <item>170400</item>
+        <item>170500</item>
+        <item>170600</item>
+        <item>170800</item>
+        <item>170900</item>
+        <item>171000</item>
+        <item>171100</item>
+        <item>171200</item>
+        <item>176000</item>
+        <item>176100</item>
+        <item>176200</item>
+        <item>176300</item>
+        <item>180100</item>
+        <item>180200</item>
+        <item>180300</item>
+        <item>180400</item>
+        <item>180500</item>
+        <item>180600</item>
+        <item>180700</item>
+        <item>180800</item>
+        <item>180900</item>
+        <item>181000</item>
+        <item>181100</item>
+        <item>181200</item>
+        <item>186000</item>
+        <item>190100</item>
+        <item>190200</item>
+        <item>190300</item>
+        <item>190400</item>
+        <item>190500</item>
+        <item>190600</item>
+        <item>190700</item>
+        <item>190800</item>
+        <item>190900</item>
+        <item>191000</item>
+        <item>191100</item>
+        <item>191200</item>
+        <item>191300</item>
+        <item>191400</item>
+        <item>191500</item>
+        <item>191600</item>
+        <item>191700</item>
+        <item>191800</item>
+        <item>192400</item>
+        <item>192600</item>
+        <item>192700</item>
+        <item>196000</item>
+        <item>196100</item>
+        <item>196200</item>
+        <item>200100</item>
+        <item>200200</item>
+        <item>200300</item>
+        <item>200400</item>
+        <item>200500</item>
+        <item>200600</item>
+        <item>200700</item>
+        <item>200800</item>
+        <item>200900</item>
+        <item>201000</item>
+        <item>201100</item>
+        <item>201200</item>
+        <item>201300</item>
+        <item>201400</item>
+        <item>201500</item>
+        <item>201600</item>
+        <item>206000</item>
+        <item>206100</item>
+        <item>210100</item>
+        <item>210200</item>
+        <item>210300</item>
+        <item>210400</item>
+        <item>210500</item>
+        <item>210600</item>
+        <item>210700</item>
+        <item>210800</item>
+        <item>210900</item>
+        <item>216000</item>
+        <item>216100</item>
+        <item>220100</item>
+        <item>220200</item>
+        <item>220300</item>
+        <item>220400</item>
+        <item>220500</item>
+        <item>220600</item>
+        <item>220700</item>
+        <item>220800</item>
+        <item>226000</item>
+        <item>230100</item>
+        <item>230200</item>
+        <item>230300</item>
+        <item>230400</item>
+        <item>230500</item>
+        <item>230600</item>
+        <item>230700</item>
+        <item>230800</item>
+        <item>236000</item>
+        <item>236100</item>
+        <item>240100</item>
+        <item>240300</item>
+        <item>240400</item>
+        <item>240500</item>
+        <item>240600</item>
+        <item>240700</item>
+        <item>240800</item>
+        <item>240900</item>
+        <item>241000</item>
+        <item>241100</item>
+        <item>241200</item>
+        <item>241300</item>
+        <item>241400</item>
+        <item>241500</item>
+        <item>241600</item>
+        <item>241700</item>
+        <item>241800</item>
+        <item>241900</item>
+        <item>242000</item>
+        <item>242100</item>
+        <item>242200</item>
+        <item>246000</item>
+        <item>250100</item>
+        <item>250200</item>
+        <item>250300</item>
+        <item>250700</item>
+        <item>250800</item>
+        <item>250900</item>
+        <item>251000</item>
+        <item>251100</item>
+        <item>251200</item>
+        <item>251300</item>
+        <item>251400</item>
+        <item>251500</item>
+        <item>251600</item>
+        <item>251700</item>
+        <item>251800</item>
+        <item>251900</item>
+        <item>252000</item>
+        <item>252600</item>
+        <item>252700</item>
+        <item>252800</item>
+        <item>252900</item>
+        <item>253000</item>
+        <item>253100</item>
+        <item>253200</item>
+        <item>253300</item>
+        <item>253400</item>
+        <item>253500</item>
+        <item>253600</item>
+        <item>256000</item>
+        <item>260100</item>
+        <item>260200</item>
+        <item>260300</item>
+        <item>260400</item>
+        <item>260500</item>
+        <item>260600</item>
+        <item>260700</item>
+        <item>260800</item>
+        <item>260900</item>
+        <item>261000</item>
+        <item>266000</item>
+        <item>270100</item>
+        <item>270200</item>
+        <item>270300</item>
+        <item>270400</item>
+        <item>270500</item>
+        <item>270600</item>
+        <item>270700</item>
+        <item>270800</item>
+        <item>276000</item>
+        <item>276100</item>
+        <item>280100</item>
+        <item>280200</item>
+        <item>280300</item>
+        <item>280400</item>
+        <item>286000</item>
+        <item>286100</item>
+        <item>286200</item>
+        <item>286300</item>
+        <item>290100</item>
+        <item>290200</item>
+        <item>290300</item>
+        <item>290400</item>
+        <item>290500</item>
+        <item>290600</item>
+        <item>296000</item>
+        <item>300100</item>
+        <item>300200</item>
+        <item>300300</item>
+        <item>300400</item>
+        <item>300500</item>
+        <item>306000</item>
+        <item>310100</item>
+        <item>310200</item>
+        <item>310300</item>
+        <item>310400</item>
+        <item>310500</item>
+        <item>316000</item>
+        <item>316100</item>
+        <item>320100</item>
+        <item>320200</item>
+        <item>320300</item>
+        <item>320400</item>
+        <item>320500</item>
+        <item>320600</item>
+        <item>320700</item>
+        <item>320800</item>
+        <item>320900</item>
+        <item>321000</item>
+        <item>321100</item>
+        <item>321200</item>
+        <item>326000</item>
+        <item>330100</item>
+        <item>330200</item>
+        <item>330300</item>
+        <item>330400</item>
+        <item>330500</item>
+        <item>330600</item>
+        <item>340100</item>
+        <item>340200</item>
+        <item>340300</item>
+        <item>340500</item>
+        <item>346000</item>
+        <item>350100</item>
+        <item>350200</item>
+        <item>350300</item>
+        <item>350400</item>
+        <item>350500</item>
+        <item>350600</item>
+        <item>350700</item>
+        <item>350800</item>
+        <item>350900</item>
+        <item>351000</item>
+        <item>351100</item>
+        <item>351200</item>
+        <item>351300</item>
+        <item>351400</item>
+        <item>351500</item>
+    </string-array>
+    <string-array name="kabkotaValues">
+        <item>Kab. Kepulauan Seribu</item>
+        <item>Kota Jakarta Pusat</item>
+        <item>Kota Jakarta Utara</item>
+        <item>Kota Jakarta Barat</item>
+        <item>Kota Jakarta Selatan</item>
+        <item>Kota Jakarta Timur</item>
+        <item>Kab. Bogor</item>
+        <item>Kab. Sukabumi</item>
+        <item>Kab. Cianjur</item>
+        <item>Kab. Bandung</item>
+        <item>Kab. Sumedang</item>
+        <item>Kab. Garut</item>
+        <item>Kab. Tasikmalaya</item>
+        <item>Kab. Ciamis</item>
+        <item>Kab. Kuningan</item>
+        <item>Kab. Majalengka</item>
+        <item>Kab. Cirebon</item>
+        <item>Kab. Indramayu</item>
+        <item>Kab. Subang</item>
+        <item>Kab. Purwakarta</item>
+        <item>Kab. Karawang</item>
+        <item>Kab. Bekasi</item>
+        <item>Kab. Bandung Barat</item>
+        <item>Kab. Pangandaran</item>
+        <item>Kota Bandung</item>
+        <item>Kota Bogor</item>
+        <item>Kota Sukabumi</item>
+        <item>Kota Cirebon</item>
+        <item>Kota Bekasi</item>
+        <item>Kota Depok</item>
+        <item>Kota Cimahi</item>
+        <item>Kota Tasikmalaya</item>
+        <item>Kota Banjar</item>
+        <item>Kab. Cilacap</item>
+        <item>Kab. Banyumas</item>
+        <item>Kab. Purbalingga</item>
+        <item>Kab. Banjarnegara</item>
+        <item>Kab. Kebumen</item>
+        <item>Kab. Purworejo</item>
+        <item>Kab. Wonosobo</item>
+        <item>Kab. Magelang</item>
+        <item>Kab. Boyolali</item>
+        <item>Kab. Klaten</item>
+        <item>Kab. Sukoharjo</item>
+        <item>Kab. Wonogiri</item>
+        <item>Kab. Karanganyar</item>
+        <item>Kab. Sragen</item>
+        <item>Kab. Grobogan</item>
+        <item>Kab. Blora</item>
+        <item>Kab. Rembang</item>
+        <item>Kab. Pati</item>
+        <item>Kab. Kudus</item>
+        <item>Kab. Jepara</item>
+        <item>Kab. Demak</item>
+        <item>Kab. Semarang</item>
+        <item>Kab. Temanggung</item>
+        <item>Kab. Kendal</item>
+        <item>Kab. Batang</item>
+        <item>Kab. Pekalongan</item>
+        <item>Kab. Pemalang</item>
+        <item>Kab. Tegal</item>
+        <item>Kab. Brebes</item>
+        <item>Kota Magelang</item>
+        <item>Kota Surakarta</item>
+        <item>Kota Salatiga</item>
+        <item>Kota Semarang</item>
+        <item>Kota Pekalongan</item>
+        <item>Kota Tegal</item>
+        <item>Kab. Bantul</item>
+        <item>Kab. Sleman</item>
+        <item>Kab. Gunung Kidul</item>
+        <item>Kab. Kulon Progo</item>
+        <item>Kota Yogyakarta</item>
+        <item>Kab. Gresik</item>
+        <item>Kab. Sidoarjo</item>
+        <item>Kab. Mojokerto</item>
+        <item>Kab. Jombang</item>
+        <item>Kab. Bojonegoro</item>
+        <item>Kab. Tuban</item>
+        <item>Kab. Lamongan</item>
+        <item>Kab. Madiun</item>
+        <item>Kab. Ngawi</item>
+        <item>Kab. Magetan</item>
+        <item>Kab. Ponorogo</item>
+        <item>Kab. Pacitan</item>
+        <item>Kab. Kediri</item>
+        <item>Kab. Nganjuk</item>
+        <item>Kab. Blitar</item>
+        <item>Kab. Tulungagung</item>
+        <item>Kab. Trenggalek</item>
+        <item>Kab. Malang</item>
+        <item>Kab. Pasuruan</item>
+        <item>Kab. Probolinggo</item>
+        <item>Kab. Lumajang</item>
+        <item>Kab. Bondowoso</item>
+        <item>Kab. Situbondo</item>
+        <item>Kab. Jember</item>
+        <item>Kab. Banyuwangi</item>
+        <item>Kab. Pamekasan</item>
+        <item>Kab. Sampang</item>
+        <item>Kab. Sumenep</item>
+        <item>Kab. Bangkalan</item>
+        <item>Kota Surabaya</item>
+        <item>Kota Malang</item>
+        <item>Kota Madiun</item>
+        <item>Kota Kediri</item>
+        <item>Kota Mojokerto</item>
+        <item>Kota Blitar</item>
+        <item>Kota Pasuruan</item>
+        <item>Kota Probolinggo</item>
+        <item>Kota Batu</item>
+        <item>Kab. Aceh Besar</item>
+        <item>Kab. Pidie</item>
+        <item>Kab. Aceh Utara</item>
+        <item>Kab. Aceh Timur</item>
+        <item>Kab. Aceh Tengah</item>
+        <item>Kab. Aceh Barat</item>
+        <item>Kab. Aceh Selatan</item>
+        <item>Kab. Aceh Tenggara</item>
+        <item>Kab. Simeulue</item>
+        <item>Kab. Bireuen</item>
+        <item>Kab. Aceh Singkil</item>
+        <item>Kab. Aceh Tamiang</item>
+        <item>Kab. Nagan Raya</item>
+        <item>Kab. Aceh Jaya</item>
+        <item>Kab. Aceh Barat Daya</item>
+        <item>Kab. Gayo Lues</item>
+        <item>Kab. Bener Meriah</item>
+        <item>Kab. Pidie Jaya</item>
+        <item>Kota Sabang</item>
+        <item>Kota Banda Aceh</item>
+        <item>Kota Lhokseumawe</item>
+        <item>Kota Langsa</item>
+        <item>Kota Subulussalam</item>
+        <item></item>
+        <item>Kab. Deli Serdang</item>
+        <item>Kab. Langkat</item>
+        <item>Kab. Karo</item>
+        <item>Kab. Simalungun</item>
+        <item>Kab. Dairi</item>
+        <item>Kab. Asahan</item>
+        <item>Kab. Labuhan Batu</item>
+        <item>Kab. Tapanuli Utara</item>
+        <item>Kab. Tapanuli Tengah</item>
+        <item>Kab. Tapanuli Selatan</item>
+        <item>Kab. Nias</item>
+        <item>Kab. Mandailing Natal</item>
+        <item>Kab. Toba Samosir</item>
+        <item>Kab. Nias Selatan</item>
+        <item>Kab. Pakpak Bharat</item>
+        <item>Kab. Humbang Hasudutan</item>
+        <item>Kab. Samosir</item>
+        <item>Kab. Serdang Bedagai</item>
+        <item>Kab. Batubara</item>
+        <item>Kab. Padang Lawas utara</item>
+        <item>Kab. Padang Lawas</item>
+        <item>Kab. Labuhan Batu Utara</item>
+        <item>Kab. Labuhan Batu Selatan</item>
+        <item>Kab. Nias Barat</item>
+        <item>Kab. Nias Utara</item>
+        <item>Kota Medan</item>
+        <item>Kota Binjai</item>
+        <item>Kota Tebing Tinggi</item>
+        <item>Kota Pematangsiantar</item>
+        <item>Kota Tanjung Balai</item>
+        <item>Kota Sibolga</item>
+        <item>Kota Padang Sidimpuan</item>
+        <item>Kota Gunungsitoli</item>
+        <item>Kab. Agam</item>
+        <item>Kab. Pasaman</item>
+        <item>Kab. Lima Puluh Koto</item>
+        <item>Kab. Solok</item>
+        <item>Kab. Padang Pariaman</item>
+        <item>Kab. Pesisir Selatan</item>
+        <item>Kab. Tanah Datar</item>
+        <item>Kab. Sijunjung</item>
+        <item>Kab. Kepulauan Mentawai</item>
+        <item>Kab. Solok Selatan</item>
+        <item>Kab. Dharmasraya</item>
+        <item>Kab. Pasaman Barat</item>
+        <item>Kota Bukittinggi</item>
+        <item>Kota Padang</item>
+        <item>Kota Padang Panjang</item>
+        <item>Kota Sawah Lunto</item>
+        <item>Kota Solok</item>
+        <item>Kota Payakumbuh</item>
+        <item>Kota Pariaman</item>
+        <item>Kab. Kampar</item>
+        <item>Kab. Bengkalis</item>
+        <item>Kab. Indragiri Hulu</item>
+        <item>Kab. Indragiri Hilir</item>
+        <item>Kab. Pelalawan</item>
+        <item>Kab. Rokan Hulu</item>
+        <item>Kab. Rokan Hilir</item>
+        <item>Kab. Siak</item>
+        <item>Kab. Kuantan Singingi</item>
+        <item>Kab. Kepulauan Meranti</item>
+        <item>Kota Pekanbaru</item>
+        <item>Kota Dumai</item>
+        <item>Kab. Batang Hari</item>
+        <item>Kab. Bungo</item>
+        <item>Kab. Sarolangun</item>
+        <item>Kab. Tanjung Jabung Barat</item>
+        <item>Kab. Kerinci</item>
+        <item>Kab. Tebo</item>
+        <item>Kab. Muaro Jambi</item>
+        <item>Kab. Tanjung Jabung Timur</item>
+        <item>Kab. Merangin</item>
+        <item>Kota Jambi</item>
+        <item>Kota Sungai Penuh</item>
+        <item>Kab. Musi Banyuasin</item>
+        <item>Kab. Ogan Komering Ilir</item>
+        <item>Kab. Ogan Komering Ulu</item>
+        <item>Kab. Muara Enim</item>
+        <item>Kab. Lahat</item>
+        <item>Kab. Musi Rawas</item>
+        <item>Kab. Banyuasin</item>
+        <item>Kab. Ogan Komering Ulu Timur</item>
+        <item>Kab. Ogan Komering Ulu Selatan</item>
+        <item>Kab. Ogan Ilir</item>
+        <item>Kab. Empat Lawang</item>
+        <item>Kab. Penukal Abab Lematang Ilir</item>
+        <item>Kab. Musi Rawas Utara</item>
+        <item>Kota Palembang</item>
+        <item>Kota Prabumulih</item>
+        <item>Kota Lubuk Linggau</item>
+        <item>Kota Pagar Alam</item>
+        <item>Kab. Lampung Selatan</item>
+        <item>Kab. Lampung Tengah</item>
+        <item>Kab. Lampung Utara</item>
+        <item>Kab. Lampung Barat</item>
+        <item>Kab. Tulang Bawang</item>
+        <item>Kab. Tanggamus</item>
+        <item>Kab. Lampung Timur</item>
+        <item>Kab. Way Kanan</item>
+        <item>Kab. Pesawaran</item>
+        <item>Kab. Pringsewu</item>
+        <item>Kab. Mesuji</item>
+        <item>Kab. Tulang Bawang Barat</item>
+        <item>Kab. Pesisir Barat</item>
+        <item>Kota Bandar Lampung</item>
+        <item>Kota Metro</item>
+        <item>Kab. Sambas</item>
+        <item>Kab. Mempawah</item>
+        <item>Kab. Sanggau</item>
+        <item>Kab. Sintang</item>
+        <item>Kab. Kapuas Hulu</item>
+        <item>Kab. Ketapang</item>
+        <item>Kab. Bengkayang</item>
+        <item>Kab. Landak</item>
+        <item>Kab. Sekadau</item>
+        <item>Kab. Melawi</item>
+        <item>Kab. Kayong Utara</item>
+        <item>Kab. Kuburaya</item>
+        <item>Kota Pontianak</item>
+        <item>Kota Singkawang</item>
+        <item>Kab. Kapuas</item>
+        <item>Kab. Barito Selatan</item>
+        <item>Kab. Barito Utara</item>
+        <item>Kab. Kotawaringin Timur</item>
+        <item>Kab. Kotawaringin Barat</item>
+        <item>Kab. Katingan</item>
+        <item>Kab. Seruyan</item>
+        <item>Kab. Sukamara</item>
+        <item>Kab. Lamandau</item>
+        <item>Kab. Gunung Mas</item>
+        <item>Kab. Pulang Pisau</item>
+        <item>Kab. Murung Raya</item>
+        <item>Kab. Barito Timur</item>
+        <item>Kota Palangka Raya</item>
+        <item>Kab. Banjar</item>
+        <item>Kab. Tanah Laut</item>
+        <item>Kab. Barito Kuala</item>
+        <item>Kab. Tapin</item>
+        <item>Kab. Hulu Sungai Selatan</item>
+        <item>Kab. Hulu Sungai Tengah</item>
+        <item>Kab. Hulu Sungai Utara</item>
+        <item>Kab. Tabalong</item>
+        <item>Kab. Kotabaru</item>
+        <item>Kab. Balangan</item>
+        <item>Kab. Tanah Bumbu</item>
+        <item>Kota Banjarmasin</item>
+        <item>Kota Banjarbaru</item>
+        <item>Kab. Paser</item>
+        <item>Kab. Kutai Kartanegara</item>
+        <item>Kab. Berau</item>
+        <item>Kab. Bulongan</item>
+        <item>Kab. Malinau</item>
+        <item>Kab. Nunukan</item>
+        <item>Kab. Kutai Barat</item>
+        <item>Kab. Kutai Timur</item>
+        <item>Kab. Penajam Paser Utara</item>
+        <item>Kab. Mahakam Ulu</item>
+        <item>Kab. Tanah Tidung</item>
+        <item>Kota Samarinda</item>
+        <item>Kota Balikpapan</item>
+        <item>Kota Tarakan</item>
+        <item>Kota Bontang</item>
+        <item>Kab. Bolaang Mongondow</item>
+        <item>Kab. Minahasa</item>
+        <item>Kab. Kep. Sangihe</item>
+        <item>Kab. Kepulauan Talaud</item>
+        <item>Kab. Minahasa Selatan</item>
+        <item>Kab. Minahasa Utara</item>
+        <item>Kab. Bolaang Mongondow Utara</item>
+        <item>Kab. Kepulauan Siau Tagulandang Biaro</item>
+        <item>Kab. Minahasa Tenggara</item>
+        <item>Kab. Bolaang Mongondow Timur</item>
+        <item>Kab. Bolaang Mongondow Selatan</item>
+        <item>Kota Manado</item>
+        <item>Kota Bitung</item>
+        <item>Kota Tomohon</item>
+        <item>Kota Kotamobagu</item>
+        <item>Kab. Banggai Kepulauan</item>
+        <item>Kab. Donggala</item>
+        <item>Kab. Poso</item>
+        <item>Kab. Banggai</item>
+        <item>Kab. Buol</item>
+        <item>Kab. Tolitoli</item>
+        <item>Kab. Morowali</item>
+        <item>Kab. Parigi Moutong</item>
+        <item>Kab. Tojo Una-Una</item>
+        <item>Kab. Sigi</item>
+        <item>Kab. Banggai Laut</item>
+        <item>Kab. Morowali Utara</item>
+        <item>Kota Palu</item>
+        <item>Kab. Maros</item>
+        <item>Kab. Pangkajene Kepulauan</item>
+        <item>Kab. Gowa</item>
+        <item>Kab. Takalar</item>
+        <item>Kab. Jeneponto</item>
+        <item>Kab. Barru</item>
+        <item>Kab. Bone</item>
+        <item>Kab. Wajo</item>
+        <item>Kab. Soppeng</item>
+        <item>Kab. Bantaeng</item>
+        <item>Kab. Bulukumba</item>
+        <item>Kab. Sinjai</item>
+        <item>Kab. Kepulauan Selayar</item>
+        <item>Kab. Pinrang</item>
+        <item>Kab. Sidenreng Rappang</item>
+        <item>Kab. Enrekang</item>
+        <item>Kab. Luwu</item>
+        <item>Kab. Tana Toraja</item>
+        <item>Kab. Luwu Utara</item>
+        <item>Kab. Luwu Timur</item>
+        <item>Kab. Toraja Utara</item>
+        <item>Kota Makassar</item>
+        <item>Kota Parepare</item>
+        <item>Kota Palopo</item>
+        <item>Kab. Konawe</item>
+        <item>Kab. Muna</item>
+        <item>Kab. Buton</item>
+        <item>Kab. Kolaka</item>
+        <item>Kab. Konawe Selatan</item>
+        <item>Kab. Wakatobi</item>
+        <item>Kab. Bombana</item>
+        <item>Kab. Kolaka Utara</item>
+        <item>Kab. Konawe Utara</item>
+        <item>Kab. Buton Utara</item>
+        <item>Kab. Kolaka Timur</item>
+        <item>Kab. Konawe Kepulauan</item>
+        <item>Kab. Muna Barat</item>
+        <item>Kab. Buton Selatan</item>
+        <item>Kab. Buton Utara</item>
+        <item>Kab. Buton Tengah</item>
+        <item>Kota Kendari</item>
+        <item>Kota Baubau</item>
+        <item>Kab. Maluku Tengah</item>
+        <item>Kab. Maluku Tenggara</item>
+        <item>Kab. Buru</item>
+        <item>Kab. Maluku Tenggara Barat</item>
+        <item>Kab. Seram Bagian Barat</item>
+        <item>Kab. Seram Bagian Timur</item>
+        <item>Kab. Kepulauan Aru</item>
+        <item>Kab. Maluku Barat Daya</item>
+        <item>Kab. Buru Selatan</item>
+        <item>Kota Ambon</item>
+        <item>Kota Tual</item>
+        <item>Kab. Buleleng</item>
+        <item>Kab. Jembrana</item>
+        <item>Kab. Tabanan</item>
+        <item>Kab. Badung</item>
+        <item>Kab. Gianyar</item>
+        <item>Kab. Klungkung</item>
+        <item>Kab. Bangli</item>
+        <item>Kab. Karang Asem</item>
+        <item>Kota Denpasar</item>
+        <item>Kab. Lombok Barat</item>
+        <item>Kab. Lombok Tengah</item>
+        <item>Kab. Lombok Timur</item>
+        <item>Kab. Sumbawa</item>
+        <item>Kab. Dompu</item>
+        <item>Kab. Bima</item>
+        <item>Kab. Sumbawa Barat</item>
+        <item>Kab. Lombok Utara</item>
+        <item>Kota Mataram</item>
+        <item>Kota Bima</item>
+        <item>Kab. Kupang</item>
+        <item>Kab. Timor Tengah Selatan</item>
+        <item>Kab. Timor Tengah Utara</item>
+        <item>Kab. Belu</item>
+        <item>Kab. Alor</item>
+        <item>Kab. Flores Timur</item>
+        <item>Kab. Sikka</item>
+        <item>Kab. Ende</item>
+        <item>Kab. Ngada</item>
+        <item>Kab. Manggarai</item>
+        <item>Kab. Sumba Timur</item>
+        <item>Kab. Sumba Barat</item>
+        <item>Kab. Lembata</item>
+        <item>Kab. Rote-Ndao</item>
+        <item>Kab. Manggarai Barat</item>
+        <item>Kab. Nagakeo</item>
+        <item>Kab. Sumba Tengah</item>
+        <item>Kab. Sumba Barat Daya</item>
+        <item>Kab. Manggarai Timur</item>
+        <item>Kab. Sabu Raijua</item>
+        <item>Kab. Malaka</item>
+        <item>Kota Kupang</item>
+        <item>Kab. Jayapura</item>
+        <item>Kab. Biak Numfor</item>
+        <item>Kab. Kepulauan Yapen</item>
+        <item>Kab. Merauke</item>
+        <item>Kab. Jaya Wijaya</item>
+        <item>Kab. Nabire</item>
+        <item>Kab. Paniai</item>
+        <item>Kab. Puncak Jaya</item>
+        <item>Kab. Mimika</item>
+        <item>Kab. Boven Digoel</item>
+        <item>Kab. Mappi</item>
+        <item>Kab. Asmat</item>
+        <item>Kab. Yahukimo</item>
+        <item>Kab. Pegunungan Bintang</item>
+        <item>Kab. Tolikara</item>
+        <item>Kab. Sarmi</item>
+        <item>Kab. Keerom</item>
+        <item>Kab. Waropen</item>
+        <item>Kab. Supiori</item>
+        <item>Kab. Memberamo Raya</item>
+        <item>Kab. Nduga</item>
+        <item>Kab. Lanny Jaya</item>
+        <item>Kab. Membramo Tengah</item>
+        <item>Kab. Yalimo</item>
+        <item>kab. Puncak</item>
+        <item>Kab. Dogiyai</item>
+        <item>Kab. Deiyai</item>
+        <item>Kab. Intan Jaya</item>
+        <item>Kota Jayapura</item>
+        <item>Kab. Bengkulu Utara</item>
+        <item>Kab. Rejang Lebong</item>
+        <item>Kab. Bengkulu Selatan</item>
+        <item>Kab. Muko-muko</item>
+        <item>Kab. Kepahiang</item>
+        <item>Kab. Lebong</item>
+        <item>Kab. Kaur</item>
+        <item>Kab. Seluma</item>
+        <item>Kab. Bengkulu Tengah</item>
+        <item></item>
+        <item>Kota Bengkulu</item>
+        <item>Kab. Pulau Taliabu</item>
+        <item>Kab. Halmahera Tengah</item>
+        <item>Kab. Halmahera Barat</item>
+        <item>Kab. halmahera Utara</item>
+        <item>Kab. Halmahera Selatan</item>
+        <item>Kab. Halmahera Timur</item>
+        <item>Kab. Kepulauan Sula</item>
+        <item>Kab. Kepulauan Morotai</item>
+        <item>Kota Ternate</item>
+        <item>Kota Tidore Kepulauan</item>
+        <item>Kab. Pandeglang</item>
+        <item>Kab. Lebak</item>
+        <item>Kab. Tangerang</item>
+        <item>Kab. Serang</item>
+        <item>Kota Cilegon</item>
+        <item>Kota Tangerang</item>
+        <item>Kota Serang</item>
+        <item>Kota Tangerang Selatan</item>
+        <item>Kab. Bangka</item>
+        <item>Kab. Belitung</item>
+        <item>Kab. Bangka Tengah</item>
+        <item>Kab. Bangka Barat</item>
+        <item>Kab. Bangka Selatan</item>
+        <item>Kab. Belitung Timur</item>
+        <item>Kota Pangkalpinang</item>
+        <item>Kab. Boalemo</item>
+        <item>Kab. Gorontalo</item>
+        <item>Kab. Pohuwato</item>
+        <item>Kab. Bone Bolango</item>
+        <item>Kab. Gorontalo Utara</item>
+        <item>Kota Gorontalo</item>
+        <item>Kab. Bintan</item>
+        <item>Kab. Karimun</item>
+        <item>Kab. Natuna</item>
+        <item>Kab. Lingga</item>
+        <item>Kab. Kepulauan Anambas</item>
+        <item>Kota Batam</item>
+        <item>Kota Tanjungpinang</item>
+        <item>Kab. Fak-Fak</item>
+        <item>Kab. Kaimana</item>
+        <item>Kab. Teluk Wondama</item>
+        <item>Kab. Teluk Bintuni</item>
+        <item>Kab. Manokwari</item>
+        <item>Kab. Sorong Selatan</item>
+        <item>Kab. Sorong</item>
+        <item>Kab. Raja Ampat</item>
+        <item>Kab. Tambrauw</item>
+        <item>Kab. Maybrat</item>
+        <item>Kab. Pegunungan Arfak</item>
+        <item>Kab. Manokwari Selatan</item>
+        <item>Kota Sorong</item>
+        <item>Kab. Mamuju</item>
+        <item>Kab. Pasangkayu</item>
+        <item>Kab. Polewali Mandar</item>
+        <item>Kab. Mamasa</item>
+        <item>Kab. Majene</item>
+        <item>Kab. Mamuju Tengah</item>
+        <item>Kab. Malinau</item>
+        <item>Kab. Bulungan</item>
+        <item>Kab. Tana Tidung</item>
+        <item>Kab. Nunukan</item>
+        <item>Kota Tarakan</item>
+        <item>Belanda</item>
+        <item>Japan</item>
+        <item>Mesir</item>
+        <item>Malaysia</item>
+        <item>Myanmar</item>
+        <item>Filipina</item>
+        <item>Rusia</item>
+        <item>Arab Saudi</item>
+        <item>Serbia</item>
+        <item>Singapura</item>
+        <item>Syria</item>
+        <item>Thailand</item>
+        <item>Taiwan</item>
+        <item>Cina</item>
+        <item>Brunei Darussalam</item>
+    </string-array>
+</resources>
