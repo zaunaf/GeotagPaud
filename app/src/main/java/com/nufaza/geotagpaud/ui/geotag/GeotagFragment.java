@@ -2,13 +2,16 @@ package com.nufaza.geotagpaud.ui.geotag;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +23,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 
@@ -32,9 +37,19 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.nufaza.geotagpaud.MainActivity;
 import com.nufaza.geotagpaud.R;
+import com.nufaza.geotagpaud.model.Geotag;
+import com.nufaza.geotagpaud.model.Geotag_Table;
 import com.nufaza.geotagpaud.util.PermissionUtils;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
+
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.UUID;
+
+import static java.text.DateFormat.getTimeInstance;
 
 
 public class GeotagFragment extends Fragment
@@ -46,13 +61,15 @@ public class GeotagFragment extends Fragment
         ActivityCompat.OnRequestPermissionsResultCallback
 {
 
+    private GeotagFragment me;
     private GeotagViewModel geotagViewModel;
     private View root;
     private MainActivity mainActivity;
     private LocationManager locationManager;
-
-    private static final long MIN_TIME = 400;
-    private static final float MIN_DISTANCE = 1000;
+    private Location currentLocation;
+    private int loadingCount;
+    private static final long MIN_TIME = 500;
+    private static final float MIN_DISTANCE = 0;
     /**
      * Request code for location permission request.
      *
@@ -67,10 +84,12 @@ public class GeotagFragment extends Fragment
     private boolean mPermissionDenied = false;
 
     private GoogleMap mMap;
+    private Button saveButton;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
+        me = this;
         geotagViewModel = ViewModelProviders.of(this).get(GeotagViewModel.class);
         root = inflater.inflate(R.layout.fragment_geotag, container, false);
         mainActivity = (MainActivity) getActivity();
@@ -86,7 +105,90 @@ public class GeotagFragment extends Fragment
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.frg);
         mapFragment.getMapAsync(this);
 
+        saveButton = root.findViewById(R.id.save_loc);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String sekolahId = mainActivity.getPreference(MainActivity.SPKEY_SEKOLAH_ID);
+                String penggunaId = mainActivity.getPreference(MainActivity.SPKEY_PENGGUNA_ID);
+
+                if (sekolahId.equals("")) {
+                    Snackbar.make(root, "Mohon login dulu.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    return;
+                }
+
+                final Geotag geotag = SQLite.select()
+                        .from(Geotag.class)
+                        .where(Geotag_Table.sekolah_id.eq(UUID.fromString(sekolahId)))
+                        .and(Geotag_Table.status_geotag_id.greaterThanOrEq(2))
+                        .querySingle();
+
+
+                String pernahStr = "";
+                String pilihStr = "Mohon pilih jenis geotag ini.";
+
+                if (geotag != null) {
+                    pernahStr = "Geotagging sudah pernah dilakukan. ";
+                }
+
+                final MaterialDialog loginDialog = new MaterialDialog.Builder(mainActivity)
+                        .title("Menyimpan Lokasi")
+                        .content(pernahStr + pilihStr)
+                        .positiveText("Baru/Koreksi")
+                        .neutralText("Pindah Posisi")
+                        .negativeText("Batal")
+                        .autoDismiss(true)
+                        .show();
+
+                loginDialog.getActionButton(DialogAction.POSITIVE).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        me.saveGeotag(geotag,2);
+                        loginDialog.dismiss();
+                    }
+                });
+
+                loginDialog.getActionButton(DialogAction.NEUTRAL).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        me.saveGeotag(geotag,3);
+                        loginDialog.dismiss();
+                    }
+                });
+
+                // } else {
+                //     Geotag geotagNew = new Geotag();
+                //     geotagNew.setGeotagId(UUID.randomUUID());
+                //     me.saveGeotag(geotagNew);
+                // }
+            }
+        });
         return root;
+    }
+
+    public void saveGeotag(Geotag geotag, Integer status){
+
+        if (geotag == null) {
+            geotag = new Geotag();
+            geotag.setGeotagId(UUID.randomUUID());
+        }
+
+        String sekolahId = mainActivity.getPreference(MainActivity.SPKEY_SEKOLAH_ID);
+        String penggunaId = mainActivity.getPreference(MainActivity.SPKEY_PENGGUNA_ID);
+
+        geotag.setSekolahId(UUID.fromString(sekolahId));
+        geotag.setPenggunaId(UUID.fromString(penggunaId));
+        geotag.setSekolahLink(sekolahId);
+        geotag.setSekolahLink(penggunaId);
+        geotag.setLintang(String.valueOf(currentLocation.getLatitude()));
+        geotag.setBujur(String.valueOf(currentLocation.getLongitude()));
+        geotag.setStatusGeotagId(status);
+        geotag.setStatusTag(1);
+        geotag.setTglPengambilan(new Date());
+        geotag.save();
+
+        Snackbar.make(root, "Data tersimpan.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
     }
 
     @Override
@@ -96,36 +198,22 @@ public class GeotagFragment extends Fragment
 
         // First Position
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-        CameraPosition bandung = CameraPosition.builder()
-//            .target(new LatLng(-6.225657, 106.801943))
-                .target(new LatLng(-2.496966, 119.316534))
-                .zoom(4)
-                .bearing(0)
-                .tilt(0)
-                .build();
-        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(bandung));
 
         // Location button etc
         mMap.setOnMyLocationButtonClickListener(this);
         mMap.setOnMyLocationClickListener(this);
         enableMyLocation();
 
-//        mMap = map;
+//         CameraPosition bandung = CameraPosition.builder()
+//                 .target(new LatLng(-6.225657, 106.801943))
+//                 .target(new LatLng(-2.496966, 119.316534))
+//                 .zoom(4)
+//                 .bearing(0)
+//                 .tilt(0)
+//                 .build();
 //
-//        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-//
-//        mMap.clear();
-//        CameraPosition bandung = CameraPosition.builder()
-//                .target(new LatLng(-6.225657, 106.801943))
-//                .zoom(18)
-//                .bearing(0)
-//                .tilt(0)
-//                .build();
-//        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(bandung));
-//
-//        mMap.setOnMyLocationButtonClickListener(this);
-//        mMap.setOnMyLocationClickListener(this);
-//        enableMyLocation();
+//         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(bandung));
+
     }
 
     /**
@@ -141,9 +229,48 @@ public class GeotagFragment extends Fragment
         } else if (mMap != null) {
             // Access to the location has been granted to the app.
             mMap.setMyLocationEnabled(true);
+
+            // Create LocationManager
             locationManager = (LocationManager) mainActivity.getSystemService(MainActivity.LOCATION_SERVICE);
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME, MIN_DISTANCE, this); //You can also use LocationManager.GPS_PROVIDER and LocationManager.PASSIVE_PROVIDER
+
+            // Set initial location
+            try {
+
+                Location location = null;
+                if (locationManager != null) {
+                    location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                    CameraPosition cameraPosition = null;
+                    if (location != null) {
+                        cameraPosition = CameraPosition.builder()
+                                //.target(new LatLng(-6.225657, 106.801943))
+                                //.target(new LatLng(-2.496966, 119.316534))
+                                .target(new LatLng(location.getLatitude(), location.getLongitude()))
+                                .zoom(14)
+                                .bearing(0)
+                                .tilt(0)
+                                .build();
+                        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                        locationManager.requestLocationUpdates(getLocationProvider(), MIN_TIME, 0, this);
+                    }
+                }
+                //You can also use LocationManager.GPS_PROVIDER and LocationManager.PASSIVE_PROVIDER
+
+            } catch (Exception e) {
+                Snackbar.make(root, "Mohon nyalakan GPS anda.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            }
+
         }
+    }
+
+    private String getLocationProvider() {
+        final Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_FINE);
+        criteria.setSpeedRequired(true);
+        criteria.setAltitudeRequired(false);
+        criteria.setBearingRequired(false);
+        criteria.setCostAllowed(true);
+        criteria.setPowerRequirement(Criteria.POWER_LOW);
+        return locationManager.getBestProvider(criteria, true);
     }
 
     @Override
@@ -194,11 +321,51 @@ public class GeotagFragment extends Fragment
                 .newInstance(true).show(getChildFragmentManager(), "dialog");
     }
 
+
     @Override
     public void onLocationChanged(Location location) {
+
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 16);
+
+        String now = DateFormat.getTimeInstance().format(new Date());
+        String lat = String.valueOf(location.getLatitude());
+        String lon = String.valueOf(location.getLongitude());
+        String acc = String.valueOf(location.getAccuracy());
+        String prv = location.getProvider();
+        System.out.println(String.format("[%s] %s - Position (%s, %s) accuracy %s meters", now, prv, lat, lon, acc));
+
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(latLng);
         mMap.animateCamera(cameraUpdate);
+        currentLocation = location;
+
+        // locationManager.removeUpdates(this);
+        Float accuracy = location.getAccuracy();
+        Integer accuracyMeters = Math.round(accuracy);
+
+        String msg = null;
+        String loader = "";
+
+        for(int counter=0; counter < (loadingCount % 3); counter++)
+            loader += ".";
+
+
+        if (accuracyMeters <= 6) {
+            msg = "Simpan Posisi (akurasi: " +  accuracyMeters.toString() + "m)";
+            saveButton.setText(msg);
+            saveButton.setEnabled(true);
+            // saveButton.style
+            locationManager.removeUpdates(this);
+        } else {
+            msg = "Menerima Sinyal GPS (akurasi: " +  accuracyMeters.toString() + "m)";
+            saveButton.setText(msg);
+        }
+
+        loadingCount++;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
         locationManager.removeUpdates(this);
     }
 

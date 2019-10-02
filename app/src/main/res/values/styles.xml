@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -37,6 +37,12 @@
         <item name="android:background">?android:attr/listDivider</item>
         <item name="android:layout_marginTop">10dp</item>
         <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
+    <style name="AccentButton" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorButtonNormal"></item>
+        <item name="android:disabledAlpha">1.0</item>
     </style>
 
 </resources>

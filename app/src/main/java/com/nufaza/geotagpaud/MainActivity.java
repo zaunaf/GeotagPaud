@@ -28,6 +28,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.nufaza.geotagpaud.model.Geotag;
 import com.nufaza.geotagpaud.model.JenisFoto;
 import com.nufaza.geotagpaud.model.JenisFoto_Table;
 import com.nufaza.geotagpaud.model.Pengguna;
@@ -386,6 +387,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 sekolah.fromJsonObject(sekolahObj);
                 sekolah.setSekolahId(sekolahId);
                 sekolah.save();
+
+                if (sekolah.getLintang() != ".0000000") {
+                    Geotag geotag = new Geotag();
+                    geotag.setGeotagId(UUID.randomUUID());
+                    geotag.setSekolahId(sekolahId);
+                    geotag.setPenggunaId(penggunaId);
+                    geotag.setLintang(String.valueOf(sekolah.getLintang()));
+                    geotag.setBujur(String.valueOf(sekolah.getBujur()));
+                    geotag.setStatusGeotagId(1);
+                    geotag.setStatusTag(1);
+                    geotag.save();
+                }
             }
 
             Snackbar.make(mainView, "Data pengguna dan sekolah tersimpan di database.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
