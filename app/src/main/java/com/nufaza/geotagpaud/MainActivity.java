@@ -85,6 +85,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private SharedPreferences sharedPreferences;
 
+    // Folders And Paths
+    public static final String THUMBNAIL_FOLDER = "thumbs";
+    public static final String TEMP_IMAGE_FOLDER = "temp";
+    public static final String EXTERNAL_IMAGE_FOLDER = "images";
+    public static final String JSON_FOLDER = "json";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -383,6 +388,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             // Cek sekolah di lokal, if not exists then save
             sekolah = SQLite.select().from(Sekolah.class).where(Sekolah_Table.sekolah_id.eq(sekolahId)).querySingle();
             if (sekolah == null) {
+
                 sekolah = new Sekolah();
                 sekolah.fromJsonObject(sekolahObj);
                 sekolah.setSekolahId(sekolahId);

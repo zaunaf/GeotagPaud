@@ -235,7 +235,6 @@ public class GeotagFragment extends Fragment
 
             // Set initial location
             try {
-
                 Location location = null;
                 if (locationManager != null) {
                     location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -254,11 +253,9 @@ public class GeotagFragment extends Fragment
                     }
                 }
                 //You can also use LocationManager.GPS_PROVIDER and LocationManager.PASSIVE_PROVIDER
-
             } catch (Exception e) {
                 Snackbar.make(root, "Mohon nyalakan GPS anda.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
-
         }
     }
 
@@ -275,13 +272,13 @@ public class GeotagFragment extends Fragment
 
     @Override
     public void onMyLocationClick(@NonNull Location location) {
-        Toast.makeText(mainActivity, "Current location:\n" + location, Toast.LENGTH_LONG).show();
+        // Toast.makeText(mainActivity, "Current location:\n" + location, Toast.LENGTH_LONG).show();
     }
 
     @Override
     public boolean onMyLocationButtonClick() {
-        Toast.makeText(mainActivity, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
-        // Return false so that we don't consume the event and the default behavior still occurs
+        // Toast.makeText(mainActivity, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
+         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
         return false;
     }
@@ -291,7 +288,6 @@ public class GeotagFragment extends Fragment
         if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {
             return;
         }
-
         if (PermissionUtils.isPermissionGranted(permissions, grantResults,
                 Manifest.permission.ACCESS_FINE_LOCATION)) {
             // Enable the my location layer if the permission has been granted.
