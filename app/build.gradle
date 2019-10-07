@@ -84,4 +84,6 @@ dependencies {
     // OKHttp
     implementation 'com.squareup.okhttp3:okhttp:3.4.1'
 
+    // Fresco
+    implementation 'com.facebook.fresco:fresco:2.0.0'
 }

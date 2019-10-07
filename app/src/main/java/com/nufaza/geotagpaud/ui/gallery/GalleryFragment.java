@@ -39,6 +39,14 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.drawable.ProgressBarDrawable;
+import com.facebook.drawee.drawable.ScalingUtils;
+import com.facebook.drawee.generic.GenericDraweeHierarchy;
+import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
+import com.facebook.drawee.interfaces.DraweeController;
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.samples.zoomable.ZoomableDraweeView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nufaza.geotagpaud.App;
 import com.nufaza.geotagpaud.MainActivity;
@@ -186,11 +194,12 @@ public class GalleryFragment extends Fragment {
         jenisFotoValues = new ArrayList<>();
         jenisFotoLabels = new ArrayList<>();
 
-        for (int i = 0; i < jenisFotoList.size(); i++) {
-            jenisFotoValues.add(jenisFotoList.get(i).getJenisFotoId());
-            jenisFotoLabels.add(jenisFotoList.get(i).getNamaJenisFoto());
+        if (jenisFotoList.size() > 0) {
+            for (int i = 0; i < jenisFotoList.size(); i++) {
+                jenisFotoValues.add(jenisFotoList.get(i).getJenisFotoId());
+                jenisFotoLabels.add(jenisFotoList.get(i).getNamaJenisFoto());
+            }
         }
-
     }
 
     private void prepareFab() {
@@ -761,13 +770,44 @@ public class GalleryFragment extends Fragment {
 
         String fotoUri = listFotoObyek.get(currentFoto.getFotoId().toString());
 
-        Intent imageViewIntent = new Intent(Intent.ACTION_VIEW);
+        // Intent imageViewIntent = new Intent(Intent.ACTION_VIEW);
         // imageViewIntent.setDataAndType(Uri.parse("file://" + imagesPath + sekolahId + "/" + fotoUri), "image/*");
         File imageFile = new File(imagesPath + sekolahId + "/" + fotoUri);
         Uri photoURI = FileProvider.getUriForFile(mainActivity, mainActivity.getApplicationContext().getPackageName() + ".provider", imageFile);
-        imageViewIntent.setDataAndType(photoURI, "image/*");
+        // imageViewIntent.setDataAndType(photoURI, "image/*");
+        // startActivity(imageViewIntent);
 
-        startActivity(imageViewIntent);
+        final MaterialDialog fotoDialog = new MaterialDialog.Builder(mainActivity)
+                .title("Foto")
+                .customView(R.layout.fresco_viewer, true)
+                .positiveText("OK")
+                .neutralText("Delete")
+                .negativeText("Retake")
+                .autoDismiss(true)
+                .show();
+
+        View dialogView = fotoDialog.getCustomView();
+        ZoomableDraweeView imageViewer = null;
+
+        if (dialogView != null) {
+
+            imageViewer = dialogView.findViewById(R.id.simple_drawee_view);
+
+            DraweeController ctrl = Fresco.newDraweeControllerBuilder()
+                    .setUri(photoURI)
+                    .setTapToRetryEnabled(true)
+                    .build();
+
+            GenericDraweeHierarchy hierarchy = new GenericDraweeHierarchyBuilder(getResources())
+                    .setActualImageScaleType(ScalingUtils.ScaleType.FIT_CENTER)
+                    .setProgressBarImage(new ProgressBarDrawable())
+                    .build();
+
+            imageViewer.setController(ctrl);
+            imageViewer.setHierarchy(hierarchy);
+
+            // imageViewer.setImageURI(photoURI);
+        }
     }
 
 
@@ -790,11 +830,12 @@ public class GalleryFragment extends Fragment {
             Foto currentFoto = listFoto.get(position);
             int jenisFotoId = currentFoto.getJenisFotoId();
 
-            // SuduList contains list of jenisFotos.
+            // jenisFotoList contains list of jenisFotos.
             // But beware, if using "get", you'll get position with 0 as first index.
             // So, add - 1
             // Correct: we're using hashmap now, so it shouldn't be a prblem
-            JenisFoto jenisFotoObj = jenisFotoList.get(jenisFotoId);
+            int idx = jenisFotoValues.indexOf(jenisFotoId);
+            JenisFoto jenisFotoObj = jenisFotoList.get(idx);
             String jenisFotoTitle = jenisFotoObj.getNamaJenisFoto();
 
             // Attach strings
@@ -846,13 +887,15 @@ public class GalleryFragment extends Fragment {
                         //Toast.makeText(getApplicationContext(), "Anda memencet image "+ namaImage + " ..", Toast.LENGTH_LONG).show();
 
                         if (imagePathUri.isFile()) {
-                            Intent imageViewIntent = new Intent(Intent.ACTION_VIEW);
-                            File imageFile = new File(imagesPath + sekolahId + "/" + fotoUri);
-                            Uri photoURI = FileProvider.getUriForFile(mainActivity, mainActivity.getApplicationContext().getPackageName() + ".provider", imageFile);
 
-                            imageViewIntent.setDataAndType(photoURI, "image/*");
-                            // imageViewIntent.setDataAndType(Uri.parse("file://" + imagesPath + sekolahId + "/" + fotoUri), "image/*");
-                            startActivity(imageViewIntent);
+                            // Intent imageViewIntent = new Intent(Intent.ACTION_VIEW);
+                            // File imageFile = new File(imagesPath + sekolahId + "/" + fotoUri);
+                            // Uri photoURI = FileProvider.getUriForFile(mainActivity, mainActivity.getApplicationContext().getPackageName() + ".provider", imageFile);
+                            //
+                            // imageViewIntent.setDataAndType(photoURI, "image/*");
+                            // // imageViewIntent.setDataAndType(Uri.parse("file://" + imagesPath + sekolahId + "/" + fotoUri), "image/*");
+                            // startActivity(imageViewIntent);
+
                         }
                     }
                 });

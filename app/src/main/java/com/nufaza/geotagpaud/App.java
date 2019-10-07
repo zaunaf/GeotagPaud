@@ -1,6 +1,8 @@
 package com.nufaza.geotagpaud;
 
 import android.app.Application;
+
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.raizlabs.android.dbflow.config.DatabaseConfig;
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
@@ -19,6 +21,10 @@ public class App extends Application {
             .build());
 
         // Initialize Paths
+
+        // Start fresco
+        Fresco.initialize(this);
+
 
     }
 
