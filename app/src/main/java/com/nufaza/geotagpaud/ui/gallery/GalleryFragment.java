@@ -14,11 +14,16 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,7 +57,9 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 public class GalleryFragment extends Fragment {
@@ -69,6 +76,9 @@ public class GalleryFragment extends Fragment {
     // References
     private List<Integer> jenisFotoValues;
     private List<String> jenisFotoLabels;
+    private List<JenisFoto> jenisFotoList;
+    private List<Foto> listFoto = null;
+    private HashMap<String, String> listFotoObyek = new HashMap<>();
 
     // Image things
     private String imageId = "";
@@ -92,6 +102,7 @@ public class GalleryFragment extends Fragment {
 
     private boolean mStoragePermissionDenied = false;
     private boolean mCameraPermissionDenied = false;
+    private Integer jenisFotoId;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -121,6 +132,7 @@ public class GalleryFragment extends Fragment {
 
     private void preparePaths() {
 
+
         // Thumbnails
         thumbnailPath = mainActivity.getExternalFilesDir(Environment.DIRECTORY_PICTURES).toString() + "/" + MainActivity.THUMBNAIL_FOLDER + "/";
         // Temp Memory
@@ -132,7 +144,7 @@ public class GalleryFragment extends Fragment {
 
         File f = new File(thumbnailPath);
         if (!f.exists()) {
-            if (!f.mkdirs()){
+            if (!f.mkdirs()) {
                 System.out.println("Fail to create thumbnail path");
             } else {
                 System.out.println("Thumbnail path created");
@@ -140,15 +152,17 @@ public class GalleryFragment extends Fragment {
         }
 
         f = new File(tempPath);
-        if (!f.mkdirs()){
-            System.out.println("Fail to create temp path");
-        } else {
-            System.out.println("Temp path created");
+        if (!f.exists()) {
+            if (!f.mkdirs()) {
+                System.out.println("Fail to create temp path");
+            } else {
+                System.out.println("Temp path created");
+            }
         }
 
         f = new File(imagesPath);
         if (!f.exists()) {
-            if (!f.mkdirs()){
+            if (!f.mkdirs()) {
                 System.out.println("Fail to create imagesPath");
             } else {
                 System.out.println("ImagesPath created");
@@ -157,7 +171,7 @@ public class GalleryFragment extends Fragment {
 
         f = new File(jsonPath);
         if (!f.exists()) {
-            if (!f.mkdirs()){
+            if (!f.mkdirs()) {
                 System.out.println("Fail to create jsonPath");
             } else {
                 System.out.println("JsonPath created");
@@ -168,7 +182,7 @@ public class GalleryFragment extends Fragment {
     private void prepareReferences() {
 
         // Isi referensi untuk dropdown
-        List<JenisFoto> jenisFotoList = SQLite.select().from(JenisFoto.class).queryList();
+        jenisFotoList = SQLite.select().from(JenisFoto.class).queryList();
         jenisFotoValues = new ArrayList<>();
         jenisFotoLabels = new ArrayList<>();
 
@@ -179,18 +193,18 @@ public class GalleryFragment extends Fragment {
 
     }
 
-    private void prepareFab(){
+    private void prepareFab() {
 
         // Here, thisActivity is the current activity
         // Check write permission
-        if (ContextCompat.checkSelfPermission(mainActivity,Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(mainActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             PermissionUtils.requestPermission(mainActivity, WRITE_EXTERNAL_STORAGE_REQUEST_CODE, Manifest.permission.WRITE_EXTERNAL_STORAGE, true);
         }
-        if (ContextCompat.checkSelfPermission(mainActivity,Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(mainActivity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             PermissionUtils.requestPermission(mainActivity, CAMERA_REQUEST_CODE, Manifest.permission.CAMERA, true);
         }
 
-        fab = root.findViewById(R.id.fabTambahObyek);
+        fab = root.findViewById(R.id.fabTambahFoto);
         fab.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -218,6 +232,8 @@ public class GalleryFragment extends Fragment {
                 fotoDialog.getActionButton(DialogAction.POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        jenisFotoId = jenisFotoValues.get(inputJenisFotoId.getSelectedItemPosition());
+
                         dispatchTakePictureIntent();
                         fotoDialog.dismiss();
                     }
@@ -267,7 +283,7 @@ public class GalleryFragment extends Fragment {
      * - Dibuat dulu imageFile kosong, caranya memanggil method createImageFile()
      * - Tendang activity untuk picture intent
      * - Setelah camera selesai, gambar langsung tersimpan di output file,
-     *   tapi nama filenya bertambah panjang sedikit (belum diketahui kenapa).
+     * tapi nama filenya bertambah panjang sedikit (belum diketahui kenapa).
      * - Method <pre>onActivityResult</pre> membantu pemanggilan penyimpanan thumbnail dan database
      */
     private void dispatchTakePictureIntent() {
@@ -341,24 +357,6 @@ public class GalleryFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
         if (requestCode == FOTO_REQUEST_CODE) {
-            if (resultCode == Activity.RESULT_OK) {
-
-                Bitmap bmp = (Bitmap) data.getExtras().get("data");
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-
-                bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                byte[] byteArray = stream.toByteArray();
-
-                // convert byte array to Bitmap
-
-                Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0,
-                        byteArray.length);
-
-                // imageView.setImageBitmap(bitmap);
-            }
-        }
-
-        if (requestCode == FOTO_REQUEST_CODE) {
 
             if (resultCode == Activity.RESULT_OK) {
 
@@ -378,6 +376,9 @@ public class GalleryFragment extends Fragment {
                     message += "Menyimpan data image ke database berhasil. ";
 
                     Toast.makeText(mainActivity.getApplicationContext(), message, Toast.LENGTH_LONG).show();
+
+                    populateListFoto();
+                    populateListViewFoto();
 
                 } catch (Exception e) {
 
@@ -441,7 +442,7 @@ public class GalleryFragment extends Fragment {
      * @param str
      * @return
      */
-    private String findFileBeginsWith(String str){
+    private String findFileBeginsWith(String str) {
 
         String storagePath = tempPath + sekolahId;
         File path = new File(storagePath);
@@ -454,7 +455,7 @@ public class GalleryFragment extends Fragment {
             String fileName = files[i].getName();
 
             // Mysterious bug for million years ago finally found!
-            if(fileName.length() < strLength) {
+            if (fileName.length() < strLength) {
                 continue;
             }
 
@@ -518,8 +519,7 @@ public class GalleryFragment extends Fragment {
 
     }
 
-    public static void copyExif(String oldPath, String newPath) throws IOException
-    {
+    public static void copyExif(String oldPath, String newPath) throws IOException {
         ExifInterface oldExif = new ExifInterface(oldPath);
 
         String[] attributes = new String[]
@@ -552,8 +552,7 @@ public class GalleryFragment extends Fragment {
                 };
 
         ExifInterface newExif = new ExifInterface(newPath);
-        for (int i = 0; i < attributes.length; i++)
-        {
+        for (int i = 0; i < attributes.length; i++) {
             String value = oldExif.getAttribute(attributes[i]);
             if (value != null)
                 newExif.setAttribute(attributes[i], value);
@@ -593,7 +592,7 @@ public class GalleryFragment extends Fragment {
         //);
 
         Integer height = 1080;
-        Integer width = Math.round(1080 * source.getWidth() / source.getHeight() );
+        Integer width = Math.round(1080 * source.getWidth() / source.getHeight());
         dstBmp = Bitmap.createScaledBitmap(
                 source,
                 width,
@@ -660,6 +659,7 @@ public class GalleryFragment extends Fragment {
         // Also major change: insert to foto table along with its shit
         Foto foto = new Foto();
         foto.setFotoId(UUID.fromString(imageId));
+        foto.setJenisFotoId(jenisFotoId);
         foto.setTglPengambilan(new Date());
         foto.setUkuran(imageSize);
         foto.setTinggiPixel(imageHeight);
@@ -671,4 +671,215 @@ public class GalleryFragment extends Fragment {
         foto.save();
 
     }
+
+    /**
+     * Avoid loss of data during Intent processing
+     *
+     * @param savedInstanceState
+     */
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
+
+        super.onSaveInstanceState(savedInstanceState);
+
+        // Save UI state changes to the savedInstanceState.
+        // This bundle will be passed to onCreate if the process is
+        // killed and restarted.
+        savedInstanceState.putString("sekolahId", sekolahId);
+        savedInstanceState.putString("penggunaId", penggunaId);
+        savedInstanceState.putInt("jenisFotoId", jenisFotoId);
+        savedInstanceState.putString("imageId", imageId);
+        savedInstanceState.putString("imageFileName", imageFileName);
+        savedInstanceState.putString("thumbnailPath", thumbnailPath);
+        savedInstanceState.putString("tempPath", tempPath);
+        savedInstanceState.putString("imagesPath", imagesPath);
+
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if (savedInstanceState != null) {
+            sekolahId = savedInstanceState.getString("sekolahId");
+            penggunaId = savedInstanceState.getString("penggunaId");
+            jenisFotoId = savedInstanceState.getInt("jenisFotoId");
+            imageId = savedInstanceState.getString("imageId");
+            imageFileName = savedInstanceState.getString("imageFileName");
+            thumbnailPath = savedInstanceState.getString("thumbnailPath");
+            tempPath = savedInstanceState.getString("tempPath");
+            imagesPath = savedInstanceState.getString("imagesPath");
+        }
+    }
+
+    /**
+     * Method ini untuk mengisi data listFoto untuk listViewFoto di data pengamatan umum
+     */
+    private void populateListFoto() {
+        listFoto = SQLite.select()
+                .from(Foto.class)
+                .queryList();
+
+        if (listFoto != null) {
+            for (int i = 0; i < listFoto.size(); i++) {
+                listFotoObyek.put(listFoto.get(i).getFotoId().toString(), listFoto.get(i).getFotoId() + ".jpg");
+            }
+        }
+    }
+
+    /**
+     * Method ini untuk mengisi tampilan listViewFoto di data pengamatan umum
+     */
+    private void populateListViewFoto() {
+
+        // Buat adapter
+        ArrayAdapter<Foto> adapter = new FotoListAdapter();
+
+        // Panggil listviewnya
+        final ListView listViewFoto = (ListView) root.findViewById(R.id.listview_foto);
+        listViewFoto.setAdapter(adapter);
+        listViewFoto.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
+
+        listViewFoto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Foto selectedFoto = listFoto.get(position);
+                openViewImageIntent(selectedFoto);
+            }
+        });
+        // listViewFoto.setOnTouchListener(new View.OnTouchListener() {
+        //     @Override
+        //     public boolean onTouch(View v, MotionEvent event) {
+        //         v.getParent().requestDisallowInterceptTouchEvent(true);
+        //         return false;
+        //     }
+        // });
+
+    }
+
+
+    public void openViewImageIntent(Foto currentFoto) {
+
+        String fotoUri = listFotoObyek.get(currentFoto.getFotoId().toString());
+
+        Intent imageViewIntent = new Intent(Intent.ACTION_VIEW);
+        // imageViewIntent.setDataAndType(Uri.parse("file://" + imagesPath + sekolahId + "/" + fotoUri), "image/*");
+        File imageFile = new File(imagesPath + sekolahId + "/" + fotoUri);
+        Uri photoURI = FileProvider.getUriForFile(mainActivity, mainActivity.getApplicationContext().getPackageName() + ".provider", imageFile);
+        imageViewIntent.setDataAndType(photoURI, "image/*");
+
+        startActivity(imageViewIntent);
+    }
+
+
+    private class FotoListAdapter extends ArrayAdapter<Foto> {
+
+        public FotoListAdapter() {
+            super(mainActivity, R.layout.gallery_item, listFoto);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            // Pastikan ada view kalau null
+            View itemView = convertView;
+            if (itemView == null) {
+                itemView = getLayoutInflater().inflate(R.layout.gallery_item, parent, false);
+            }
+
+            // Find the item
+            Foto currentFoto = listFoto.get(position);
+            int jenisFotoId = currentFoto.getJenisFotoId();
+
+            // SuduList contains list of jenisFotos.
+            // But beware, if using "get", you'll get position with 0 as first index.
+            // So, add - 1
+            // Correct: we're using hashmap now, so it shouldn't be a prblem
+            JenisFoto jenisFotoObj = jenisFotoList.get(jenisFotoId);
+            String jenisFotoTitle = jenisFotoObj.getNamaJenisFoto();
+
+            // Attach strings
+            TextView namaFotoText = (TextView) itemView.findViewById(R.id.item_judul_foto);
+            namaFotoText.setText(jenisFotoTitle); // Ganti ini
+
+            TextView jenisFotoText = (TextView) itemView.findViewById(R.id.item_jenis_foto);
+            jenisFotoText.setText(jenisFotoTitle); // Ganti ini
+
+            Date tglFoto = currentFoto.getTglPengambilan();
+            String tglFotoStr;
+
+            if (tglFoto == null) {
+                tglFotoStr = "-";
+            } else {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:ss", Locale.getDefault());
+                tglFotoStr = sdf.format(tglFoto);
+            }
+            ((TextView) itemView.findViewById(R.id.item_tgl_foto)).setText(tglFotoStr);
+
+
+            // Attach foto
+            File directory = new File(thumbnailPath + "/" + sekolahId);
+            File imagePath = new File(directory.toString() + "/" + currentFoto.foto_id + ".jpg");
+
+            // Render if it's found
+
+            if (imagePath.isFile()) {
+
+                // Convert to bitmap
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.outHeight = 60;
+                options.outWidth = 60;
+                final Bitmap thumbnailBitmap = BitmapFactory.decodeFile(imagePath.toString(), options);
+
+                // Attach to view
+                ImageView fotoFotoView = (ImageView) itemView.findViewById(R.id.foto_obyek);
+                fotoFotoView.setImageBitmap(thumbnailBitmap);
+
+                // Create listener for the ImageView (fotoSekolahView)
+                // final String sekolahId = sekolahId;
+                // final String namaSekolah = currentSekolah.nama_sekolah;
+                final String fotoUri = currentFoto.foto_id + ".jpg";
+                final File imagePathUri = imagePath;
+
+                fotoFotoView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //Toast.makeText(getApplicationContext(), "Anda memencet image "+ namaImage + " ..", Toast.LENGTH_LONG).show();
+
+                        if (imagePathUri.isFile()) {
+                            Intent imageViewIntent = new Intent(Intent.ACTION_VIEW);
+                            File imageFile = new File(imagesPath + sekolahId + "/" + fotoUri);
+                            Uri photoURI = FileProvider.getUriForFile(mainActivity, mainActivity.getApplicationContext().getPackageName() + ".provider", imageFile);
+
+                            imageViewIntent.setDataAndType(photoURI, "image/*");
+                            // imageViewIntent.setDataAndType(Uri.parse("file://" + imagesPath + sekolahId + "/" + fotoUri), "image/*");
+                            startActivity(imageViewIntent);
+                        }
+                    }
+                });
+
+            } else {
+
+                ImageView fotoFotoView = (ImageView) itemView.findViewById(R.id.foto_obyek);
+                fotoFotoView.setImageDrawable(getResources().getDrawable(R.mipmap.ic_image));
+
+            }
+
+
+            // Return the view
+            return itemView;
+        }
+
+    }
+
+    @Override
+    public void onResume() {
+
+        populateListFoto();
+        populateListViewFoto();
+
+        super.onResume();
+    }
+
 }
+
+

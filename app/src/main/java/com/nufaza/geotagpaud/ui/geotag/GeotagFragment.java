@@ -362,7 +362,9 @@ public class GeotagFragment extends Fragment
     @Override
     public void onStop() {
         super.onStop();
-        locationManager.removeUpdates(this);
+        if (locationManager != null) {
+            locationManager.removeUpdates(this);
+        }
     }
 
     @Override
