@@ -59,6 +59,7 @@
                 android:id="@+id/labelSiswa" />
 
             <TextView
+                android:fontFamily="@font/quicksand_semibold"
                 android:id="@+id/agregatSiswaDapodik"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -68,6 +69,7 @@
                 android:layout_toLeftOf="@+id/agregatSiswaSurvey" />
 
             <TextView
+                android:fontFamily="@font/quicksand_semibold"
                 android:id="@+id/agregatSiswaSurvey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -105,6 +107,7 @@
                 android:id="@+id/iconGuru" />
 
             <TextView
+                android:fontFamily="@font/quicksand_semibold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -117,6 +120,7 @@
                 android:id="@+id/labelGuru" />
 
             <TextView
+                android:fontFamily="@font/quicksand_semibold"
                 android:id="@+id/agregatGuruDapodik"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -126,6 +130,7 @@
                 android:layout_toLeftOf="@+id/agregatGuruSurvey" />
 
             <TextView
+                android:fontFamily="@font/quicksand_semibold"
                 android:id="@+id/agregatGuruSurvey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -160,6 +165,7 @@
                 android:id="@+id/iconRuang" />
 
             <TextView
+                android:fontFamily="@font/quicksand_semibold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -172,6 +178,7 @@
                 android:id="@+id/labelRuang" />
 
             <TextView
+                android:fontFamily="@font/quicksand_semibold"
                 android:id="@+id/agregatRuangDapodik"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -181,6 +188,7 @@
                 android:layout_toLeftOf="@+id/agregatRuangSurvey" />
 
             <TextView
+                android:fontFamily="@font/quicksand_semibold"
                 android:id="@+id/agregatRuangSurvey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -216,6 +224,7 @@
                 android:id="@+id/iconPras" />
 
             <TextView
+                android:fontFamily="@font/quicksand_semibold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -228,6 +237,7 @@
                 android:id="@+id/labelPras" />
 
             <TextView
+                android:fontFamily="@font/quicksand_semibold"
                 android:id="@+id/agregatPrasDapodik"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -237,6 +247,7 @@
                 android:layout_toLeftOf="@+id/agregatPrasSurvey" />
 
             <TextView
+                android:fontFamily="@font/quicksand_semibold"
                 android:id="@+id/agregatPrasSurvey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -272,6 +283,7 @@
                 android:id="@+id/iconRombel" />
 
             <TextView
+                android:fontFamily="@font/quicksand_semibold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -284,6 +296,7 @@
                 android:id="@+id/labelRombel" />
 
             <TextView
+                android:fontFamily="@font/quicksand_semibold"
                 android:id="@+id/agregatRombelDapodik"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -293,6 +306,7 @@
                 android:layout_toLeftOf="@+id/agregatRombelSurvey" />
 
             <TextView
+                android:fontFamily="@font/quicksand_semibold"
                 android:id="@+id/agregatRombelSurvey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -327,6 +341,7 @@
                 android:id="@+id/iconLuasLahanMilik" />
 
             <TextView
+                android:fontFamily="@font/quicksand_semibold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -339,6 +354,7 @@
                 android:id="@+id/labelLuasLahanMilik" />
 
             <TextView
+                android:fontFamily="@font/quicksand_semibold"
                 android:id="@+id/agregatLuasLahanMilikDapodik"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -349,6 +365,7 @@
 
 
             <TextView
+                android:fontFamily="@font/quicksand_semibold"
                 android:id="@+id/agregatLuasLahanMilikSurvey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -383,6 +400,7 @@
                 android:id="@+id/iconLuasLahanNonmilik" />
 
             <TextView
+                android:fontFamily="@font/quicksand_semibold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -395,6 +413,7 @@
                 android:id="@+id/labelLuasLahanNonmilik" />
 
             <TextView
+                android:fontFamily="@font/quicksand_semibold"
                 android:id="@+id/agregatLuasLahanNonmilikDapodik"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -405,6 +424,7 @@
 
 
             <TextView
+                android:fontFamily="@font/quicksand_semibold"
                 android:id="@+id/agregatLuasLahanNonmilikSurvey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
