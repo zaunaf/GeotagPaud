@@ -4,22 +4,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:gravity="center_vertical"-->
-<!--        android:paddingLeft="20dp">-->
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="50dp"-->
+    <!--        android:gravity="center_vertical"-->
+    <!--        android:paddingLeft="20dp">-->
 
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textAppearance="?android:attr/textAppearanceMedium"-->
-<!--            android:textColor="@color/colorPrimaryDark"-->
-<!--            android:text="Profil" />-->
+    <!--        <TextView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:textAppearance="?android:attr/textAppearanceMedium"-->
+    <!--            android:textColor="@color/colorPrimaryDark"-->
+    <!--            android:text="Profil" />-->
 
-<!--    </LinearLayout>-->
+    <!--    </LinearLayout>-->
 
-<!--    <View style="@style/FullDivider"/>-->
+    <!--    <View style="@style/FullDivider"/>-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -47,6 +47,7 @@
                 android:id="@+id/iconSiswa" />
 
             <TextView
+                android:fontFamily="@font/quicksand_semibold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -441,4 +442,3 @@
     </LinearLayout>
 
 </LinearLayout>
-
