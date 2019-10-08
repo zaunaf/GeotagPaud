@@ -51,7 +51,7 @@ public class Geotag extends BaseModel {
     public Date tgl_pengiriman;
 
     @Column
-    public Integer status_tag;
+    public Integer status_data;
 
 
     public UUID getGeotagId(){
@@ -156,12 +156,12 @@ public class Geotag extends BaseModel {
     }
 
 
-    public Integer getStatusTag(){
-        return status_tag;
+    public Integer getStatusData(){
+        return status_data;
     }
 
-    public void setStatusTag(Integer status_tag){
-        this.status_tag = status_tag;
+    public void setStatusData(Integer status_data){
+        this.status_data = status_data;
     }
 
 
@@ -207,8 +207,8 @@ public class Geotag extends BaseModel {
                 this.tgl_pengiriman = (Date) obj.get("tgl_pengiriman");
 
             }
-            if (obj.has("status_tag") && !obj.isNull("status_tag")){
-                this.status_tag = (Integer) Integer.valueOf(obj.get("status_tag").toString());
+            if (obj.has("status_data") && !obj.isNull("status_data")){
+                this.status_data = (Integer) Integer.valueOf(obj.get("status_data").toString());
 
             }
         } catch (Exception e) {
@@ -229,7 +229,7 @@ public class Geotag extends BaseModel {
             obj.put("petugas_link", petugas_link);
             obj.put("sekolah_link", sekolah_link);
             obj.put("tgl_pengiriman", tgl_pengiriman);
-            obj.put("status_tag", status_tag);
+            obj.put("status_data", status_data);
         } catch (JSONException e) {
             Log.e("Error JSON", "Error creating JSON: " + e.getMessage());
         }

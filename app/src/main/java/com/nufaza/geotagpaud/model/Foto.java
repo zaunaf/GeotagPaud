@@ -56,6 +56,9 @@ public class Foto extends BaseModel {
     @Column
     public Date tgl_pengiriman;
 
+    @Column
+    public Integer status_data;
+
 
     public UUID getFotoId(){
         return foto_id;
@@ -177,6 +180,15 @@ public class Foto extends BaseModel {
     }
 
 
+    public Integer getStatusData(){
+        return status_data;
+    }
+
+    public void setStatusData(Integer status_data){
+        this.status_data = status_data;
+    }
+
+
     public void fromJsonObject(JSONObject obj) {
         try {
             if (obj.has("foto_id") && !obj.isNull("foto_id")){
@@ -227,6 +239,10 @@ public class Foto extends BaseModel {
                 this.tgl_pengiriman = (Date) obj.get("tgl_pengiriman");
 
             }
+            if (obj.has("status_data") && !obj.isNull("status_data")){
+                this.status_data = (Integer) Integer.valueOf(obj.get("status_data").toString());
+
+            }
         } catch (Exception e) {
             Log.e("Error JSON", "Error parsing JSON");
         }
@@ -247,6 +263,7 @@ public class Foto extends BaseModel {
             obj.put("lintang", lintang);
             obj.put("bujur", bujur);
             obj.put("tgl_pengiriman", tgl_pengiriman);
+            obj.put("status_data", status_data);
         } catch (JSONException e) {
             Log.e("Error JSON", "Error creating JSON: " + e.getMessage());
         }
