@@ -184,7 +184,7 @@ public class GeotagFragment extends Fragment
         geotag.setLintang(String.valueOf(currentLocation.getLatitude()));
         geotag.setBujur(String.valueOf(currentLocation.getLongitude()));
         geotag.setStatusGeotagId(status);
-        geotag.setStatusTag(1);
+        geotag.setStatusData(1);
         geotag.setTglPengambilan(new Date());
         geotag.save();
 

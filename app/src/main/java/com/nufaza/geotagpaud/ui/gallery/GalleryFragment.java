@@ -33,6 +33,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -80,6 +81,7 @@ public class GalleryFragment extends Fragment {
     private View root;
     private MainActivity mainActivity;
     private FloatingActionButton fab;
+    Foto foto = new Foto();
 
     // References
     private List<Integer> jenisFotoValues;
@@ -302,8 +304,35 @@ public class GalleryFragment extends Fragment {
         if (takePictureIntent.resolveActivity(mainActivity.getPackageManager()) != null) {
             // Create the File where the photo should go
             File photoFile = null;
+
             try {
                 photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+                Log.e("dispatchTakePicture", ex.toString());
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Toast.makeText(mainActivity.getApplicationContext(), "Writing to: " + photoFile.getAbsolutePath(), Toast.LENGTH_LONG).show();
+                Uri photoURI = FileProvider.getUriForFile(mainActivity, mainActivity.getPackageName() + ".provider", photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, FOTO_REQUEST_CODE);
+            }
+        }
+
+    }
+
+
+    private void dispatchRetakePictureIntent() {
+
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(mainActivity.getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+
+            try {
+                photoFile = retakeImageFile();
             } catch (IOException ex) {
                 // Error occurred while creating the File
                 Log.e("dispatchTakePicture", ex.toString());
@@ -334,7 +363,8 @@ public class GalleryFragment extends Fragment {
         // imageId = "sekolah_" + timeStamp;
 
         // Major change: set imageId with UUID
-        imageId = UUID.randomUUID().toString();
+            imageId = UUID.randomUUID().toString();
+
 
         // Compose storage path, create the folders if it's not exist yet
         String storagePath = tempPath + sekolahId;
@@ -361,6 +391,48 @@ public class GalleryFragment extends Fragment {
 
         return image;
     }
+
+    private File retakeImageFile() throws IOException {
+
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        // imageId = "sekolah_" + timeStamp;
+
+        // Major change: set imageId with UUID
+        if (foto.getFotoId() != null){
+            imageId = foto.getFotoId().toString();
+        }else{
+            imageId = UUID.randomUUID().toString();
+        }
+
+
+        // Compose storage path, create the folders if it's not exist yet
+        String storagePath = tempPath + sekolahId;
+        File storageDir = new File(storagePath);
+        if (!storageDir.isDirectory()) {
+            storageDir.mkdirs();
+        }
+
+        // Debugging purposes
+        // Toast.makeText(getApplicationContext(), "Storage dir: " + storageDir.toString(), Toast.LENGTH_LONG).show();
+
+        // Create destination file
+        File image = File.createTempFile(
+                imageId,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        // mCurrentPhotoPath = "file:" + image.getAbsolutePath();
+
+        //Debugging purposes
+        //Toast.makeText(getApplicationContext(), "Image path: " + mCurrentPhotoPath, Toast.LENGTH_LONG).show();
+
+        return image;
+    }
+
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -666,7 +738,6 @@ public class GalleryFragment extends Fragment {
     private void attachImageToDatabase() throws Exception {
 
         // Also major change: insert to foto table along with its shit
-        Foto foto = new Foto();
         foto.setFotoId(UUID.fromString(imageId));
         foto.setJenisFotoId(jenisFotoId);
         foto.setTglPengambilan(new Date());
@@ -677,6 +748,7 @@ public class GalleryFragment extends Fragment {
         foto.setBujur(String.valueOf(imageBujur));
         foto.setPenggunaId(UUID.fromString(penggunaId));
         foto.setSekolahId(UUID.fromString(sekolahId));
+        foto.setStatusData(1);
         foto.save();
 
     }
@@ -726,6 +798,7 @@ public class GalleryFragment extends Fragment {
     private void populateListFoto() {
         listFoto = SQLite.select()
                 .from(Foto.class)
+                .where(Foto_Table.status_data.greaterThanOrEq(1))
                 .queryList();
 
         if (listFoto != null) {
@@ -766,7 +839,7 @@ public class GalleryFragment extends Fragment {
     }
 
 
-    public void openViewImageIntent(Foto currentFoto) {
+    public void openViewImageIntent(final Foto currentFoto) {
 
         String fotoUri = listFotoObyek.get(currentFoto.getFotoId().toString());
 
@@ -788,6 +861,33 @@ public class GalleryFragment extends Fragment {
 
         View dialogView = fotoDialog.getCustomView();
         ZoomableDraweeView imageViewer = null;
+
+        fotoDialog.getActionButton(DialogAction.NEGATIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(getActivity().getApplicationContext(),"Anda memilih Retake",Toast.LENGTH_LONG).show();
+
+                jenisFotoId = currentFoto.getJenisFotoId();
+
+                dispatchRetakePictureIntent();
+                fotoDialog.dismiss();
+            }
+        });
+
+        fotoDialog.getActionButton(DialogAction.NEUTRAL).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                foto.setStatusData(-1);
+                foto.save();
+                //currentFoto.save();
+
+                populateListFoto();
+                populateListViewFoto();
+
+                Toast.makeText(getActivity().getApplicationContext(),"Gambar dihapus",Toast.LENGTH_LONG).show();
+                fotoDialog.dismiss();
+            }
+        });
 
         if (dialogView != null) {
 
