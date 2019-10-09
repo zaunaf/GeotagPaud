@@ -4,6 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -13,11 +21,14 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.core.content.FileProvider;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -29,6 +40,8 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.nufaza.geotagpaud.model.Foto;
+import com.nufaza.geotagpaud.model.Foto_Table;
 import com.nufaza.geotagpaud.model.Geotag;
 import com.nufaza.geotagpaud.model.JenisFoto;
 import com.nufaza.geotagpaud.model.JenisFoto_Table;
@@ -60,6 +73,9 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -85,6 +101,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public GeotagFragment geotagFragment;
 
     private SharedPreferences sharedPreferences;
+
+    //
+    private List<Foto> listFoto = null;
+    private HashMap<String, String> listFotoObyek = new HashMap<>();
+    private String thumbnailPath;
+    private String sekolahId;
 
     // Folders And Paths
     public static final String THUMBNAIL_FOLDER = "thumbs";
@@ -117,6 +139,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
 
         // ViewPager
         ViewPager viewPager = findViewById(R.id.viewPager);
@@ -403,7 +426,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     geotag.setLintang(String.valueOf(sekolah.getLintang()));
                     geotag.setBujur(String.valueOf(sekolah.getBujur()));
                     geotag.setStatusGeotagId(1);
-                    geotag.setStatusTag(1);
+                    geotag.setStatusData(1);
                     geotag.save();
                 }
             }
@@ -465,6 +488,41 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String name = loggedIn ? getPreference(SPKEY_NAME) : "Not Authenticated";
         String email = loggedIn ? getPreference(SPKEY_USERNAME) : "Please login first";
 
+        // set iv_profile
+        // External Memory
+        thumbnailPath = this.getExternalFilesDir(Environment.DIRECTORY_PICTURES).toString() + "/" + MainActivity.THUMBNAIL_FOLDER + "/";
+
+        sekolahId = this.getPreference(MainActivity.SPKEY_SEKOLAH_ID);
+
+        Foto foto = SQLite.select()
+                .from(Foto.class)
+                .where(Foto_Table.jenis_foto_id.eq(8))
+                .querySingle();
+
+        if (foto != null){
+            ImageView imgProfile = navigationView.getHeaderView(0).findViewById(R.id.imageView);
+            if (imgProfile != null) {
+                String fotoUri = foto.getFotoId().toString()+".jpg";
+                File imageFile = new File(thumbnailPath+ sekolahId+ "/"   + fotoUri);
+                Uri photoURI = FileProvider.getUriForFile(this, this.getApplicationContext().getPackageName() + ".provider", imageFile);
+
+                if (imageFile.isFile()) {
+                    Bitmap profileBitmap = null;
+                    try {
+                        profileBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoURI);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    // Round the profileBitmap
+                    profileBitmap = getRoundedBitmap(profileBitmap);
+                    imgProfile.setImageBitmap(profileBitmap);
+                } else {
+                    imgProfile.setImageResource(R.mipmap.ic_launcher);
+                }
+            }
+        }
+
         TextView nameTextView = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_header_name);
         TextView emailTextView = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_header_email);
 
@@ -498,7 +556,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-}
 
 
 /**
@@ -533,4 +590,29 @@ class ViewPagerAdapter extends FragmentPagerAdapter {
         return mFragmentTitleList.get(position);
         //return null;
     }
+
+}
+    public static Bitmap getRoundedBitmap(Bitmap bitmap) {
+
+        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap
+                .getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+
+        final int color = 0xff424242;
+        final Paint paint = new Paint();
+        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+        final RectF rectF = new RectF(rect);
+
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(color);
+        canvas.drawOval(rectF, paint);
+
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(bitmap, rect, rect, paint);
+
+        return output;
+    }
+
+
 }
