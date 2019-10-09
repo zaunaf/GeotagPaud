@@ -47,6 +47,7 @@ import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.core.ImagePipeline;
 import com.facebook.samples.zoomable.ZoomableDraweeView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nufaza.geotagpaud.App;
@@ -81,7 +82,7 @@ public class GalleryFragment extends Fragment {
     private View root;
     private MainActivity mainActivity;
     private FloatingActionButton fab;
-    Foto foto = new Foto();
+
 
     // References
     private List<Integer> jenisFotoValues;
@@ -323,7 +324,7 @@ public class GalleryFragment extends Fragment {
     }
 
 
-    private void dispatchRetakePictureIntent() {
+    private void dispatchRetakePictureIntent(String fotoId) {
 
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
@@ -332,10 +333,10 @@ public class GalleryFragment extends Fragment {
             File photoFile = null;
 
             try {
-                photoFile = retakeImageFile();
+                photoFile = retakeImageFile(fotoId);
             } catch (IOException ex) {
                 // Error occurred while creating the File
-                Log.e("dispatchTakePicture", ex.toString());
+                Log.e("dispatchRetakePicture", ex.toString());
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
@@ -345,7 +346,6 @@ public class GalleryFragment extends Fragment {
                 startActivityForResult(takePictureIntent, FOTO_REQUEST_CODE);
             }
         }
-
     }
 
     /**
@@ -392,19 +392,15 @@ public class GalleryFragment extends Fragment {
         return image;
     }
 
-    private File retakeImageFile() throws IOException {
+    private File retakeImageFile(String fotoId) throws IOException {
 
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         // imageId = "sekolah_" + timeStamp;
 
         // Major change: set imageId with UUID
-        if (foto.getFotoId() != null){
-            imageId = foto.getFotoId().toString();
-        }else{
-            imageId = UUID.randomUUID().toString();
-        }
 
+            imageId = fotoId;
 
         // Compose storage path, create the folders if it's not exist yet
         String storagePath = tempPath + sekolahId;
@@ -461,8 +457,12 @@ public class GalleryFragment extends Fragment {
                     populateListFoto();
                     populateListViewFoto();
 
-                } catch (Exception e) {
+                    ImagePipeline imagePipeline = Fresco.getImagePipeline();
+                    imagePipeline.clearMemoryCaches();
+                    imagePipeline.clearDiskCaches();
+                    imagePipeline.clearCaches();
 
+                } catch (Exception e) {
                     message += "Terjadi error: " + e.getMessage();
                     Toast.makeText(mainActivity.getApplicationContext(), message, Toast.LENGTH_LONG).show();
                 }
@@ -735,9 +735,19 @@ public class GalleryFragment extends Fragment {
      *
      * @return boolean berhasil atau tidak
      */
+
     private void attachImageToDatabase() throws Exception {
 
         // Also major change: insert to foto table along with its shit
+
+        Foto foto = null;
+        UUID fotoId = UUID.fromString(imageId);
+        foto = SQLite.select().from(Foto.class).where(Foto_Table.foto_id.eq(fotoId)).querySingle();
+
+        if (foto == null){
+            foto = new Foto();
+        }
+
         foto.setFotoId(UUID.fromString(imageId));
         foto.setJenisFotoId(jenisFotoId);
         foto.setTglPengambilan(new Date());
@@ -748,7 +758,6 @@ public class GalleryFragment extends Fragment {
         foto.setBujur(String.valueOf(imageBujur));
         foto.setPenggunaId(UUID.fromString(penggunaId));
         foto.setSekolahId(UUID.fromString(sekolahId));
-        foto.setStatusData(1);
         foto.save();
 
     }
@@ -866,28 +875,16 @@ public class GalleryFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(getActivity().getApplicationContext(),"Anda memilih Retake",Toast.LENGTH_LONG).show();
-
                 jenisFotoId = currentFoto.getJenisFotoId();
+                String fotoId =  currentFoto.getFotoId().toString();
 
-                dispatchRetakePictureIntent();
+                dispatchRetakePictureIntent(fotoId);
                 fotoDialog.dismiss();
-            }
-        });
-
-        fotoDialog.getActionButton(DialogAction.NEUTRAL).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                foto.setStatusData(-1);
-                foto.save();
-                //currentFoto.save();
-
                 populateListFoto();
                 populateListViewFoto();
-
-                Toast.makeText(getActivity().getApplicationContext(),"Gambar dihapus",Toast.LENGTH_LONG).show();
-                fotoDialog.dismiss();
             }
         });
+
 
         if (dialogView != null) {
 
@@ -1001,12 +998,9 @@ public class GalleryFragment extends Fragment {
                 });
 
             } else {
-
                 ImageView fotoFotoView = (ImageView) itemView.findViewById(R.id.foto_obyek);
                 fotoFotoView.setImageDrawable(getResources().getDrawable(R.mipmap.ic_image));
-
             }
-
 
             // Return the view
             return itemView;
@@ -1016,7 +1010,6 @@ public class GalleryFragment extends Fragment {
 
     @Override
     public void onResume() {
-
         populateListFoto();
         populateListViewFoto();
 
