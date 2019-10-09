@@ -111,7 +111,7 @@ public class GalleryFragment extends Fragment {
     private boolean mStoragePermissionDenied = false;
     private boolean mCameraPermissionDenied = false;
     private Integer jenisFotoId;
-    Foto foto = new Foto();
+
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -669,6 +669,7 @@ public class GalleryFragment extends Fragment {
     private void attachImageToDatabase() throws Exception {
 
         // Also major change: insert to foto table along with its shit
+        Foto foto = new Foto();
         foto.setStatusData(1);
         foto.setFotoId(UUID.fromString(imageId));
         foto.setJenisFotoId(jenisFotoId);
@@ -731,7 +732,6 @@ public class GalleryFragment extends Fragment {
         listFoto = SQLite.select()
                 .from(Foto.class)
                 .where(Foto_Table.status_data.greaterThanOrEq(1))
-
                 .queryList();
 
 
@@ -740,6 +740,7 @@ public class GalleryFragment extends Fragment {
                 listFotoObyek.put(listFoto.get(i).getFotoId().toString(), listFoto.get(i).getFotoId() + ".jpg");
             }
         }
+
     }
 
     /**
@@ -777,8 +778,8 @@ public class GalleryFragment extends Fragment {
 
         final String fotoUri = listFotoObyek.get(currentFoto.getFotoId().toString());
 
-        // Intent imageViewIntent = new Intent(Intent.ACTION_VIEW);
-        // imageViewIntent.setDataAndType(Uri.parse("file://" + imagesPath + sekolahId + "/" + fotoUri), "image/*");
+//         Intent imageViewIntent = new Intent(Intent.ACTION_VIEW);
+//         imageViewIntent.setDataAndType(Uri.parse("file://" + imagesPath + sekolahId + "/" + fotoUri), "image/*");
         File imageFile = new File(imagesPath + sekolahId + "/" + fotoUri);
         Uri photoURI = FileProvider.getUriForFile(mainActivity, mainActivity.getApplicationContext().getPackageName() + ".provider", imageFile);
         // imageViewIntent.setDataAndType(photoURI, "image/*");
@@ -801,9 +802,9 @@ public class GalleryFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                foto.setStatusData(-1);
-                foto.save();
+                currentFoto.setStatusData(-1);
 
+                currentFoto.save();
 
                 Toast.makeText(getActivity().getApplicationContext(), "Foto ini telah dihapus", Toast.LENGTH_LONG).show();
                 populateListFoto();
