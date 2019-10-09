@@ -111,6 +111,8 @@ public class GalleryFragment extends Fragment {
     private boolean mStoragePermissionDenied = false;
     private boolean mCameraPermissionDenied = false;
     private Integer jenisFotoId;
+    Foto foto = new Foto();
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -382,6 +384,7 @@ public class GalleryFragment extends Fragment {
                     message += "Mengubah ukuran image berhasil. ";
 
                     attachImageToDatabase();
+
                     message += "Menyimpan data image ke database berhasil. ";
 
                     Toast.makeText(mainActivity.getApplicationContext(), message, Toast.LENGTH_LONG).show();
@@ -666,7 +669,7 @@ public class GalleryFragment extends Fragment {
     private void attachImageToDatabase() throws Exception {
 
         // Also major change: insert to foto table along with its shit
-        Foto foto = new Foto();
+        foto.setStatusData(1);
         foto.setFotoId(UUID.fromString(imageId));
         foto.setJenisFotoId(jenisFotoId);
         foto.setTglPengambilan(new Date());
@@ -724,11 +727,15 @@ public class GalleryFragment extends Fragment {
      * Method ini untuk mengisi data listFoto untuk listViewFoto di data pengamatan umum
      */
     private void populateListFoto() {
+
         listFoto = SQLite.select()
                 .from(Foto.class)
+                .where(Foto_Table.status_data.greaterThanOrEq(1))
+
                 .queryList();
 
-        if (listFoto != null) {
+
+        if (listFoto != null ) {
             for (int i = 0; i < listFoto.size(); i++) {
                 listFotoObyek.put(listFoto.get(i).getFotoId().toString(), listFoto.get(i).getFotoId() + ".jpg");
             }
@@ -766,9 +773,9 @@ public class GalleryFragment extends Fragment {
     }
 
 
-    public void openViewImageIntent(Foto currentFoto) {
+    public void openViewImageIntent(final Foto currentFoto) {
 
-        String fotoUri = listFotoObyek.get(currentFoto.getFotoId().toString());
+        final String fotoUri = listFotoObyek.get(currentFoto.getFotoId().toString());
 
         // Intent imageViewIntent = new Intent(Intent.ACTION_VIEW);
         // imageViewIntent.setDataAndType(Uri.parse("file://" + imagesPath + sekolahId + "/" + fotoUri), "image/*");
@@ -788,6 +795,22 @@ public class GalleryFragment extends Fragment {
 
         View dialogView = fotoDialog.getCustomView();
         ZoomableDraweeView imageViewer = null;
+
+
+        fotoDialog.getActionButton(DialogAction.NEUTRAL).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                foto.setStatusData(-1);
+                foto.save();
+
+
+                Toast.makeText(getActivity().getApplicationContext(), "Foto ini telah dihapus", Toast.LENGTH_LONG).show();
+                populateListFoto();
+                populateListViewFoto();
+            fotoDialog.dismiss();
+            }
+        });
 
         if (dialogView != null) {
 

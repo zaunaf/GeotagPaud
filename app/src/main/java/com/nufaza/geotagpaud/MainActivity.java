@@ -403,7 +403,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     geotag.setLintang(String.valueOf(sekolah.getLintang()));
                     geotag.setBujur(String.valueOf(sekolah.getBujur()));
                     geotag.setStatusGeotagId(1);
-                    geotag.setStatusTag(1);
+                    geotag.setStatusData(1);
                     geotag.save();
                 }
             }
