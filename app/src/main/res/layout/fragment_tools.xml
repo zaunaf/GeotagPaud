@@ -5,6 +5,7 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:fontFamily="@font/quicksand_regular"
         android:id="@+id/text_tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

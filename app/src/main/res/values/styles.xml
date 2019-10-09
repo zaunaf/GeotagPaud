@@ -45,4 +45,16 @@
         <item name="android:disabledAlpha">1.0</item>
     </style>
 
+    <style name="QuicksandTextFontReg">
+        <item name="android:fontFamily">@font/quicksand_regular</item>
+    </style>
+
+    <style name="QuicksandTextFontSemBold">
+        <item name="android:fontFamily">@font/quicksand_semibold</item>
+    </style>
+
+    <style name="QuicksandTextFontBold">
+        <item name="android:fontFamily">@font/quicksand_bold</item>
+    </style>
+
 </resources>

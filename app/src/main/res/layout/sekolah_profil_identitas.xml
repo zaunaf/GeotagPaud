@@ -69,12 +69,14 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold"
+                android:fontFamily="@font/quicksand_bold"
                 android:text="NPSN" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/npsn"
+                android:fontFamily="@font/quicksand_regular"
                 android:text="-" />
 
             <View style="@style/DividerWithMargin"/>
@@ -84,12 +86,14 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold"
+                android:fontFamily="@font/quicksand_bold"
                 android:text="Bentuk Pendidikan" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="-"
+                android:fontFamily="@font/quicksand_regular"
                 android:id="@+id/bentuk_pendidikan_str" />
 
             <View style="@style/DividerWithMargin"/>
@@ -99,6 +103,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold"
+                android:fontFamily="@font/quicksand_bold"
                 android:text="Alamat" />
 
             <TextView
@@ -111,6 +116,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_regular"
                 android:text=""
                 android:id="@+id/nama_kabkota"
                 />
@@ -122,12 +128,14 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold"
+                android:fontFamily="@font/quicksand_bold"
                 android:text="No.Telp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="-"
+                android:fontFamily="@font/quicksand_regular"
                 android:id="@+id/no_telp"
                 />
 
