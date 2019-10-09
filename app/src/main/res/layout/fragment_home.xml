@@ -18,6 +18,8 @@
             android:paddingTop="24dp">
 
             <androidx.cardview.widget.CardView
+                app:cardCornerRadius="10dp"
+                app:cardElevation="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -45,6 +47,7 @@
                             android:layout_height="@dimen/card_title_height"
                             android:layout_alignBottom="@+id/foto_sekolah"
                             android:layout_marginLeft="@dimen/md_keylines"
+                            android:fontFamily="@font/quicksand_bold"
                             android:text=""
                             android:shadowColor="@color/md_divider_white"
                             android:shadowDx="1"
@@ -56,11 +59,21 @@
 
                     </RelativeLayout>
 
-                    <include layout="@layout/sekolah_profil_identitas" />
+                    <androidx.cardview.widget.CardView
+                        app:cardElevation="5dp"
+                        app:cardCornerRadius="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <include layout="@layout/sekolah_profil_identitas" />
+
+                    </androidx.cardview.widget.CardView>
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
+
+
 
         </LinearLayout>
 
