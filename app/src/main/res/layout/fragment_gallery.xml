@@ -35,13 +35,14 @@
             android:layout_gravity="center_horizontal"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:src="@drawable/camera"/>
+            android:src="@drawable/empty_playground_med"/>
 
         <TextView
-            android:textSize="34dp"
+            android:textSize="20dp"
             android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/quicksand_semibold"
             android:text="Belum ada foto"/>
 
     </LinearLayout>

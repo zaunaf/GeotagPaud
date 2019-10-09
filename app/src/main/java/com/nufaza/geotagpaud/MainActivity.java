@@ -66,8 +66,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.UUID;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
-{
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private AppBarConfiguration mAppBarConfiguration;
     private View mainView;
 
@@ -91,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static final String TEMP_IMAGE_FOLDER = "temp";
     public static final String EXTERNAL_IMAGE_FOLDER = "images";
     public static final String JSON_FOLDER = "json";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,7 +147,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // Toggle login menu
         toggleLogin();
+
+        if (!checkLogin()){
+            loginDialog();
+        }
+
+
     }
+
 
     @Override
     protected void onStart() {
@@ -184,79 +191,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     break;
                 }
 
-                final MaterialDialog loginDialog = new MaterialDialog.Builder(this)
-                    .title("Login")
-                    .customView(R.layout.form_login, true)
-                    .positiveText("OK")
-                    .icon(getResources().getDrawable(R.mipmap.ic_launcher))
-                    .autoDismiss(true)
-                    .show();
-
-                View loginForm = loginDialog.getCustomView();
-                EditText usernameField = loginForm.findViewById(R.id.username);
-                EditText passwordField = loginForm.findViewById(R.id.password);
-                usernameField.setText(getPreference(SPKEY_USERNAME));
-                passwordField.setText(getPreference(SPKEY_PASSWORD));
-
-                View submitButton = loginDialog.getActionButton(DialogAction.POSITIVE);
-                submitButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        final View theView = view;
-                        View loginForm = loginDialog.getCustomView();
-
-                        // Get The Field Values
-                        EditText usernameField = loginForm.findViewById(R.id.username);
-                        EditText passwordField = loginForm.findViewById(R.id.password);
-                        String usernameStr = usernameField.getText().toString();
-                        String passwordStr = passwordField.getText().toString();
-
-                        // Save to session
-                        setPreference(SPKEY_USERNAME, usernameStr);
-                        setPreference(SPKEY_PASSWORD, passwordStr);
-
-                        // Close loginDialog
-                        loginDialog.dismiss();
-
-                        // Create map for JSON
-                        HashMap<String, String> params = new HashMap<>();
-                        params.put("username", usernameStr);
-                        params.put("password", passwordStr);
-
-                        String token = getPreference(SPKEY_TOKEN);
-
-                        // Create call to backend
-                        HttpCaller hc = new HttpCaller (
-                                MainActivity.this,
-                                HttpCaller.POST,
-                                "/api/login_check",
-                                params,
-                                HttpCaller.RETURN_TYPE_JSON,
-                                new HttpCallback() {
-                            @Override
-                            public void onSuccess(JSONObject responseJSO) {
-
-                                try {
-
-                                    String token = responseJSO.getString("token");
-                                    String id = responseJSO.getString("id");
-                                    Snackbar.make(mainView, "Login berhasil. ID ditemukan = " + id, Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                                    setPreference(SPKEY_TOKEN, token);
-
-                                    getInitialData(id, token);
-
-                                } catch (JSONException e) {
-
-                                    Snackbar.make(mainView, "Login gagal", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                                    // e.printStackTrace();
-                                }
-
-                            }
-                        }, token);
-
-                    }
-                });
+                loginDialog();
 
                 break;
 
@@ -287,17 +222,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     long jumlahPengguna = SQLite.selectCountOf().from(Pengguna.class).count();
 
                     MaterialDialog dialog = new MaterialDialog.Builder(this)
-                        .title("Tentang Aplikasi")
-                        .content(appName + "\r\nJumlah Pengguna: " + Long.toString(jumlahPengguna) + "\r\nJumlah Sekolah: " + Long.toString(jumlahSekolah) + "\r\nVersi App: " + version + "\r\nVersi DB: " + AppDatabase.VERSION )
-                        //.content("Aplikasi Verifikasi Sarana Prasarana\r\nEdisi Custom (Takola SD)" + "\r\nVersi App: 1.0.0\r\nVersi DB: " + databaseVersion)
-                        .positiveText("OK")
-                        .icon(getResources().getDrawable(R.mipmap.ic_launcher))
-                        .autoDismiss(true)
-                        .show();
+                            .title("Tentang Aplikasi")
+                            .content(appName + "\r\nJumlah Pengguna: " + Long.toString(jumlahPengguna) + "\r\nJumlah Sekolah: " + Long.toString(jumlahSekolah) + "\r\nVersi App: " + version + "\r\nVersi DB: " + AppDatabase.VERSION)
+                            //.content("Aplikasi Verifikasi Sarana Prasarana\r\nEdisi Custom (Takola SD)" + "\r\nVersi App: 1.0.0\r\nVersi DB: " + databaseVersion)
+                            .positiveText("OK")
+                            .icon(getResources().getDrawable(R.mipmap.ic_launcher))
+                            .autoDismiss(true)
+                            .show();
 
-                }
-                catch (Exception e)
-                {
+                } catch (Exception e) {
                     // Do nothing lah.
                     System.out.println(e.getMessage());
                 }
@@ -312,55 +245,55 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void getInitialData(String id, String token) {
 
         // Create call to backend
-        HttpCaller hc = new HttpCaller (
-            MainActivity.this,
-            HttpCaller.GET,
-            "/api/penggunas/" + id,
-            null,
-            HttpCaller.RETURN_TYPE_JSON,
-            new HttpCallback() {
-                @Override
-                public void onSuccess(JSONObject responseJSO) {
+        HttpCaller hc = new HttpCaller(
+                MainActivity.this,
+                HttpCaller.GET,
+                "/api/penggunas/" + id,
+                null,
+                HttpCaller.RETURN_TYPE_JSON,
+                new HttpCallback() {
+                    @Override
+                    public void onSuccess(JSONObject responseJSO) {
 
-                    try {
+                        try {
 
-                        // String token = responseJSO.getString("token");
-                        // String id = responseJSO.getString("id");
-                        // Snackbar.make(mainView, "Login berhasil. ID ditemukan = " + id, Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                        // setPreference(SPKEY_TOKEN, token);
+                            // String token = responseJSO.getString("token");
+                            // String id = responseJSO.getString("id");
+                            // Snackbar.make(mainView, "Login berhasil. ID ditemukan = " + id, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                            // setPreference(SPKEY_TOKEN, token);
 
-                        String name = responseJSO.getString("nama");
-                        setPreference(SPKEY_NAME, name);
+                            String name = responseJSO.getString("nama");
+                            setPreference(SPKEY_NAME, name);
 
-                        String penggunaId = responseJSO.getString("id");
-                        setPreference(SPKEY_PENGGUNA_ID, penggunaId);
+                            String penggunaId = responseJSO.getString("id");
+                            setPreference(SPKEY_PENGGUNA_ID, penggunaId);
 
-                        JSONObject sekolahObj = responseJSO.getJSONObject("sekolah");
-                        String sekolahId = sekolahObj.getString("id");
-                        setPreference(SPKEY_SEKOLAH_ID, sekolahId);
-
-
-                        // Save intial data to database
-                        saveInitialData(responseJSO);
-
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                // Refresh Menu and Identity
-                                toggleLogin();
-                                homeFragment.updateView();
-                            }
-                        });
+                            JSONObject sekolahObj = responseJSO.getJSONObject("sekolah");
+                            String sekolahId = sekolahObj.getString("id");
+                            setPreference(SPKEY_SEKOLAH_ID, sekolahId);
 
 
-                    } catch (JSONException e) {
+                            // Save intial data to database
+                            saveInitialData(responseJSO);
 
-                        // Snackbar.make(mainView, "Login gagal", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                        // e.printStackTrace();
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    // Refresh Menu and Identity
+                                    toggleLogin();
+                                    homeFragment.updateView();
+                                }
+                            });
+
+
+                        } catch (JSONException e) {
+
+                            // Snackbar.make(mainView, "Login gagal", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                            // e.printStackTrace();
+                        }
+
                     }
-
-                }
-            }, token);
+                }, token);
 
     }
 
@@ -417,13 +350,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    public void setPreference (String key, String value){
+    public void setPreference(String key, String value) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(key, value);
         editor.apply();
     }
 
-    public String getPreference (String key){
+    public String getPreference(String key) {
         return sharedPreferences.getString(key, "");
     }
 
@@ -452,6 +385,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     /**
      * Change title of login menu item in the Navigation Drawer
+     *
      * @param loggedIn
      */
     public void updateNavigation(boolean loggedIn) {
@@ -496,9 +430,85 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // }
 
     }
+    public void loginDialog() {
+        final MaterialDialog loginDialog = new MaterialDialog.Builder(this)
+                .title("Login")
+                .customView(R.layout.form_login, true)
+                .positiveText("OK")
+                .icon(getResources().getDrawable(R.mipmap.ic_launcher))
+                .autoDismiss(true)
+                .show();
+
+        View loginForm = loginDialog.getCustomView();
+        EditText usernameField = loginForm.findViewById(R.id.username);
+        EditText passwordField = loginForm.findViewById(R.id.password);
+        usernameField.setText(getPreference(SPKEY_USERNAME));
+        passwordField.setText(getPreference(SPKEY_PASSWORD));
+
+        View submitButton = loginDialog.getActionButton(DialogAction.POSITIVE);
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final View theView = view;
+                View loginForm = loginDialog.getCustomView();
+
+                // Get The Field Values
+                EditText usernameField = loginForm.findViewById(R.id.username);
+                EditText passwordField = loginForm.findViewById(R.id.password);
+                String usernameStr = usernameField.getText().toString();
+                String passwordStr = passwordField.getText().toString();
+
+                // Save to session
+                setPreference(SPKEY_USERNAME, usernameStr);
+                setPreference(SPKEY_PASSWORD, passwordStr);
+
+                // Close loginDialog
+                loginDialog.dismiss();
+
+                // Create map for JSON
+                HashMap<String, String> params = new HashMap<>();
+                params.put("username", usernameStr);
+                params.put("password", passwordStr);
+
+                String token = getPreference(SPKEY_TOKEN);
+
+                // Create call to backend
+                HttpCaller hc = new HttpCaller(
+                        MainActivity.this,
+                        HttpCaller.POST,
+                        "/api/login_check",
+                        params,
+                        HttpCaller.RETURN_TYPE_JSON,
+                        new HttpCallback() {
+                            @Override
+                            public void onSuccess(JSONObject responseJSO) {
+
+                                try {
+
+                                    String token = responseJSO.getString("token");
+                                    String id = responseJSO.getString("id");
+                                    Snackbar.make(mainView, "Login berhasil. ID ditemukan = " + id, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                                    setPreference(SPKEY_TOKEN, token);
+
+                                    getInitialData(id, token);
+
+                                } catch (JSONException e) {
+                                    Snackbar.make(mainView, "Login gagal", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                                    // e.printStackTrace();
+                                }
+
+                            }
+                        }, token);
+
+            }
+        });
+    }
 
 
 }
+
+
 
 
 /**
