@@ -73,6 +73,13 @@ public class AppDatabase {
             jenisFoto.setStatusIsian(2);     // 1 Wajib  2 Opsional
             jenisFoto.save(database);
 
+            jenisFoto = new JenisFoto();
+            jenisFoto.setJenisFotoId(8);
+            jenisFoto.setNamaJenisFoto("Foto Operator");
+            jenisFoto.setInstruksi("Ambillah Pas Foto Operator");
+            jenisFoto.setStatusIsian(2);
+            jenisFoto.save(database);
+
             StatusGeotag statusGeotag = new StatusGeotag();
             statusGeotag.setStatusGeotagId(1);
             statusGeotag.setNamaStatusGeotag("Geotag Lama");
