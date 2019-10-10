@@ -827,7 +827,9 @@ public class GalleryFragment extends Fragment {
 
         // Panggil listviewnya
         final ListView listViewFoto = (ListView) root.findViewById(R.id.listview_foto);
+
         listViewFoto.setAdapter(adapter);
+        listViewFoto.setEmptyView(root.findViewById(R.id.emptyState));
         listViewFoto.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
 
         listViewFoto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
