@@ -35,6 +35,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
         >
 
         <Button
+            android:fontFamily="@font/quicksand_semibold"
             android:id="@+id/save_loc"
             android:layout_width="402dp"
             android:layout_height="60dp"

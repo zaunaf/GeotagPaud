@@ -8,6 +8,7 @@
         android:layout_height="wrap_content">
 
         <EditText
+            android:fontFamily="@font/quicksand_regular"
             android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -22,6 +23,7 @@
         android:layout_height="wrap_content">
 
     <EditText
+        android:fontFamily="@font/quicksand_regular"
         android:inputType="textPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
