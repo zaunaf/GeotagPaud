@@ -103,8 +103,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private SharedPreferences sharedPreferences;
 
     //
-    private List<Foto> listFoto = null;
-    private HashMap<String, String> listFotoObyek = new HashMap<>();
     private String thumbnailPath;
     private String sekolahId;
 
@@ -170,11 +168,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // Toggle login menu
         toggleLogin();
-
-        if (!checkLogin()){
-            loginDialog();
-        }
-
     }
 
     @Override
@@ -212,8 +205,79 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     break;
                 }
 
-                loginDialog();
+                final MaterialDialog loginDialog = new MaterialDialog.Builder(this)
+                    .title("Login")
+                    .customView(R.layout.form_login, true)
+                    .positiveText("OK")
+                    .icon(getResources().getDrawable(R.mipmap.ic_launcher))
+                    .autoDismiss(true)
+                    .show();
 
+                View loginForm = loginDialog.getCustomView();
+                EditText usernameField = loginForm.findViewById(R.id.username);
+                EditText passwordField = loginForm.findViewById(R.id.password);
+                usernameField.setText(getPreference(SPKEY_USERNAME));
+                passwordField.setText(getPreference(SPKEY_PASSWORD));
+
+                View submitButton = loginDialog.getActionButton(DialogAction.POSITIVE);
+                submitButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        final View theView = view;
+                        View loginForm = loginDialog.getCustomView();
+
+                        // Get The Field Values
+                        EditText usernameField = loginForm.findViewById(R.id.username);
+                        EditText passwordField = loginForm.findViewById(R.id.password);
+                        String usernameStr = usernameField.getText().toString();
+                        String passwordStr = passwordField.getText().toString();
+
+                        // Save to session
+                        setPreference(SPKEY_USERNAME, usernameStr);
+                        setPreference(SPKEY_PASSWORD, passwordStr);
+
+                        // Close loginDialog
+                        loginDialog.dismiss();
+
+                        // Create map for JSON
+                        HashMap<String, String> params = new HashMap<>();
+                        params.put("username", usernameStr);
+                        params.put("password", passwordStr);
+
+                        String token = getPreference(SPKEY_TOKEN);
+
+                        // Create call to backend
+                        HttpCaller hc = new HttpCaller (
+                                MainActivity.this,
+                                HttpCaller.POST,
+                                "/api/login_check",
+                                params,
+                                HttpCaller.RETURN_TYPE_JSON,
+                                new HttpCallback() {
+                            @Override
+                            public void onSuccess(JSONObject responseJSO) {
+
+                                try {
+
+                                    String token = responseJSO.getString("token");
+                                    String id = responseJSO.getString("id");
+                                    Snackbar.make(mainView, "Login berhasil. ID ditemukan = " + id, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                                    setPreference(SPKEY_TOKEN, token);
+
+                                    getInitialData(id, token);
+
+                                } catch (JSONException e) {
+
+                                    Snackbar.make(mainView, "Login gagal", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                                    // e.printStackTrace();
+                                }
+
+                            }
+                        }, token);
+
+                    }
+                });
                 break;
 
             case R.id.nav_help:
@@ -390,7 +454,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Snackbar.make(mainView, "Anda telah logout.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
         toggleLogin();
         homeFragment.updateView();
-        loginDialog();
     }
 
     public boolean checkLogin() {
@@ -431,10 +494,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Foto foto = SQLite.select()
                 .from(Foto.class)
                 .where(Foto_Table.jenis_foto_id.eq(8))
+                .and(Foto_Table.status_data.greaterThanOrEq(1))
                 .querySingle();
 
+        ImageView imgProfile = navigationView.getHeaderView(0).findViewById(R.id.imageView);
+
         if (foto != null){
-            ImageView imgProfile = navigationView.getHeaderView(0).findViewById(R.id.imageView);
             if (imgProfile != null) {
                 String fotoUri = foto.getFotoId().toString()+".jpg";
                 File imageFile = new File(thumbnailPath+ sekolahId+ "/"   + fotoUri);
@@ -454,7 +519,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 } else {
                     imgProfile.setImageResource(R.mipmap.ic_launcher);
                 }
+            }else {
+                imgProfile.setImageResource(R.mipmap.ic_launcher);
             }
+        }else {
+            imgProfile.setImageResource(R.mipmap.ic_launcher);
         }
 
         TextView nameTextView = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_header_name);
@@ -488,6 +557,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // }
 
     }
+    
     public void loginDialog(){
         final MaterialDialog loginDialog = new MaterialDialog.Builder(this)
                 .title("Login")
@@ -565,9 +635,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
     }
-
-
-
 
 /**
  * Still View Pager shit

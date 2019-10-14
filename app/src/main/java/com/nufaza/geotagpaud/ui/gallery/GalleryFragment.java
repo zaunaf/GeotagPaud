@@ -436,7 +436,6 @@ public class GalleryFragment extends Fragment {
                 String message = "";
 
                 try {
-
                     validatePhoto();
 
                     saveThumbnailToInternalStorage();
@@ -824,6 +823,7 @@ public class GalleryFragment extends Fragment {
     private void populateListViewFoto() {
 
         // Buat adapter
+        mainActivity.updateNavigation(mainActivity.checkLogin());
         ArrayAdapter<Foto> adapter = new FotoListAdapter();
 
         // Panggil listviewnya
