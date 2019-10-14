@@ -9,6 +9,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.nufaza.geotagpaud.MainActivity;
 import com.nufaza.geotagpaud.R;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
@@ -55,7 +56,7 @@ public class HttpCaller {
      * @param params    passing parameter
      * @param cb        callback
      */
-    public HttpCaller(Context ctx, String method, String route, HashMap<String, String> params, final int returnType, final HttpCallback cb, String token) {
+    public HttpCaller(Context ctx, String method, String route, HashMap<String, String> params, JSONArray jsonArray, final int returnType, final HttpCallback cb, String token) {
         context = ctx;
         callback = cb;
 
@@ -71,6 +72,7 @@ public class HttpCaller {
         Request request = null;
 
         switch (method) {
+
             case HttpCaller.POST:
 
                 // If type form
@@ -82,8 +84,9 @@ public class HttpCaller {
                 // }
                 // RequestBody requestBody = formBodyBuilder.build();
 
-                JSONObject userPassJson = new JSONObject(params);
-                RequestBody requestBody = RequestBody.create(MEDIA_TYPE_JSON, userPassJson.toString());
+                // JSONArray userPassJson = new JSONArray(params);
+                String out = jsonArray.toString();
+                RequestBody requestBody = RequestBody.create(MEDIA_TYPE_JSON, jsonArray.toString());
 
                 // Build request
                 request = new Request.Builder()
@@ -227,8 +230,8 @@ public class HttpCaller {
 
     }
 
-    public HttpCaller(Context ctx, String method, String route, HashMap<String, String> params, final int returnType, final HttpCallback cb) {
-        this(ctx, method, route, params, returnType, cb, null);
+    public HttpCaller(Context ctx, String method, String route, HashMap<String, String> params, JSONArray jsonArray, final int returnType, final HttpCallback cb) {
+        this(ctx, method, route, params, jsonArray, returnType, cb, null);
     }
 
 }

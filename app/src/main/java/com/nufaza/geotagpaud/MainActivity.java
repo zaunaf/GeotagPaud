@@ -40,6 +40,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.nufaza.geotagpaud.managers.DataTransportManager;
 import com.nufaza.geotagpaud.model.Foto;
 import com.nufaza.geotagpaud.model.Foto_Table;
 import com.nufaza.geotagpaud.model.Geotag;
@@ -70,6 +71,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -216,6 +218,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 break;
 
+            case R.id.nav_upload:
+                DataTransportManager.sendData(this);
+                break;
+
             case R.id.nav_help:
 
                 String url = "http://geotagpaud.nufaza.com/faq";
@@ -272,6 +278,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             MainActivity.this,
             HttpCaller.GET,
             "/api/penggunas/" + id,
+            null,
             null,
             HttpCaller.RETURN_TYPE_JSON,
             new HttpCallback() {
@@ -529,14 +536,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 params.put("username", usernameStr);
                 params.put("password", passwordStr);
 
+                JSONObject jsonObject = new JSONObject(params);
+                JSONArray jsonArray = new JSONArray();
+                jsonArray.put(jsonObject);
+
                 String token = getPreference(SPKEY_TOKEN);
 
                 // Create call to backend
-                HttpCaller hc = new HttpCaller (
+                HttpCaller hc = new HttpCaller(
                         MainActivity.this,
                         HttpCaller.POST,
                         "/api/login_check",
-                        params,
+                        null,
+                        jsonArray,
                         HttpCaller.RETURN_TYPE_JSON,
                         new HttpCallback() {
                             @Override
@@ -559,7 +571,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                             }
                         }, token);
-
             }
         });
     }

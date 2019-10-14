@@ -345,7 +345,7 @@ public class GeotagFragment extends Fragment
             loader += ".";
 
 
-        if (accuracyMeters <= 6) {
+        if (accuracyMeters <= 21) {
             msg = "Simpan Posisi (akurasi: " +  accuracyMeters.toString() + "m)";
             saveButton.setText(msg);
             saveButton.setEnabled(true);
