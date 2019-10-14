@@ -493,6 +493,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .title("Login")
                 .customView(R.layout.form_login, true)
                 .positiveText("OK")
+                .cancelable(false)
+                .canceledOnTouchOutside(false)
                 .icon(getResources().getDrawable(R.mipmap.ic_launcher))
                 .autoDismiss(true)
                 .show();
