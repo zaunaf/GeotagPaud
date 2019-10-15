@@ -252,9 +252,9 @@ public class Foto extends BaseModel {
         JSONObject obj = new JSONObject();
         try {
             obj.put("foto_id", foto_id);
-            obj.put("jenis_foto_id", jenis_foto_id);
-            obj.put("sekolah_id", sekolah_id);
-            obj.put("pengguna_id", pengguna_id);
+            obj.put("jenis_foto", jenis_foto_id);
+            obj.put("sekolah", sekolah_id);
+            obj.put("pengguna", pengguna_id);
             obj.put("judul", judul);
             obj.put("tgl_pengambilan", tgl_pengambilan);
             obj.put("tinggi_pixel", tinggi_pixel);

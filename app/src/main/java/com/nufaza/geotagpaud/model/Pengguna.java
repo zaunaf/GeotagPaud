@@ -452,7 +452,7 @@ public class Pengguna extends BaseModel {
         JSONObject obj = new JSONObject();
         try {
             obj.put("pengguna_id", pengguna_id);
-            obj.put("sekolah_id", sekolah_id);
+            obj.put("sekolah", sekolah_id);
             obj.put("username", username);
             obj.put("password", password);
             obj.put("nama", nama);

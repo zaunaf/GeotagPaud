@@ -220,9 +220,9 @@ public class Geotag extends BaseModel {
         JSONObject obj = new JSONObject();
         try {
             obj.put("geotag_id", geotag_id);
-            obj.put("sekolah_id", sekolah_id);
-            obj.put("status_geotag_id", status_geotag_id);
-            obj.put("pengguna_id", pengguna_id);
+            obj.put("sekolah", sekolah_id);
+            obj.put("status_geotag", status_geotag_id);
+            obj.put("pengguna", pengguna_id);
             obj.put("tgl_pengambilan", tgl_pengambilan);
             obj.put("lintang", lintang);
             obj.put("bujur", bujur);
