@@ -24,27 +24,45 @@
 <!--        tools:listitem="@layout/gallery_item"-->
     </ListView>
 
-    <LinearLayout
-        android:layout_gravity="center"
+    <RelativeLayout
         android:id="@+id/emptyState"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFF">
 
-        <ImageView
-            android:layout_gravity="center_horizontal"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:src="@drawable/camera"/>
-
-        <TextView
-            android:textSize="34dp"
-            android:layout_gravity="center_horizontal"
+        <LinearLayout
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Belum ada foto"/>
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <ImageView
+                android:layout_gravity="center_horizontal"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:src="@drawable/empty_playground_med"/>
+
+            <TextView
+                android:textSize="28dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="Galeri Kosong"/>
+
+            <TextView
+                android:textSize="20dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:fontFamily="@font/quicksand_semibold"
+                android:text="Silahkan ambil foto sekolah anda"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabTambahFoto"
@@ -53,6 +71,6 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:tint="#ffffff"
-        android:src="@drawable/ic_plus"/>
+        android:src="@drawable/camera"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
