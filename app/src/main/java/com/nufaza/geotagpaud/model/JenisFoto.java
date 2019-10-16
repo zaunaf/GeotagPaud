@@ -73,19 +73,15 @@ public class JenisFoto extends BaseModel {
         try {
             if (obj.has("jenis_foto_id") && !obj.isNull("jenis_foto_id")){
                 this.jenis_foto_id = (Integer) Integer.valueOf(obj.get("jenis_foto_id").toString());
-
             }
             if (obj.has("nama_jenis_foto") && !obj.isNull("nama_jenis_foto")){
                 this.nama_jenis_foto = (String) obj.get("nama_jenis_foto");
-
             }
             if (obj.has("instruksi") && !obj.isNull("instruksi")){
                 this.instruksi = (String) obj.get("instruksi");
-
             }
             if (obj.has("status_isian") && !obj.isNull("status_isian")){
                 this.status_isian = (Integer) Integer.valueOf(obj.get("status_isian").toString());
-
             }
         } catch (Exception e) {
             Log.e("Error JSON", "Error parsing JSON");

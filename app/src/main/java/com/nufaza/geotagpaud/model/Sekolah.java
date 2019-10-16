@@ -540,176 +540,133 @@ public class Sekolah extends BaseModel {
     public void fromJsonObject(JSONObject obj) {
         try {
             if (obj.has("sekolah_id") && !obj.isNull("sekolah_id")){
-                this.sekolah_id = (UUID) obj.get("sekolah_id");
-
+                this.sekolah_id = UUID.fromString(String.valueOf(obj.get("sekolah_id")));
             }
             if (obj.has("nama") && !obj.isNull("nama")){
                 this.nama = (String) obj.get("nama");
-
             }
             if (obj.has("nama_nomenklatur") && !obj.isNull("nama_nomenklatur")){
                 this.nama_nomenklatur = (String) obj.get("nama_nomenklatur");
-
             }
             if (obj.has("nss") && !obj.isNull("nss")){
                 this.nss = (String) obj.get("nss");
-
             }
             if (obj.has("npsn") && !obj.isNull("npsn")){
                 this.npsn = (String) obj.get("npsn");
-
             }
             if (obj.has("bentuk_pendidikan_id") && !obj.isNull("bentuk_pendidikan_id")){
                 this.bentuk_pendidikan_id = (Integer) Integer.valueOf(obj.get("bentuk_pendidikan_id").toString());
-
             }
             if (obj.has("alamat_jalan") && !obj.isNull("alamat_jalan")){
                 this.alamat_jalan = (String) obj.get("alamat_jalan");
-
             }
             if (obj.has("rt") && !obj.isNull("rt")){
                 this.rt = (String) obj.get("rt");
-
             }
             if (obj.has("rw") && !obj.isNull("rw")){
                 this.rw = (String) obj.get("rw");
-
             }
             if (obj.has("nama_dusun") && !obj.isNull("nama_dusun")){
                 this.nama_dusun = (String) obj.get("nama_dusun");
-
             }
             if (obj.has("desa_kelurahan") && !obj.isNull("desa_kelurahan")){
                 this.desa_kelurahan = (String) obj.get("desa_kelurahan");
-
             }
             if (obj.has("kode_wilayah") && !obj.isNull("kode_wilayah")){
                 this.kode_wilayah = (String) obj.get("kode_wilayah");
-
             }
             if (obj.has("kode_pos") && !obj.isNull("kode_pos")){
                 this.kode_pos = (String) obj.get("kode_pos");
-
             }
             if (obj.has("lintang") && !obj.isNull("lintang")){
                 this.lintang = (String) obj.get("lintang");
-
             }
             if (obj.has("bujur") && !obj.isNull("bujur")){
                 this.bujur = (String) obj.get("bujur");
-
             }
             if (obj.has("nomor_telepon") && !obj.isNull("nomor_telepon")){
                 this.nomor_telepon = (String) obj.get("nomor_telepon");
-
             }
             if (obj.has("nomor_fax") && !obj.isNull("nomor_fax")){
                 this.nomor_fax = (String) obj.get("nomor_fax");
-
             }
             if (obj.has("email") && !obj.isNull("email")){
                 this.email = (String) obj.get("email");
-
             }
             if (obj.has("website") && !obj.isNull("website")){
                 this.website = (String) obj.get("website");
-
             }
             if (obj.has("kebutuhan_khusus_id") && !obj.isNull("kebutuhan_khusus_id")){
                 this.kebutuhan_khusus_id = (Integer) Integer.valueOf(obj.get("kebutuhan_khusus_id").toString());
-
             }
             if (obj.has("status_sekolah") && !obj.isNull("status_sekolah")){
                 this.status_sekolah = (String) obj.get("status_sekolah");
-
             }
             if (obj.has("sk_pendirian_sekolah") && !obj.isNull("sk_pendirian_sekolah")){
                 this.sk_pendirian_sekolah = (String) obj.get("sk_pendirian_sekolah");
-
             }
             if (obj.has("tanggal_sk_pendirian") && !obj.isNull("tanggal_sk_pendirian")){
                 this.tanggal_sk_pendirian = (Date) obj.get("tanggal_sk_pendirian");
-
             }
             if (obj.has("status_kepemilikan_id") && !obj.isNull("status_kepemilikan_id")){
                 this.status_kepemilikan_id = (String) obj.get("status_kepemilikan_id");
-
             }
             if (obj.has("yayasan_id") && !obj.isNull("yayasan_id")){
                 this.yayasan_id = (String) obj.get("yayasan_id");
-
             }
             if (obj.has("sk_izin_operasional") && !obj.isNull("sk_izin_operasional")){
                 this.sk_izin_operasional = (String) obj.get("sk_izin_operasional");
-
             }
             if (obj.has("tanggal_sk_izin_operasional") && !obj.isNull("tanggal_sk_izin_operasional")){
                 this.tanggal_sk_izin_operasional = (Date) obj.get("tanggal_sk_izin_operasional");
-
             }
             if (obj.has("no_rekening") && !obj.isNull("no_rekening")){
                 this.no_rekening = (String) obj.get("no_rekening");
-
             }
             if (obj.has("nama_bank") && !obj.isNull("nama_bank")){
                 this.nama_bank = (String) obj.get("nama_bank");
-
             }
             if (obj.has("cabang_kcp_unit") && !obj.isNull("cabang_kcp_unit")){
                 this.cabang_kcp_unit = (String) obj.get("cabang_kcp_unit");
-
             }
             if (obj.has("rekening_atas_nama") && !obj.isNull("rekening_atas_nama")){
                 this.rekening_atas_nama = (String) obj.get("rekening_atas_nama");
-
             }
             if (obj.has("mbs") && !obj.isNull("mbs")){
                 this.mbs = (String) obj.get("mbs");
-
             }
             if (obj.has("luas_tanah_milik") && !obj.isNull("luas_tanah_milik")){
                 this.luas_tanah_milik = (String) obj.get("luas_tanah_milik");
-
             }
             if (obj.has("luas_tanah_bukan_milik") && !obj.isNull("luas_tanah_bukan_milik")){
                 this.luas_tanah_bukan_milik = (String) obj.get("luas_tanah_bukan_milik");
-
             }
             if (obj.has("kode_registrasi") && !obj.isNull("kode_registrasi")){
                 this.kode_registrasi = (BigInteger) obj.get("kode_registrasi");
-
             }
             if (obj.has("npwp") && !obj.isNull("npwp")){
                 this.npwp = (String) obj.get("npwp");
-
             }
             if (obj.has("nm_wp") && !obj.isNull("nm_wp")){
                 this.nm_wp = (String) obj.get("nm_wp");
-
             }
             if (obj.has("flag") && !obj.isNull("flag")){
                 this.flag = (String) obj.get("flag");
-
             }
             if (obj.has("create_date") && !obj.isNull("create_date")){
                 this.create_date = (Date) obj.get("create_date");
-
             }
             if (obj.has("last_update") && !obj.isNull("last_update")){
                 this.last_update = (Date) obj.get("last_update");
-
             }
             if (obj.has("soft_delete") && !obj.isNull("soft_delete")){
                 this.soft_delete = (String) obj.get("soft_delete");
-
             }
             if (obj.has("last_sync") && !obj.isNull("last_sync")){
                 this.last_sync = (Date) obj.get("last_sync");
-
             }
             if (obj.has("updater_id") && !obj.isNull("updater_id")){
                 this.updater_id = (String) obj.get("updater_id");
-
             }
         } catch (Exception e) {
             Log.e("Error JSON", "Error parsing JSON");

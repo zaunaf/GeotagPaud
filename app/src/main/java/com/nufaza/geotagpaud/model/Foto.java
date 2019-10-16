@@ -192,56 +192,46 @@ public class Foto extends BaseModel {
     public void fromJsonObject(JSONObject obj) {
         try {
             if (obj.has("foto_id") && !obj.isNull("foto_id")){
-                this.foto_id = (UUID) obj.get("foto_id");
-
+                this.foto_id = UUID.fromString(String.valueOf(obj.get("foto_id")));
             }
-            if (obj.has("jenis_foto_id") && !obj.isNull("jenis_foto_id")){
-                this.jenis_foto_id = (Integer) Integer.valueOf(obj.get("jenis_foto_id").toString());
-
+            if (obj.has("jenis_foto") && !obj.isNull("jenis_foto")){
+                JSONObject jenis_fotoObj = (JSONObject) obj.get("jenis_foto");
+                this.jenis_foto_id = (Integer) jenis_fotoObj.get("jenis_foto_id");
             }
-            if (obj.has("sekolah_id") && !obj.isNull("sekolah_id")){
-                this.sekolah_id = (UUID) obj.get("sekolah_id");
-
+            if (obj.has("sekolah") && !obj.isNull("sekolah")){
+                JSONObject sekolahObj = (JSONObject) obj.get("sekolah");
+                this.sekolah_id = UUID.fromString(String.valueOf(sekolahObj.get("sekolah_id")));
             }
-            if (obj.has("pengguna_id") && !obj.isNull("pengguna_id")){
-                this.pengguna_id = (UUID) obj.get("pengguna_id");
-
+            if (obj.has("pengguna") && !obj.isNull("pengguna")){
+                JSONObject penggunaObj = (JSONObject) obj.get("pengguna");
+                this.pengguna_id = UUID.fromString(String.valueOf(penggunaObj.get("pengguna_id")));
             }
             if (obj.has("judul") && !obj.isNull("judul")){
                 this.judul = (String) obj.get("judul");
-
             }
             if (obj.has("tgl_pengambilan") && !obj.isNull("tgl_pengambilan")){
                 this.tgl_pengambilan = (Date) obj.get("tgl_pengambilan");
-
             }
             if (obj.has("tinggi_pixel") && !obj.isNull("tinggi_pixel")){
                 this.tinggi_pixel = (Integer) Integer.valueOf(obj.get("tinggi_pixel").toString());
-
             }
             if (obj.has("lebar_pixel") && !obj.isNull("lebar_pixel")){
                 this.lebar_pixel = (Integer) Integer.valueOf(obj.get("lebar_pixel").toString());
-
             }
             if (obj.has("ukuran") && !obj.isNull("ukuran")){
                 this.ukuran = (Integer) Integer.valueOf(obj.get("ukuran").toString());
-
             }
             if (obj.has("lintang") && !obj.isNull("lintang")){
                 this.lintang = (String) obj.get("lintang");
-
             }
             if (obj.has("bujur") && !obj.isNull("bujur")){
                 this.bujur = (String) obj.get("bujur");
-
             }
             if (obj.has("tgl_pengiriman") && !obj.isNull("tgl_pengiriman")){
                 this.tgl_pengiriman = (Date) obj.get("tgl_pengiriman");
-
             }
             if (obj.has("status_data") && !obj.isNull("status_data")){
                 this.status_data = (Integer) Integer.valueOf(obj.get("status_data").toString());
-
             }
         } catch (Exception e) {
             Log.e("Error JSON", "Error parsing JSON");

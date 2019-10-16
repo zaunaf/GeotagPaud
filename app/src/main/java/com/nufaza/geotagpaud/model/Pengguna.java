@@ -340,108 +340,83 @@ public class Pengguna extends BaseModel {
     public void fromJsonObject(JSONObject obj) {
         try {
             if (obj.has("pengguna_id") && !obj.isNull("pengguna_id")){
-                this.pengguna_id = (UUID) obj.get("pengguna_id");
-
+                this.pengguna_id = UUID.fromString(String.valueOf(obj.get("pengguna_id")));
             }
-            if (obj.has("sekolah_id") && !obj.isNull("sekolah_id")){
-                this.sekolah_id = (UUID) obj.get("sekolah_id");
-
+            if (obj.has("sekolah") && !obj.isNull("sekolah")){
+                JSONObject sekolahObj = (JSONObject) obj.get("sekolah");
+                this.sekolah_id = UUID.fromString(String.valueOf(sekolahObj.get("sekolah_id")));
             }
             if (obj.has("username") && !obj.isNull("username")){
                 this.username = (String) obj.get("username");
-
             }
             if (obj.has("password") && !obj.isNull("password")){
                 this.password = (String) obj.get("password");
-
             }
             if (obj.has("nama") && !obj.isNull("nama")){
                 this.nama = (String) obj.get("nama");
-
             }
             if (obj.has("nip_nim") && !obj.isNull("nip_nim")){
                 this.nip_nim = (String) obj.get("nip_nim");
-
             }
             if (obj.has("jabatan_lembaga") && !obj.isNull("jabatan_lembaga")){
                 this.jabatan_lembaga = (String) obj.get("jabatan_lembaga");
-
             }
             if (obj.has("ym") && !obj.isNull("ym")){
                 this.ym = (String) obj.get("ym");
-
             }
             if (obj.has("skype") && !obj.isNull("skype")){
                 this.skype = (String) obj.get("skype");
-
             }
             if (obj.has("alamat") && !obj.isNull("alamat")){
                 this.alamat = (String) obj.get("alamat");
-
             }
             if (obj.has("kode_wilayah") && !obj.isNull("kode_wilayah")){
                 this.kode_wilayah = (String) obj.get("kode_wilayah");
-
             }
             if (obj.has("no_telepon") && !obj.isNull("no_telepon")){
                 this.no_telepon = (String) obj.get("no_telepon");
-
             }
             if (obj.has("no_hp") && !obj.isNull("no_hp")){
                 this.no_hp = (String) obj.get("no_hp");
-
             }
             if (obj.has("aktif") && !obj.isNull("aktif")){
                 this.aktif = (String) obj.get("aktif");
-
             }
             if (obj.has("ptk_id") && !obj.isNull("ptk_id")){
                 this.ptk_id = (String) obj.get("ptk_id");
-
             }
             if (obj.has("peran_id") && !obj.isNull("peran_id")){
                 this.peran_id = (Integer) Integer.valueOf(obj.get("peran_id").toString());
-
             }
             if (obj.has("lembaga_id") && !obj.isNull("lembaga_id")){
                 this.lembaga_id = (String) obj.get("lembaga_id");
-
             }
             if (obj.has("yayasan_id") && !obj.isNull("yayasan_id")){
                 this.yayasan_id = (String) obj.get("yayasan_id");
-
             }
             if (obj.has("la_id") && !obj.isNull("la_id")){
                 this.la_id = (String) obj.get("la_id");
-
             }
             if (obj.has("dudi_id") && !obj.isNull("dudi_id")){
                 this.dudi_id = (String) obj.get("dudi_id");
-
             }
             if (obj.has("create_date") && !obj.isNull("create_date")){
                 this.create_date = (Date) obj.get("create_date");
-
             }
             if (obj.has("roles") && !obj.isNull("roles")){
                 this.roles = (String) obj.get("roles");
-
             }
             if (obj.has("last_update") && !obj.isNull("last_update")){
                 this.last_update = (Date) obj.get("last_update");
-
             }
             if (obj.has("soft_delete") && !obj.isNull("soft_delete")){
                 this.soft_delete = (String) obj.get("soft_delete");
-
             }
             if (obj.has("last_sync") && !obj.isNull("last_sync")){
                 this.last_sync = (Date) obj.get("last_sync");
-
             }
             if (obj.has("updater_id") && !obj.isNull("updater_id")){
                 this.updater_id = (String) obj.get("updater_id");
-
             }
         } catch (Exception e) {
             Log.e("Error JSON", "Error parsing JSON");

@@ -41,10 +41,10 @@
                 android:id="@+id/nav_login"
                 android:icon="@drawable/ic_person_black"
                 android:title="@string/login" />
-            <item
-                android:id="@+id/nav_download"
-                android:icon="@drawable/ic_cloud_download_black"
-                android:title="@string/load_data" />
+<!--            <item-->
+<!--                android:id="@+id/nav_download"-->
+<!--                android:icon="@drawable/ic_cloud_download_black"-->
+<!--                android:title="@string/load_data" />-->
             <item
                 android:id="@+id/nav_upload"
                 android:icon="@drawable/ic_file_upload_black"
