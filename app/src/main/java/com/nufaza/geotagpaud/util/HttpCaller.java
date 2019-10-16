@@ -9,7 +9,6 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.nufaza.geotagpaud.MainActivity;
 import com.nufaza.geotagpaud.R;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
@@ -56,7 +55,7 @@ public class HttpCaller {
      * @param params    passing parameter
      * @param cb        callback
      */
-    public HttpCaller(Context ctx, String method, String route, HashMap<String, String> params, JSONArray jsonArray, final int returnType, final HttpCallback cb, String token) {
+    public HttpCaller(Context ctx, String method, String route, HashMap<String, String> params, JSONObject jsonObject, final int returnType, final HttpCallback cb, String token) {
         context = ctx;
         callback = cb;
 
@@ -84,9 +83,9 @@ public class HttpCaller {
                 // }
                 // RequestBody requestBody = formBodyBuilder.build();
 
-                // JSONArray userPassJson = new JSONArray(params);
-                String out = jsonArray.toString();
-                RequestBody requestBody = RequestBody.create(MEDIA_TYPE_JSON, jsonArray.toString());
+                // JSONObject userPassJson = new JSONObject(params);
+                String out = jsonObject.toString();
+                RequestBody requestBody = RequestBody.create(MEDIA_TYPE_JSON, out);
 
                 // Build request
                 request = new Request.Builder()
@@ -166,7 +165,7 @@ public class HttpCaller {
                             //     throw new Exception(context.getResources().getString(R.string.http_call_failed)  + ": " +  responseJSO.get("message"));
                             // }
 
-                            callback.onSuccess(responseJSO);
+                            callback.onSuccess(responseJSO, response);
 
                             break;
 
@@ -208,7 +207,7 @@ public class HttpCaller {
                             output.close();
                             input.close();
 
-                            callback.onSuccess(outputPath);
+                            callback.onSuccess(outputPath, response);
                             break;
                     }
 
@@ -230,8 +229,8 @@ public class HttpCaller {
 
     }
 
-    public HttpCaller(Context ctx, String method, String route, HashMap<String, String> params, JSONArray jsonArray, final int returnType, final HttpCallback cb) {
-        this(ctx, method, route, params, jsonArray, returnType, cb, null);
+    public HttpCaller(Context ctx, String method, String route, HashMap<String, String> params, JSONObject jsonObject, final int returnType, final HttpCallback cb) {
+        this(ctx, method, route, params, jsonObject, returnType, cb, null);
     }
 
 }

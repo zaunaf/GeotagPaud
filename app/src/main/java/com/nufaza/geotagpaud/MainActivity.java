@@ -64,6 +64,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+import okhttp3.Response;
 
 import android.view.Menu;
 import android.widget.EditText;
@@ -219,12 +220,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.nav_upload:
-                DataTransportManager.sendData(this);
+                DataTransportManager.sendData(MainActivity.this);
                 break;
 
             case R.id.nav_help:
 
-                String url = "http://geotagpaud.nufaza.com/faq";
+                String url = "https://geotag.paud.nufaza.com/help";
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);
@@ -283,7 +284,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             HttpCaller.RETURN_TYPE_JSON,
             new HttpCallback() {
                 @Override
-                public void onSuccess(JSONObject responseJSO) {
+                public void onSuccess(JSONObject responseJSO, Response response) {
 
                     try {
 
@@ -295,11 +296,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         String name = responseJSO.getString("nama");
                         setPreference(SPKEY_NAME, name);
 
-                        String penggunaId = responseJSO.getString("id");
+                        String penggunaId = responseJSO.getString("pengguna_id");
                         setPreference(SPKEY_PENGGUNA_ID, penggunaId);
 
                         JSONObject sekolahObj = responseJSO.getJSONObject("sekolah");
-                        String sekolahId = sekolahObj.getString("id");
+                        String sekolahId = sekolahObj.getString("sekolah_id");
                         setPreference(SPKEY_SEKOLAH_ID, sekolahId);
 
 
@@ -320,6 +321,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                         // Snackbar.make(mainView, "Login gagal", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                         // e.printStackTrace();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                // Refresh Menu and Identity
+                                toggleLogin();
+                                homeFragment.updateView();
+                            }
+                        });
                     }
 
                 }
@@ -336,9 +345,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         try {
 
-            penggunaId = UUID.fromString(responseJSO.getString("id"));
+            penggunaId = UUID.fromString(responseJSO.getString("pengguna_id"));
             JSONObject sekolahObj = responseJSO.getJSONObject("sekolah");
-            sekolahId = UUID.fromString(sekolahObj.getString("id"));
+            sekolahId = UUID.fromString(sekolahObj.getString("sekolah_id"));
 
             // Cek pengguna di lokal, if not exists then save
             pengguna = SQLite.select().from(Pengguna.class).where(Pengguna_Table.pengguna_id.eq(penggunaId)).querySingle();
@@ -537,8 +546,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 params.put("password", passwordStr);
 
                 JSONObject jsonObject = new JSONObject(params);
-                JSONArray jsonArray = new JSONArray();
-                jsonArray.put(jsonObject);
 
                 String token = getPreference(SPKEY_TOKEN);
 
@@ -548,11 +555,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         HttpCaller.POST,
                         "/api/login_check",
                         null,
-                        jsonArray,
+                        jsonObject,
                         HttpCaller.RETURN_TYPE_JSON,
                         new HttpCallback() {
                             @Override
-                            public void onSuccess(JSONObject responseJSO) {
+                            public void onSuccess(JSONObject responseJSO, Response response) {
 
                                 try {
 

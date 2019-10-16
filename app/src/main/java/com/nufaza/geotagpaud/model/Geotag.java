@@ -168,48 +168,40 @@ public class Geotag extends BaseModel {
     public void fromJsonObject(JSONObject obj) {
         try {
             if (obj.has("geotag_id") && !obj.isNull("geotag_id")){
-                this.geotag_id = (UUID) obj.get("geotag_id");
-
+                this.geotag_id = UUID.fromString(String.valueOf(obj.get("geotag_id")));
             }
-            if (obj.has("sekolah_id") && !obj.isNull("sekolah_id")){
-                this.sekolah_id = (UUID) obj.get("sekolah_id");
-
+            if (obj.has("sekolah") && !obj.isNull("sekolah")){
+                JSONObject sekolahObj = (JSONObject) obj.get("sekolah");
+                this.sekolah_id = UUID.fromString(String.valueOf(sekolahObj.get("sekolah_id")));
             }
-            if (obj.has("status_geotag_id") && !obj.isNull("status_geotag_id")){
-                this.status_geotag_id = (Integer) Integer.valueOf(obj.get("status_geotag_id").toString());
-
+            if (obj.has("status_geotag") && !obj.isNull("status_geotag")){
+                JSONObject status_geotagObj = (JSONObject) obj.get("status_geotag");
+                this.status_geotag_id = (Integer) status_geotagObj.get("status_geotag_id");
             }
-            if (obj.has("pengguna_id") && !obj.isNull("pengguna_id")){
-                this.pengguna_id = (UUID) obj.get("pengguna_id");
-
+            if (obj.has("pengguna") && !obj.isNull("pengguna")){
+                JSONObject penggunaObj = (JSONObject) obj.get("pengguna");
+                this.pengguna_id = UUID.fromString(String.valueOf(penggunaObj.get("pengguna_id")));
             }
             if (obj.has("tgl_pengambilan") && !obj.isNull("tgl_pengambilan")){
                 this.tgl_pengambilan = (Date) obj.get("tgl_pengambilan");
-
             }
             if (obj.has("lintang") && !obj.isNull("lintang")){
                 this.lintang = (String) obj.get("lintang");
-
             }
             if (obj.has("bujur") && !obj.isNull("bujur")){
                 this.bujur = (String) obj.get("bujur");
-
             }
             if (obj.has("petugas_link") && !obj.isNull("petugas_link")){
                 this.petugas_link = (String) obj.get("petugas_link");
-
             }
             if (obj.has("sekolah_link") && !obj.isNull("sekolah_link")){
                 this.sekolah_link = (String) obj.get("sekolah_link");
-
             }
             if (obj.has("tgl_pengiriman") && !obj.isNull("tgl_pengiriman")){
                 this.tgl_pengiriman = (Date) obj.get("tgl_pengiriman");
-
             }
             if (obj.has("status_data") && !obj.isNull("status_data")){
                 this.status_data = (Integer) Integer.valueOf(obj.get("status_data").toString());
-
             }
         } catch (Exception e) {
             Log.e("Error JSON", "Error parsing JSON");
@@ -220,9 +212,9 @@ public class Geotag extends BaseModel {
         JSONObject obj = new JSONObject();
         try {
             obj.put("geotag_id", geotag_id);
-            obj.put("sekolah_id", sekolah_id);
-            obj.put("status_geotag_id", status_geotag_id);
-            obj.put("pengguna_id", pengguna_id);
+            obj.put("sekolah", sekolah_id);
+            obj.put("status_geotag", status_geotag_id);
+            obj.put("pengguna", pengguna_id);
             obj.put("tgl_pengambilan", tgl_pengambilan);
             obj.put("lintang", lintang);
             obj.put("bujur", bujur);

@@ -49,11 +49,9 @@ public class StatusGeotag extends BaseModel {
         try {
             if (obj.has("status_geotag_id") && !obj.isNull("status_geotag_id")){
                 this.status_geotag_id = (Integer) Integer.valueOf(obj.get("status_geotag_id").toString());
-
             }
             if (obj.has("nama_status_geotag") && !obj.isNull("nama_status_geotag")){
                 this.nama_status_geotag = (String) obj.get("nama_status_geotag");
-
             }
         } catch (Exception e) {
             Log.e("Error JSON", "Error parsing JSON");
