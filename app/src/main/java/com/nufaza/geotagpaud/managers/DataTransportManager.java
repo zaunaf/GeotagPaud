@@ -30,7 +30,7 @@ import okhttp3.Response;
 
 public class DataTransportManager {
 
-    public static void sendData(final MainActivity context){
+    public static void sendData(final MainActivity context) {
 
         final List<Geotag> geotags = SQLite.select().from(Geotag.class).where(Geotag_Table.status_data.lessThanOrEq(1)).queryList();
 
@@ -74,7 +74,52 @@ public class DataTransportManager {
                 }
             });
         }
+    }
 
+    public static void sendDataFoto(final MainActivity context) {
+
+        final List<Foto> fotos = SQLite.select().from(Foto.class).where(Foto_Table.status_data.eq(1)).queryList();
+
+        if (fotos.size() > 0) {
+            for (int i = 0; i < fotos.size(); i++) {
+                final Foto foto = fotos.get(i);
+                JSONObject jsonObject = foto.getJSONObject();
+
+                HttpCaller hc = new HttpCaller(
+                        context,
+                        HttpCaller.POST,
+                        "/api/fotos",
+                        null,
+                        jsonObject,
+                        HttpCaller.RETURN_TYPE_JSON,
+                        new HttpCallback() {
+                            @Override
+                            public void onSuccess(JSONObject responseJSO, Response response) {
+                                // System.out.println(responseJSO.toString());
+
+                                if (response.code() == 201) {
+
+                                    foto.setStatusData(2);
+                                    foto.save();
+                                    context.runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(context.getApplicationContext(), "Foto ID:" + foto.getFotoId() + " terkirim..", Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+                                }
+                            }
+                        });
+
+            }
+        } else {
+            context.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(context.getApplicationContext(), "Data Foto sudah terkirim..", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
     }
 
     public static void sendFotos(final MainActivity context){

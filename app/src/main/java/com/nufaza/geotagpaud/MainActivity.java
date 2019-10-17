@@ -12,6 +12,7 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -23,12 +24,14 @@ import com.google.android.material.snackbar.Snackbar;
 
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.method.PasswordTransformationMethod;
 import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.content.FileProvider;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -51,6 +54,8 @@ import com.nufaza.geotagpaud.model.Pengguna_Table;
 import com.nufaza.geotagpaud.model.Sekolah;
 import com.nufaza.geotagpaud.model.Sekolah_Table;
 import com.nufaza.geotagpaud.ui.data.DataFragment;
+import com.nufaza.geotagpaud.ui.data.ListAdapter;
+import com.nufaza.geotagpaud.ui.data.WebScrapResult;
 import com.nufaza.geotagpaud.ui.gallery.GalleryFragment;
 import com.nufaza.geotagpaud.ui.geotag.GeotagFragment;
 import com.nufaza.geotagpaud.ui.home.HomeFragment;
@@ -70,11 +75,13 @@ import android.view.Menu;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -97,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static final String SPKEY_PENGGUNA_ID = "SPKEY_PENGGUNA_ID";
     public static final String SPKEY_SEKOLAH_ID = "SPKEY_SEKOLAH_ID";
     public static final String SPKEY_TOKEN = "SPKEY_TOKEN";
+    public static final String STOREDATA ="STOREDATA";
 
     public HomeFragment homeFragment;
     public DataFragment dataFragment;
@@ -105,7 +113,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private SharedPreferences sharedPreferences;
 
-    //
+    //Buat SharedPreferences untuk nyimpen Data TK
+    private SharedPreferences dataTKPref;
+
     private String thumbnailPath;
     private String sekolahId;
 
@@ -168,6 +178,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // Shared Preferences
         sharedPreferences = getSharedPreferences(SPKEY_SESSION, Context.MODE_PRIVATE);
+        dataTKPref = getSharedPreferences("TK_PREF",Context.MODE_PRIVATE);
 
         // Toggle login menu
         toggleLogin();
@@ -200,6 +211,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        final Typeface faceMed = ResourcesCompat.getFont(this, R.font.quicksand_semibold);
+        final Typeface face = ResourcesCompat.getFont(this, R.font.quicksand_regular);
 
         int id = item.getItemId();
 
@@ -217,6 +230,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             case R.id.nav_upload:
                 DataTransportManager.sendData(MainActivity.this);
+                DataTransportManager.sendDataFoto(MainActivity.this);
                 break;
 
             case R.id.nav_help:
@@ -252,7 +266,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         .positiveText("OK")
                         .icon(getResources().getDrawable(R.mipmap.ic_launcher))
                         .autoDismiss(true)
-                        .show();
+                            .typeface(faceMed,face)
+                            .show();
 
                 }
                 catch (Exception e)
@@ -391,14 +406,46 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         editor.apply();
     }
 
+    //Buat Bikin Preference tipe data String disimpen ke Preference TK
+    public void setTKPreference (String key, String value){
+        SharedPreferences.Editor editor = dataTKPref.edit();
+        editor.putString(key, value);
+        editor.apply();
+    }
+
+    //Buat Bikin Preference tipe data Integer disimpen ke Preference TK
+    public void setIntegerTKPreference (String key, int value){
+        SharedPreferences.Editor editor =  dataTKPref.edit();
+        editor.putInt(key,value);
+        editor.apply();
+    }
+
     public String getPreference (String key){
         return sharedPreferences.getString(key, "");
     }
+
+    //Buat Ambil Preference tipe data Integer dari Preference TK
+    public int getIntegerTKPreference (String key){
+        return dataTKPref.getInt(key, 0);
+    }
+
+    //Buat Ambil Preference tipe data String dari Preference TK
+    public String getTKPreference (String key){
+        return dataTKPref.getString(key, "");
+    }
+
 
     public void logout() {
         setPreference(SPKEY_TOKEN, "");
         setPreference(SPKEY_PENGGUNA_ID, "");
         setPreference(SPKEY_SEKOLAH_ID, "");
+
+        //Ngehapus lagi Preference Data TK pas Logout
+        // BUG : Data baru hilang di DataFragment ketika keluar Aplikasi
+        SharedPreferences.Editor editor = dataTKPref.edit();
+        editor.clear();
+        editor.apply();
+
         Snackbar.make(mainView, "Anda telah logout.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
         toggleLogin();
         homeFragment.updateView();
@@ -409,6 +456,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String token = getPreference(SPKEY_TOKEN);
         return !token.equals("");
     }
+
 
     /**
      * Toggle login by cheking token
@@ -506,8 +554,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // }
 
     }
-    
+
     public void loginDialog(){
+        Typeface faceMed = ResourcesCompat.getFont(this, R.font.quicksand_semibold);
+        Typeface face = ResourcesCompat.getFont(this, R.font.quicksand_regular);
         final MaterialDialog loginDialog = new MaterialDialog.Builder(this)
                 .title("Login")
                 .customView(R.layout.form_login, true)
@@ -515,12 +565,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .cancelable(false)
                 .canceledOnTouchOutside(false)
                 .icon(getResources().getDrawable(R.mipmap.ic_launcher))
+                .typeface(faceMed,face)
                 .autoDismiss(true)
                 .show();
 
         View loginForm = loginDialog.getCustomView();
         EditText usernameField = loginForm.findViewById(R.id.username);
         EditText passwordField = loginForm.findViewById(R.id.password);
+        passwordField.setTypeface(face);
+        passwordField.setTransformationMethod(new PasswordTransformationMethod());
+
         usernameField.setText(getPreference(SPKEY_USERNAME));
         passwordField.setText(getPreference(SPKEY_PASSWORD));
 
@@ -541,6 +595,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 // Save to session
                 setPreference(SPKEY_USERNAME, usernameStr);
                 setPreference(SPKEY_PASSWORD, passwordStr);
+
+                //Buat set Limit Loop di Data Fragment
+                setIntegerTKPreference("DATALIMIT",0);
+
+                //Buat cek apakah User udah ambil data dari Web
+                setTKPreference(STOREDATA,"belum");
 
                 // Close loginDialog
                 loginDialog.dismiss();
@@ -642,6 +702,5 @@ class ViewPagerAdapter extends FragmentPagerAdapter {
 
         return output;
     }
-
-
+    
 }

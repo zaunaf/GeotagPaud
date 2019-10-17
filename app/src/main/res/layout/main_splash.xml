@@ -18,7 +18,8 @@
             android:layout_width="300dp"
             android:layout_height="300dp"
             android:src="@drawable/dapodik_pauddikmas_logo" />
-        <!--        <ImageView-->
+
+<!--        <ImageView-->
 <!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="match_parent"-->
 <!--            android:src="@drawable/text"/>-->

@@ -2,6 +2,7 @@ package com.nufaza.geotagpaud.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.widget.Toast;
 
@@ -22,6 +23,8 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -127,6 +130,10 @@ public class HttpCaller {
 
 
         okhClient.newCall(request).enqueue(new Callback() {
+
+            final Typeface faceMed = ResourcesCompat.getFont(context, R.font.quicksand_semibold);
+            final Typeface face = ResourcesCompat.getFont(context, R.font.quicksand_regular);
+
             @Override
             public void onFailure(Call call, IOException e) {
 
@@ -142,6 +149,7 @@ public class HttpCaller {
                                 .content("Error: " + error.getMessage())
                                 .positiveText("OK")
                                 .autoDismiss(true)
+                                .typeface(faceMed,face)
                                 .show();
                     }
                 });
