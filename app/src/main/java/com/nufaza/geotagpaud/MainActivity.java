@@ -217,6 +217,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             case R.id.nav_upload:
                 DataTransportManager.sendData(MainActivity.this);
+                DataTransportManager.sendDataFoto(MainActivity.this);
                 break;
 
             case R.id.nav_help:
