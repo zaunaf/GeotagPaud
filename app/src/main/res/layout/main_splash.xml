@@ -17,11 +17,11 @@
         <ImageView
             android:layout_width="300dp"
             android:layout_height="300dp"
-            android:src="@drawable/geotag_logo"/>
+            android:src="@drawable/logo"/>
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/text"/>
+            android:src="@drawable/abc_vector_test"/>
 
     </LinearLayout>
 

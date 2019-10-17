@@ -51,6 +51,8 @@ import com.nufaza.geotagpaud.model.Pengguna_Table;
 import com.nufaza.geotagpaud.model.Sekolah;
 import com.nufaza.geotagpaud.model.Sekolah_Table;
 import com.nufaza.geotagpaud.ui.data.DataFragment;
+import com.nufaza.geotagpaud.ui.data.ListAdapter;
+import com.nufaza.geotagpaud.ui.data.WebScrapResult;
 import com.nufaza.geotagpaud.ui.gallery.GalleryFragment;
 import com.nufaza.geotagpaud.ui.geotag.GeotagFragment;
 import com.nufaza.geotagpaud.ui.home.HomeFragment;
@@ -70,6 +72,7 @@ import android.view.Menu;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -97,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static final String SPKEY_PENGGUNA_ID = "SPKEY_PENGGUNA_ID";
     public static final String SPKEY_SEKOLAH_ID = "SPKEY_SEKOLAH_ID";
     public static final String SPKEY_TOKEN = "SPKEY_TOKEN";
+    public static final String STOREDATA ="STOREDATA";
 
     public HomeFragment homeFragment;
     public DataFragment dataFragment;
@@ -105,7 +109,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private SharedPreferences sharedPreferences;
 
-    //
+    //Buat SharedPreferences untuk nyimpen Data TK
+    private SharedPreferences dataTKPref;
+
     private String thumbnailPath;
     private String sekolahId;
 
@@ -168,6 +174,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // Shared Preferences
         sharedPreferences = getSharedPreferences(SPKEY_SESSION, Context.MODE_PRIVATE);
+        dataTKPref = getSharedPreferences("TK_PREF",Context.MODE_PRIVATE);
 
         // Toggle login menu
         toggleLogin();
@@ -391,14 +398,46 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         editor.apply();
     }
 
+    //Buat Bikin Preference tipe data String disimpen ke Preference TK
+    public void setTKPreference (String key, String value){
+        SharedPreferences.Editor editor = dataTKPref.edit();
+        editor.putString(key, value);
+        editor.apply();
+    }
+
+    //Buat Bikin Preference tipe data Integer disimpen ke Preference TK
+    public void setIntegerTKPreference (String key, int value){
+        SharedPreferences.Editor editor =  dataTKPref.edit();
+        editor.putInt(key,value);
+        editor.apply();
+    }
+
     public String getPreference (String key){
         return sharedPreferences.getString(key, "");
     }
+
+    //Buat Ambil Preference tipe data Integer dari Preference TK
+    public int getIntegerTKPreference (String key){
+        return dataTKPref.getInt(key, 0);
+    }
+
+    //Buat Ambil Preference tipe data String dari Preference TK
+    public String getTKPreference (String key){
+        return dataTKPref.getString(key, "");
+    }
+
 
     public void logout() {
         setPreference(SPKEY_TOKEN, "");
         setPreference(SPKEY_PENGGUNA_ID, "");
         setPreference(SPKEY_SEKOLAH_ID, "");
+
+        //Ngehapus lagi Preference Data TK pas Logout
+        // BUG : Data baru hilang di DataFragment ketika keluar Aplikasi
+        SharedPreferences.Editor editor = dataTKPref.edit();
+        editor.clear();
+        editor.apply();
+
         Snackbar.make(mainView, "Anda telah logout.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
         toggleLogin();
         homeFragment.updateView();
@@ -409,6 +448,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String token = getPreference(SPKEY_TOKEN);
         return !token.equals("");
     }
+
 
     /**
      * Toggle login by cheking token
@@ -506,7 +546,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // }
 
     }
-    
+
     public void loginDialog(){
         final MaterialDialog loginDialog = new MaterialDialog.Builder(this)
                 .title("Login")
@@ -541,6 +581,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 // Save to session
                 setPreference(SPKEY_USERNAME, usernameStr);
                 setPreference(SPKEY_PASSWORD, passwordStr);
+
+                //Buat set Limit Loop di Data Fragment
+                setIntegerTKPreference("DATALIMIT",0);
+
+                //Buat cek apakah User udah ambil data dari Web
+                setTKPreference(STOREDATA,"belum");
 
                 // Close loginDialog
                 loginDialog.dismiss();
@@ -642,6 +688,5 @@ class ViewPagerAdapter extends FragmentPagerAdapter {
 
         return output;
     }
-
-
+    
 }
