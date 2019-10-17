@@ -12,6 +12,7 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -23,12 +24,14 @@ import com.google.android.material.snackbar.Snackbar;
 
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.method.PasswordTransformationMethod;
 import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.content.FileProvider;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -75,6 +78,7 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -200,6 +204,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        final Typeface faceMed = ResourcesCompat.getFont(this, R.font.quicksand_semibold);
+        final Typeface face = ResourcesCompat.getFont(this, R.font.quicksand_regular);
 
         int id = item.getItemId();
 
@@ -252,7 +258,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         .positiveText("OK")
                         .icon(getResources().getDrawable(R.mipmap.ic_launcher))
                         .autoDismiss(true)
-                        .show();
+                            .typeface(faceMed,face)
+                            .show();
 
                 }
                 catch (Exception e)
@@ -508,6 +515,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
     
     public void loginDialog(){
+        Typeface faceMed = ResourcesCompat.getFont(this, R.font.quicksand_semibold);
+        Typeface face = ResourcesCompat.getFont(this, R.font.quicksand_regular);
         final MaterialDialog loginDialog = new MaterialDialog.Builder(this)
                 .title("Login")
                 .customView(R.layout.form_login, true)
@@ -515,12 +524,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .cancelable(false)
                 .canceledOnTouchOutside(false)
                 .icon(getResources().getDrawable(R.mipmap.ic_launcher))
+                .typeface(faceMed,face)
                 .autoDismiss(true)
                 .show();
 
         View loginForm = loginDialog.getCustomView();
         EditText usernameField = loginForm.findViewById(R.id.username);
         EditText passwordField = loginForm.findViewById(R.id.password);
+        passwordField.setTypeface(face);
+        passwordField.setTransformationMethod(new PasswordTransformationMethod());
+
         usernameField.setText(getPreference(SPKEY_USERNAME));
         passwordField.setText(getPreference(SPKEY_PASSWORD));
 

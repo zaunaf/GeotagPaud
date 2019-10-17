@@ -1,11 +1,13 @@
 package com.nufaza.geotagpaud.ui.gallery;
 
+import android.content.Context;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.media.ExifInterface;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
@@ -33,6 +35,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -58,6 +61,8 @@ import com.nufaza.geotagpaud.model.JenisFoto;
 import com.nufaza.geotagpaud.model.JenisFoto_Table;
 import com.nufaza.geotagpaud.util.PermissionUtils;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
+
+import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -112,8 +117,6 @@ public class GalleryFragment extends Fragment {
     private boolean mStoragePermissionDenied = false;
     private boolean mCameraPermissionDenied = false;
     private Integer jenisFotoId;
-
-
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -209,6 +212,10 @@ public class GalleryFragment extends Fragment {
 
         // Here, thisActivity is the current activity
         // Check write permission
+
+        final Typeface faceMed = ResourcesCompat.getFont(mainActivity, R.font.quicksand_semibold);
+        final Typeface face = ResourcesCompat.getFont(mainActivity, R.font.quicksand_regular);
+
         if (ContextCompat.checkSelfPermission(mainActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             PermissionUtils.requestPermission(mainActivity, WRITE_EXTERNAL_STORAGE_REQUEST_CODE, Manifest.permission.WRITE_EXTERNAL_STORAGE, true);
         }
@@ -221,13 +228,13 @@ public class GalleryFragment extends Fragment {
 
             @Override
             public void onClick(View view) {
-
                 final MaterialDialog fotoDialog = new MaterialDialog.Builder(mainActivity)
                         .title("Menyimpan Lokasi")
                         .customView(R.layout.form_foto, true)
                         .positiveText("Ambil Foto")
                         .negativeText("Batal")
                         .autoDismiss(true)
+                        .typeface(faceMed,face)
                         .show();
 
                 View dialogView = fotoDialog.getCustomView();
@@ -239,7 +246,8 @@ public class GalleryFragment extends Fragment {
                 inputJenisFotoId.setAdapter(jenisFotoDataAdapter);
 
                 // Persiapan EditText
-                final EditText inputNamaObyek = view.findViewById(R.id.nama_obyek);
+                final EditText inputNamaObyek = dialogView.findViewById(R.id.nama_obyek);
+                inputNamaObyek.setTypeface(face);
 
                 fotoDialog.getActionButton(DialogAction.POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -256,6 +264,10 @@ public class GalleryFragment extends Fragment {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        final Typeface faceMed = ResourcesCompat.getFont(mainActivity, R.font.quicksand_semibold);
+        final Typeface face = ResourcesCompat.getFont(mainActivity, R.font.quicksand_regular);
+
         switch (requestCode) {
             case CAMERA_REQUEST_CODE:
                 if (PermissionUtils.isPermissionGranted(permissions, grantResults,
@@ -266,6 +278,7 @@ public class GalleryFragment extends Fragment {
                             .content("Aplikasi tidak diperbolehkan mengambil gambar.")
                             .positiveText("OK")
                             .autoDismiss(true)
+                            .typeface(faceMed,face)
                             .show();
 
                     // Display the missing permission error dialog when the fragments resume.
@@ -281,6 +294,7 @@ public class GalleryFragment extends Fragment {
                             .content("Aplikasi tidak diperbolehkan menulis ke storage.")
                             .positiveText("OK")
                             .autoDismiss(true)
+                            .typeface(faceMed,face)
                             .show();
                     // Display the missing permission error dialog when the fragments resume.
                     mStoragePermissionDenied = true;
@@ -853,6 +867,9 @@ public class GalleryFragment extends Fragment {
 
     public void openViewImageIntent(final Foto currentFoto) {
 
+        final Typeface faceMed = ResourcesCompat.getFont(mainActivity, R.font.quicksand_semibold);
+        final Typeface face = ResourcesCompat.getFont(mainActivity, R.font.quicksand_regular);
+
         String fotoUri = listFotoObyek.get(currentFoto.getFotoId().toString());
 
 //         Intent imageViewIntent = new Intent(Intent.ACTION_VIEW);
@@ -869,6 +886,7 @@ public class GalleryFragment extends Fragment {
                 .neutralText("Delete")
                 .negativeText("Retake")
                 .autoDismiss(true)
+                .typeface(faceMed,face)
                 .show();
 
         View dialogView = fotoDialog.getCustomView();
