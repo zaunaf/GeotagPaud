@@ -87,4 +87,9 @@ dependencies {
 
     // Fresco
     implementation 'com.facebook.fresco:fresco:2.0.0'
+
+    // Add Upload services
+    def uploadServiceVersion = "3.5.2"
+    implementation "net.gotev:uploadservice:$uploadServiceVersion"
+    implementation "net.gotev:uploadservice-okhttp:$uploadServiceVersion"
 }

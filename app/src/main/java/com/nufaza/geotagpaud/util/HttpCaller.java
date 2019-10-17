@@ -67,7 +67,9 @@ public class HttpCaller {
         okhClient = b.build();
 
         // Build the URL from the route and the params
-        String url = context.getResources().getString(R.string.server_base_url) + route;
+        String url = ctx.getResources().getString(R.string.server_base_url) + route;
+        // String url = context.getResources().getString(R.string.server_base_url) + route;
+
         Request request = null;
 
         switch (method) {

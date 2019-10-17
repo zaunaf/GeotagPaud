@@ -7,6 +7,9 @@ import com.raizlabs.android.dbflow.config.DatabaseConfig;
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
 
+import net.gotev.uploadservice.UploadService;
+import net.gotev.uploadservice.okhttp.OkHttpStack;
+
 public class App extends Application {
 
     @Override
@@ -25,7 +28,9 @@ public class App extends Application {
         // Start fresco
         Fresco.initialize(this);
 
-
+        // Start Gotev Multipart
+        UploadService.NAMESPACE = BuildConfig.APPLICATION_ID;
+        // UploadService.HTTP_STACK = new OkHttpStack();
     }
 
 }
