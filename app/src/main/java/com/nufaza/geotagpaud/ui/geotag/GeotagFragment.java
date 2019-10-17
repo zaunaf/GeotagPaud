@@ -2,6 +2,7 @@ package com.nufaza.geotagpaud.ui.geotag;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -19,6 +20,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -132,12 +134,16 @@ public class GeotagFragment extends Fragment
                     pernahStr = "Geotagging sudah pernah dilakukan. ";
                 }
 
+                final Typeface faceMed = ResourcesCompat.getFont(mainActivity, R.font.quicksand_semibold);
+                final Typeface face = ResourcesCompat.getFont(mainActivity, R.font.quicksand_regular);
+
                 final MaterialDialog loginDialog = new MaterialDialog.Builder(mainActivity)
                         .title("Menyimpan Lokasi")
                         .content(pernahStr + pilihStr)
                         .positiveText("Baru/Koreksi")
                         .neutralText("Pindah Posisi")
                         .negativeText("Batal")
+                        .typeface(faceMed, face)
                         .autoDismiss(true)
                         .show();
 

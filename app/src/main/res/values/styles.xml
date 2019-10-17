@@ -1,11 +1,38 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/quicksand_regular</item>
+        <item name="android:typeface">monospace</item>
+    </style>
+
+    <style name="Theme.Geotag.Dialog" parent="@style/Theme.MaterialComponents.Light.Dialog">
+        <item name="android:textViewStyle">@style/Widget.Geotag.TextView</item>
+    </style>
+
+    <style name="Widget.Geotag.TextView" parent="@android:style/Widget.Material.TextView">
+        <item name="android:textAppearance">@style/TextAppearance.Geotag.Body</item>
+        <item name="android:lineSpacingMultiplier">1.5</item>
+    </style>
+
+    <style name="TextAppearance.Geotag.Body" parent="@style/TextAppearance.AppCompat.Body1">
+        <item name="android:textColor">?android:textColorSecondary</item>
+    </style>
+
+    <style name="TextAppearance.Geotag.DialogTitle" parent="@style/TextAppearance.AppCompat.Title">
+        <item name="android:fontFamily">@font/quicksand_bold</item>
+    </style>
+
+    <style name="TextAppearance.Geotag.DialogContent" parent="@style/TextAppearance.AppCompat.Body1">
+        <item name="android:fontFamily">@font/quicksand_regular</item>
+    </style>
+
+    <style name="Widget.Geotag.BorderlessButton" parent="@style/Widget.MaterialComponents.Button.TextButton">
+        <item name="android:fontFamily">@font/quicksand_semibold</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -45,7 +72,7 @@
         <item name="android:disabledAlpha">1.0</item>
     </style>
 
-    <style name="QuicksandTextFontReg">
+    <style name="QuicksandTextFontReg" parent="@style/Theme.MaterialComponents.Dialog.Alert">
         <item name="android:fontFamily">@font/quicksand_regular</item>
     </style>
 

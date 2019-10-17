@@ -24,7 +24,7 @@
 
     <EditText
         android:fontFamily="@font/quicksand_regular"
-        android:inputType="textPassword"
+        android:inputType="text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/password"
