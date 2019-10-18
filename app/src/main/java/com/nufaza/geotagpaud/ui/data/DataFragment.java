@@ -134,7 +134,8 @@ public class DataFragment extends Fragment {
                                     agregat = isiData.text();
 
                                     //webScrapResults.add(new WebScrapResult(0,(j+1) + "  " + nama,agregat));
-                                    webSrapArray.add((j+1) + "  " + nama);
+                                    // webSrapArray.add((j+1) + "  " + nama);
+                                    webSrapArray.add(nama);
                                     webSrapArray.add(agregat);
 
                                 }

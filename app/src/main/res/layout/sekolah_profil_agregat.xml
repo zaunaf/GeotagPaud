@@ -1,25 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <!--    <LinearLayout-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="50dp"-->
-    <!--        android:gravity="center_vertical"-->
-    <!--        android:paddingLeft="20dp">-->
-
-    <!--        <TextView-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:textAppearance="?android:attr/textAppearanceMedium"-->
-    <!--            android:textColor="@color/colorPrimaryDark"-->
-    <!--            android:text="Profil" />-->
-
-    <!--    </LinearLayout>-->
-
-    <!--    <View style="@style/FullDivider"/>-->
+    android:orientation="vertical"
+    android:id="@+id/scroll">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -441,4 +425,4 @@
 
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>

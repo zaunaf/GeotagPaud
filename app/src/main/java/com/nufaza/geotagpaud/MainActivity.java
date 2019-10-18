@@ -70,6 +70,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import okhttp3.Response;
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import android.view.Menu;
 import android.widget.EditText;
@@ -186,6 +188,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (!checkLogin()){
             loginDialog();
         }
+
+        // Callighrapy
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("font/quicksand_regular.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     @Override

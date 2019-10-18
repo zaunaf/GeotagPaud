@@ -96,4 +96,7 @@ dependencies {
     def uploadServiceVersion = "3.5.2"
     implementation "net.gotev:uploadservice:$uploadServiceVersion"
     implementation "net.gotev:uploadservice-okhttp:$uploadServiceVersion"
+
+    // Fonts
+    implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
 }
