@@ -43,6 +43,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.nufaza.geotagpaud.managers.DataScrappingManager;
 import com.nufaza.geotagpaud.managers.DataTransportManager;
 import com.nufaza.geotagpaud.model.Foto;
 import com.nufaza.geotagpaud.model.Foto_Table;
@@ -127,6 +128,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static final String EXTERNAL_IMAGE_FOLDER = "images";
     public static final String JSON_FOLDER = "json";
 
+    public DataScrappingManager dataScrappingManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -195,6 +198,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
+
+        // Scrap manager
+        dataScrappingManager = new DataScrappingManager(MainActivity.this);
     }
 
     @Override
@@ -331,6 +337,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                         // Save intial data to database
                         saveInitialData(responseJSO);
+
+                        // Load scraping data
+                        dataScrappingManager.flushScrapResults();
+                        dataScrappingManager.executeScrap();
 
                         runOnUiThread(new Runnable() {
                             @Override

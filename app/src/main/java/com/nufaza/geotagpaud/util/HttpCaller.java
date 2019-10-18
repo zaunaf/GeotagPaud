@@ -115,16 +115,16 @@ public class HttpCaller {
                 String okhUrl = okhUri.toString();
 
                 // Build request
-                if (token != null) {
-                    request = new Request.Builder()
-                            .addHeader("Authorization: Bearer ", token)
-                            .url(okhUrl)
-                            .build();
-                } else {
-                    request = new Request.Builder()
-                            .url(okhUrl)
-                            .build();
-                }
+                // if (token != null) {
+                //     request = new Request.Builder()
+                //             .addHeader("Authorization: Bearer ", token)
+                //             .url(okhUrl)
+                //             .build();
+                // } else {
+                request = new Request.Builder()
+                        .url(okhUrl)
+                        .build();
+                // }
                 break;
         }
 

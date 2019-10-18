@@ -7,21 +7,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+
     <ListView
-        android:divider="@null"
+        android:id="@+id/listview_foto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/listview_foto"
-        android:choiceMode="singleChoice"
-        android:listSelector="#dddddd"
-        android:layout_marginTop="5dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="5dp"
-        tools:listitem="@layout/gallery_item"
+        android:choiceMode="singleChoice"
+        android:divider="@null"
+        android:listSelector="#dddddd"
+        app:layout_anchor="@+id/emptyState"
+        app:layout_anchorGravity="center"
         tools:itemCount="15"
-        >
-<!--        tools:listitem="@layout/gallery_item"-->
+        tools:listitem="@layout/gallery_item">
+        <!--        tools:listitem="@layout/gallery_item"-->
     </ListView>
 
     <RelativeLayout
@@ -38,13 +40,13 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_gravity="center_horizontal"
                 android:layout_width="300dp"
-                android:layout_height="300dp"
-                android:src="@drawable/empty_playground_med"/>
+                android:layout_height="247dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/empty_playground_med" />
 
             <TextView
-                android:textSize="28dp"
+                android:textSize="24dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -52,7 +54,7 @@
                 android:text="Galeri Kosong"/>
 
             <TextView
-                android:textSize="20dp"
+                android:textSize="18dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
