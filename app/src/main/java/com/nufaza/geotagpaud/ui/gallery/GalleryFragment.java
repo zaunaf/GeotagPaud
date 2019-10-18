@@ -114,6 +114,9 @@ public class GalleryFragment extends Fragment {
     private String imagesPath;
     private String jsonPath;
 
+    //
+    EditText judulFoto;
+
     private boolean mStoragePermissionDenied = false;
     private boolean mCameraPermissionDenied = false;
     private Integer jenisFotoId;
@@ -246,8 +249,8 @@ public class GalleryFragment extends Fragment {
                 inputJenisFotoId.setAdapter(jenisFotoDataAdapter);
 
                 // Persiapan EditText
-                final EditText inputNamaObyek = dialogView.findViewById(R.id.nama_obyek);
-                inputNamaObyek.setTypeface(face);
+                judulFoto = dialogView.findViewById(R.id.nama_obyek);
+                judulFoto.setTypeface(face);
 
                 fotoDialog.getActionButton(DialogAction.POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -754,12 +757,15 @@ public class GalleryFragment extends Fragment {
         UUID fotoId = UUID.fromString(imageId);
         foto = SQLite.select().from(Foto.class).where(Foto_Table.foto_id.eq(fotoId)).querySingle();
 
+        String judulfoto = judulFoto.getText().toString();
+
         if (foto == null){
             foto = new Foto();
         }
 
         foto.setStatusData(1);
         foto.setFotoId(UUID.fromString(imageId));
+        foto.setJudul(judulfoto);
         foto.setJenisFotoId(jenisFotoId);
         foto.setTglPengambilan(new Date());
         foto.setUkuran(imageSize);
@@ -816,10 +822,12 @@ public class GalleryFragment extends Fragment {
      * Method ini untuk mengisi data listFoto untuk listViewFoto di data pengamatan umum
      */
     private void populateListFoto() {
-
+        UUID sekolahId;
+        sekolahId = UUID.fromString(mainActivity.getPreference(MainActivity.SPKEY_SEKOLAH_ID));
         listFoto = SQLite.select()
                 .from(Foto.class)
                 .where(Foto_Table.status_data.greaterThanOrEq(1))
+                .and(Foto_Table.sekolah_id.eq(sekolahId))
                 .queryList();
 
 
@@ -962,6 +970,7 @@ public class GalleryFragment extends Fragment {
             // Find the item
             Foto currentFoto = listFoto.get(position);
             int jenisFotoId = currentFoto.getJenisFotoId();
+            String judulFoto = currentFoto.getJudul();
 
             // jenisFotoList contains list of jenisFotos.
             // But beware, if using "get", you'll get position with 0 as first index.
@@ -973,7 +982,7 @@ public class GalleryFragment extends Fragment {
 
             // Attach strings
             TextView namaFotoText = (TextView) itemView.findViewById(R.id.item_judul_foto);
-            namaFotoText.setText(jenisFotoTitle); // Ganti ini
+            namaFotoText.setText(judulFoto); // Ganti ini
 
             TextView jenisFotoText = (TextView) itemView.findViewById(R.id.item_jenis_foto);
             jenisFotoText.setText(jenisFotoTitle); // Ganti ini
@@ -984,7 +993,7 @@ public class GalleryFragment extends Fragment {
             if (tglFoto == null) {
                 tglFotoStr = "-";
             } else {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:ss", Locale.getDefault());
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.getDefault());
                 tglFotoStr = sdf.format(tglFoto);
             }
             ((TextView) itemView.findViewById(R.id.item_tgl_foto)).setText(tglFotoStr);

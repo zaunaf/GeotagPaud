@@ -172,6 +172,7 @@ public class DataScrappingManager {
     // To reset scrap results
     public void flushScrapResults() {
         webScrapResults.clear();
+        webScrapArray.clear();
     }
 
 }

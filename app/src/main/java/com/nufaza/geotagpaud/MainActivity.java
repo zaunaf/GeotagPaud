@@ -133,6 +133,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+
         // Main Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
@@ -470,6 +471,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         editor.clear();
         editor.apply();
 
+        dataScrappingManager.flushScrapResults();
+
         Snackbar.make(mainView, "Anda telah logout.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
         toggleLogin();
         homeFragment.updateView();
@@ -506,6 +509,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String name = loggedIn ? getPreference(SPKEY_NAME) : "Not Authenticated";
         String email = loggedIn ? getPreference(SPKEY_USERNAME) : "Please login first";
 
+        UUID sekolahID = null;
+        if (checkLogin()) {
+            sekolahID = UUID.fromString(getPreference(MainActivity.SPKEY_SEKOLAH_ID));
+        }
         // set iv_profile
         // External Memory
         thumbnailPath = this.getExternalFilesDir(Environment.DIRECTORY_PICTURES).toString() + "/" + MainActivity.THUMBNAIL_FOLDER + "/";
@@ -516,6 +523,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .from(Foto.class)
                 .where(Foto_Table.jenis_foto_id.eq(8))
                 .and(Foto_Table.status_data.greaterThanOrEq(1))
+                .and(Foto_Table.sekolah_id.eq(sekolahID))
                 .querySingle();
 
         ImageView imgProfile = navigationView.getHeaderView(0).findViewById(R.id.imageView);
