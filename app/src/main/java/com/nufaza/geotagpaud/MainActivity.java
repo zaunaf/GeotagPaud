@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
@@ -18,8 +17,6 @@ import android.os.Bundle;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import android.os.Environment;
@@ -48,15 +45,11 @@ import com.nufaza.geotagpaud.managers.DataTransportManager;
 import com.nufaza.geotagpaud.model.Foto;
 import com.nufaza.geotagpaud.model.Foto_Table;
 import com.nufaza.geotagpaud.model.Geotag;
-import com.nufaza.geotagpaud.model.JenisFoto;
-import com.nufaza.geotagpaud.model.JenisFoto_Table;
 import com.nufaza.geotagpaud.model.Pengguna;
 import com.nufaza.geotagpaud.model.Pengguna_Table;
 import com.nufaza.geotagpaud.model.Sekolah;
 import com.nufaza.geotagpaud.model.Sekolah_Table;
 import com.nufaza.geotagpaud.ui.data.DataFragment;
-import com.nufaza.geotagpaud.ui.data.ListAdapter;
-import com.nufaza.geotagpaud.ui.data.WebScrapResult;
 import com.nufaza.geotagpaud.ui.gallery.GalleryFragment;
 import com.nufaza.geotagpaud.ui.geotag.GeotagFragment;
 import com.nufaza.geotagpaud.ui.home.HomeFragment;
@@ -68,7 +61,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import okhttp3.Response;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
@@ -77,21 +69,15 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 import android.view.Menu;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -129,6 +115,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static final String JSON_FOLDER = "json";
 
     public DataScrappingManager dataScrappingManager;
+    public DataTransportManager dataTransportManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -201,6 +188,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // Scrap manager
         dataScrappingManager = new DataScrappingManager(MainActivity.this);
+        dataTransportManager = new DataTransportManager(MainActivity.this);
     }
 
     @Override
@@ -213,6 +201,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         super.onStart();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Upload shit
+        dataTransportManager.uploadReceiver.register(this);
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Upload shit
+        dataTransportManager.uploadReceiver.unregister(this);
     }
 
     @Override
@@ -249,8 +252,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.nav_upload:
-                DataTransportManager.sendData(MainActivity.this);
-                DataTransportManager.sendDataFoto(MainActivity.this);
+                dataTransportManager.sendData();
+                dataTransportManager.sendDataFoto();
+                dataTransportManager.sendFileFoto();
                 break;
 
             case R.id.nav_help:
@@ -515,7 +519,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Foto foto = SQLite.select()
                 .from(Foto.class)
                 .where(Foto_Table.jenis_foto_id.eq(8))
-                .and(Foto_Table.status_data.greaterThanOrEq(1))
+                .and(Foto_Table.sekolah_id.eq(UUID.fromString(sekolahId)))
                 .querySingle();
 
         ImageView imgProfile = navigationView.getHeaderView(0).findViewById(R.id.imageView);

@@ -1,6 +1,7 @@
 package com.nufaza.geotagpaud.managers;
 
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -18,19 +19,34 @@ import com.nufaza.geotagpaud.util.HttpCaller;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import net.gotev.uploadservice.MultipartUploadRequest;
+import net.gotev.uploadservice.ServerResponse;
+import net.gotev.uploadservice.UploadInfo;
 import net.gotev.uploadservice.UploadNotificationConfig;
+import net.gotev.uploadservice.UploadServiceBroadcastReceiver;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import androidx.core.content.FileProvider;
 import okhttp3.Response;
 
 public class DataTransportManager {
 
-    public static void sendData(final MainActivity context) {
+    private final MainActivity context;
+    public final SingleUploadBroadcastReceiver uploadReceiver;
+
+    public DataTransportManager(final MainActivity context) {
+        
+        this.context = context;
+        uploadReceiver = new SingleUploadBroadcastReceiver();
+    }
+
+    public void sendData() {
 
         final List<Geotag> geotags = SQLite.select().from(Geotag.class).where(Geotag_Table.status_data.lessThanOrEq(1)).queryList();
 
@@ -76,7 +92,7 @@ public class DataTransportManager {
         }
     }
 
-    public static void sendDataFoto(final MainActivity context) {
+    public void sendDataFoto() {
 
         final List<Foto> fotos = SQLite.select().from(Foto.class).where(Foto_Table.status_data.eq(1)).queryList();
 
@@ -122,10 +138,10 @@ public class DataTransportManager {
         }
     }
 
-    public static void sendFotos(final MainActivity context){
+    public void sendFileFoto(){
 
         final List<Foto> fotos = SQLite.select().from(Foto.class).where(Foto_Table.tgl_pengiriman.isNull()).queryList();
-        String url = context.getResources().getString(R.string.server_base_url) + "/uploads";
+        String url = context.getResources().getString(R.string.server_base_url) + "/upload";
 
         for (int i = 0; i < fotos.size(); i++) {
 
@@ -151,6 +167,8 @@ public class DataTransportManager {
                         .addParameter("sekolah_id", foto.getSekolahId().toString())
                         .addParameter("pengguna_id", foto.getPenggunaId().toString())
                         .addParameter("foto_id", foto.getFotoId().toString());
+
+                String uploadId = req.startUpload();
 
             } catch (Exception e) {
                 Toast.makeText(context.getApplicationContext(), "File " + imageFile.toString() + "tidak ditemukan..", Toast.LENGTH_LONG).show();
@@ -197,4 +215,53 @@ public class DataTransportManager {
         return config;
     }
 
+    public class SingleUploadBroadcastReceiver extends UploadServiceBroadcastReceiver {
+
+        @Override
+        public void onError(Context context, UploadInfo uploadInfo, ServerResponse serverResponse, Exception exception) {
+            super.onError(context, uploadInfo, serverResponse, exception);
+            MainActivity thisContext = (MainActivity) context;
+
+            thisContext.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    String serverResponseString = serverResponse.getBodyAsString();
+                    Toast.makeText(context.getApplicationContext(), serverResponseString, Toast.LENGTH_LONG).show();
+                }
+            });
+
+        }
+
+        @Override
+        public void onCompleted(Context context, UploadInfo uploadInfo, ServerResponse serverResponse) {
+
+            super.onCompleted(context, uploadInfo, serverResponse);
+
+            if (serverResponse.getHttpCode() == 202) {
+                try {
+                    JSONObject responseJSO = new JSONObject(serverResponse.getBodyAsString());
+                    String fotoId = responseJSO.getString("foto_id");
+                    Foto fotoObj = SQLite.select().from(Foto.class).where(Foto_Table.foto_id.eq(UUID.fromString(fotoId))).querySingle();
+                    if (fotoObj != null) {
+                        fotoObj.setTglPengiriman(new Date());
+                        fotoObj.setStatusData(2);
+                        fotoObj.save();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else {
+
+                MainActivity thisContext = (MainActivity) context;
+                thisContext.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(context.getApplicationContext(), serverResponse.getBody().toString(), Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        }
+
+
+    }
 }

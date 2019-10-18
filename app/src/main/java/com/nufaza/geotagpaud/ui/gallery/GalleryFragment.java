@@ -1,6 +1,5 @@
 package com.nufaza.geotagpaud.ui.gallery;
 
-import android.content.Context;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
@@ -16,13 +15,11 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -32,12 +29,10 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -48,7 +43,6 @@ import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
 import com.facebook.drawee.interfaces.DraweeController;
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.core.ImagePipeline;
 import com.facebook.samples.zoomable.ZoomableDraweeView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -58,13 +52,9 @@ import com.nufaza.geotagpaud.R;
 import com.nufaza.geotagpaud.model.Foto;
 import com.nufaza.geotagpaud.model.Foto_Table;
 import com.nufaza.geotagpaud.model.JenisFoto;
-import com.nufaza.geotagpaud.model.JenisFoto_Table;
 import com.nufaza.geotagpaud.util.PermissionUtils;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
-import org.w3c.dom.Text;
-
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -97,6 +87,8 @@ public class GalleryFragment extends Fragment {
     // Image things
     private String imageId = "";
     private String imageFileName;
+    private String judulFoto;
+
     private App app;
     private int imageSize = 0;
     private int imageHeight = 0;
@@ -117,6 +109,7 @@ public class GalleryFragment extends Fragment {
     private boolean mStoragePermissionDenied = false;
     private boolean mCameraPermissionDenied = false;
     private Integer jenisFotoId;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -246,13 +239,14 @@ public class GalleryFragment extends Fragment {
                 inputJenisFotoId.setAdapter(jenisFotoDataAdapter);
 
                 // Persiapan EditText
-                final EditText inputNamaObyek = dialogView.findViewById(R.id.nama_obyek);
-                inputNamaObyek.setTypeface(face);
+                final EditText inputJudul = dialogView.findViewById(R.id.judul);
+                inputJudul.setTypeface(face);
 
                 fotoDialog.getActionButton(DialogAction.POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         jenisFotoId = jenisFotoValues.get(inputJenisFotoId.getSelectedItemPosition());
+                        judulFoto = inputJudul.getText().toString();
 
                         dispatchTakePictureIntent();
                         fotoDialog.dismiss();
@@ -761,6 +755,7 @@ public class GalleryFragment extends Fragment {
         foto.setStatusData(1);
         foto.setFotoId(UUID.fromString(imageId));
         foto.setJenisFotoId(jenisFotoId);
+        foto.setJudul(judulFoto);
         foto.setTglPengambilan(new Date());
         foto.setUkuran(imageSize);
         foto.setTinggiPixel(imageHeight);
@@ -790,6 +785,7 @@ public class GalleryFragment extends Fragment {
         savedInstanceState.putString("penggunaId", penggunaId);
         savedInstanceState.putInt("jenisFotoId", jenisFotoId);
         savedInstanceState.putString("imageId", imageId);
+        savedInstanceState.putString("judulFoto", judulFoto);
         savedInstanceState.putString("imageFileName", imageFileName);
         savedInstanceState.putString("thumbnailPath", thumbnailPath);
         savedInstanceState.putString("tempPath", tempPath);
@@ -805,6 +801,7 @@ public class GalleryFragment extends Fragment {
             penggunaId = savedInstanceState.getString("penggunaId");
             jenisFotoId = savedInstanceState.getInt("jenisFotoId");
             imageId = savedInstanceState.getString("imageId");
+            judulFoto = savedInstanceState.getString("judulFoto");
             imageFileName = savedInstanceState.getString("imageFileName");
             thumbnailPath = savedInstanceState.getString("thumbnailPath");
             tempPath = savedInstanceState.getString("tempPath");
@@ -820,6 +817,7 @@ public class GalleryFragment extends Fragment {
         listFoto = SQLite.select()
                 .from(Foto.class)
                 .where(Foto_Table.status_data.greaterThanOrEq(1))
+                .and(Foto_Table.sekolah_id.eq(UUID.fromString(sekolahId)))
                 .queryList();
 
 
@@ -973,7 +971,7 @@ public class GalleryFragment extends Fragment {
 
             // Attach strings
             TextView namaFotoText = (TextView) itemView.findViewById(R.id.item_judul_foto);
-            namaFotoText.setText(jenisFotoTitle); // Ganti ini
+            namaFotoText.setText(currentFoto.getJudul()); // Ganti ini
 
             TextView jenisFotoText = (TextView) itemView.findViewById(R.id.item_jenis_foto);
             jenisFotoText.setText(jenisFotoTitle); // Ganti ini
@@ -984,7 +982,7 @@ public class GalleryFragment extends Fragment {
             if (tglFoto == null) {
                 tglFotoStr = "-";
             } else {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:ss", Locale.getDefault());
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
                 tglFotoStr = sdf.format(tglFoto);
             }
             ((TextView) itemView.findViewById(R.id.item_tgl_foto)).setText(tglFotoStr);

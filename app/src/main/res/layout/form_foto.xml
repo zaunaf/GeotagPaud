@@ -35,7 +35,7 @@
             android:fontFamily="@font/quicksand_regular"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/nama_obyek"
+            android:id="@+id/judul"
             android:inputType="text"
             android:hint="Judul Foto"
             android:singleLine="true"/>
