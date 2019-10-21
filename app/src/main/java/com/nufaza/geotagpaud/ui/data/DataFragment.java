@@ -26,6 +26,10 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.ethanhua.skeleton.Skeleton;
+import com.ethanhua.skeleton.SkeletonScreen;
+import com.faltenreich.skeletonlayout.SkeletonLayout;
+import com.faltenreich.skeletonlayout.SkeletonLayoutUtils;
 import com.nufaza.geotagpaud.MainActivity;
 import com.nufaza.geotagpaud.R;
 
@@ -52,6 +56,10 @@ public class DataFragment extends Fragment {
     private MainActivity mainActivity;
     private ListView listView;
     private ListAdapter adapter;
+    private SkeletonScreen skeletonScreen;
+    private com.faltenreich.skeletonlayout.Skeleton skeleton;
+    private View skel;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -63,12 +71,13 @@ public class DataFragment extends Fragment {
         // new Scrap().execute();
         tv_agregat_dapodik_siswa = root.findViewById(R.id.agregatSiswaDapodik);
 
+        skeleton = root.findViewById(R.id.skeletonLayout);
+        skel = root.findViewById(R.id.skeletonLayout);
+        skeleton.showSkeleton();
+        skeleton.setShimmerDurationInMillis(1500);
+
         listView = root.findViewById(R.id.listView);
         listView.setOnItemClickListener(null);
-
-        listView.setEmptyView(root.findViewById(R.id.emptyStateData));
-        listView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
-
 
         return root;
     }
@@ -78,12 +87,15 @@ public class DataFragment extends Fragment {
         super.onHiddenChanged(isVisibleToUser);
 
         if (isVisibleToUser) {
-
+            skeleton.showOriginal();
+            skel.setVisibility(View.GONE);
             List<WebScrapResult> webScrapResults = mainActivity.dataScrappingManager.getWebScrapResults();
-            if (webScrapResults.size() > 0) {
+            if (webScrapResults.size() > 4) {
                 adapter = new ListAdapter(getActivity().getApplicationContext(), R.layout.custom_list, webScrapResults);
                 listView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
+            } else {
+
             }
         }
 
@@ -95,12 +107,15 @@ public class DataFragment extends Fragment {
         super.onHiddenChanged(hidden);
 
         if (!hidden) {
-
+            skeleton.showOriginal();
+            skel.setVisibility(View.GONE);
             List<WebScrapResult> webScrapResults = mainActivity.dataScrappingManager.getWebScrapResults();
-            if (webScrapResults.size() > 0) {
+            if (webScrapResults.size() > 4) {
                 adapter = new ListAdapter(getActivity().getApplicationContext(), R.layout.custom_list, webScrapResults);
                 listView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
+            } else {
+
             }
         }
     }

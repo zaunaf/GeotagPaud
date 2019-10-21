@@ -478,6 +478,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggleLogin();
         homeFragment.updateView();
         loginDialog();
+
     }
 
     public boolean checkLogin() {

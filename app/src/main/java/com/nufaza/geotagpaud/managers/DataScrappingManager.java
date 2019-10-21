@@ -173,6 +173,7 @@ public class DataScrappingManager {
     public void flushScrapResults() {
         webScrapArray.clear();
         webScrapResults.clear();
+        webScrapArray.clear();
     }
 
 }

@@ -18,6 +18,20 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 <!--        app:layout_constraintStart_toStartOf="parent"-->
 <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
+    <androidx.cardview.widget.CardView
+        app:cardCornerRadius="5dp"
+        app:cardElevation="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
 <fragment
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:id="@+id/frg"
@@ -37,13 +51,18 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
         <Button
             android:fontFamily="@font/quicksand_semibold"
             android:id="@+id/save_loc"
-            android:layout_width="402dp"
+            android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_gravity="center"
+            android:layout_marginLeft="10sp"
+            android:layout_marginRight="10sp"
             android:layout_marginBottom="48dp"
             android:enabled="false"
             android:orientation="vertical"
             android:text="Menerima Sinyal GPS"
             android:theme="@style/Widget.MaterialComponents.Button" />
     </LinearLayout>
+    </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
 </RelativeLayout>
