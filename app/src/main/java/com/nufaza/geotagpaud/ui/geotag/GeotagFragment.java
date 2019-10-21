@@ -352,13 +352,13 @@ public class GeotagFragment extends Fragment
 
 
         if (accuracyMeters <= 6) {
-            msg = "Simpan Posisi (akurasi: " +  accuracyMeters.toString() + "m)";
+            msg = "Simpan Posisi \n(akurasi: " +  accuracyMeters.toString() + "m)";
             saveButton.setText(msg);
             saveButton.setEnabled(true);
             // saveButton.style
             locationManager.removeUpdates(this);
         } else {
-            msg = "Menerima Sinyal GPS (akurasi: " +  accuracyMeters.toString() + "m)";
+            msg = "Menerima Sinyal GPS \n(akurasi: " +  accuracyMeters.toString() + "m)";
             saveButton.setText(msg);
         }
 

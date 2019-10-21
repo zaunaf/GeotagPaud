@@ -18,6 +18,17 @@
         android:padding="5pt"
         >
 
+        <com.faltenreich.skeletonlayout.SkeletonLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/skeletonLayout">
+
+            <include layout="@layout/item_skeleton"></include>
+
+        </com.faltenreich.skeletonlayout.SkeletonLayout>
+
         <ListView
             android:id="@+id/listView"
             android:layout_width="match_parent"
