@@ -478,6 +478,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggleLogin();
         homeFragment.updateView();
         loginDialog();
+
     }
 
     public boolean checkLogin() {
@@ -519,7 +520,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Foto foto = SQLite.select()
                 .from(Foto.class)
                 .where(Foto_Table.jenis_foto_id.eq(8))
-                .and(Foto_Table.sekolah_id.eq(UUID.fromString(sekolahId)))
                 .querySingle();
 
         ImageView imgProfile = navigationView.getHeaderView(0).findViewById(R.id.imageView);
