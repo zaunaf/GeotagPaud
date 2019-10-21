@@ -26,7 +26,50 @@
             android:focusable="false"
             android:focusableInTouchMode="false"
             android:listSelector="#00000000"
-        />
+            />
+
+
+        <RelativeLayout
+            android:id="@+id/emptyStateData"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFF">
+
+            <LinearLayout
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="300dp"
+                    android:layout_height="247dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/empty_playground_med" />
+
+                <TextView
+                    android:textSize="24dp"
+                    android:gravity="center"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:text="Data Kosong"/>
+
+                <TextView
+                    android:textSize="18dp"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:fontFamily="@font/quicksand_semibold"
+                    android:text="Silahkan isi DapodikPaud sekolah anda"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
 

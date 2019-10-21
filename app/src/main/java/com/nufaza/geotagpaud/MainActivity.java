@@ -516,10 +516,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         sekolahId = this.getPreference(MainActivity.SPKEY_SEKOLAH_ID);
 
+        UUID sekolahID = null;
+        if (checkLogin()){
+            sekolahID = UUID.fromString(getPreference(MainActivity.SPKEY_SEKOLAH_ID));
+        }
+
         Foto foto = SQLite.select()
                 .from(Foto.class)
                 .where(Foto_Table.jenis_foto_id.eq(8))
-                .and(Foto_Table.sekolah_id.eq(UUID.fromString(sekolahId)))
+                .and(Foto_Table.sekolah_id.eq(sekolahID))
                 .querySingle();
 
         ImageView imgProfile = navigationView.getHeaderView(0).findViewById(R.id.imageView);
@@ -630,9 +635,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 //Buat cek apakah User udah ambil data dari Web
                 setTKPreference(STOREDATA,"belum");
 
-                // Close loginDialog
-                loginDialog.dismiss();
-
                 // Create map for JSON
                 HashMap<String, String> params = new HashMap<>();
                 params.put("username", usernameStr);
@@ -662,6 +664,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                     setPreference(SPKEY_TOKEN, token);
 
                                     getInitialData(id, token);
+
+                                    // Close loginDialog
+                                    loginDialog.dismiss();
 
                                 } catch (JSONException e) {
 
