@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -78,7 +79,6 @@ public class DataFragment extends Fragment {
         listView = root.findViewById(R.id.listView);
         listView.setOnItemClickListener(null);
 
-
         return root;
     }
 
@@ -94,7 +94,6 @@ public class DataFragment extends Fragment {
                 adapter = new ListAdapter(getActivity().getApplicationContext(), R.layout.custom_list, webScrapResults);
                 listView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
-
             } else {
 
             }
@@ -115,8 +114,8 @@ public class DataFragment extends Fragment {
                 adapter = new ListAdapter(getActivity().getApplicationContext(), R.layout.custom_list, webScrapResults);
                 listView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
-
             } else {
+
             }
         }
     }
