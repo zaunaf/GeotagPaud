@@ -48,6 +48,7 @@ import static com.nufaza.geotagpaud.MainActivity.SPKEY_SESSION;
 import static com.nufaza.geotagpaud.MainActivity.STOREDATA;
 import static com.nufaza.geotagpaud.R.id.agregatSiswaDapodik;
 import static com.nufaza.geotagpaud.R.id.root;
+import static com.nufaza.geotagpaud.R.id.visible;
 
 public class DataFragment extends Fragment {
 
@@ -59,6 +60,7 @@ public class DataFragment extends Fragment {
     private SkeletonScreen skeletonScreen;
     private com.faltenreich.skeletonlayout.Skeleton skeleton;
     private View skel;
+    private View empty;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -73,6 +75,7 @@ public class DataFragment extends Fragment {
 
         skeleton = root.findViewById(R.id.skeletonLayout);
         skel = root.findViewById(R.id.skeletonLayout);
+        empty = root.findViewById(R.id.emptyStateData);
         skeleton.showSkeleton();
         skeleton.setShimmerDurationInMillis(1500);
 
@@ -95,7 +98,7 @@ public class DataFragment extends Fragment {
                 listView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
             } else {
-
+                empty.setVisibility(View.VISIBLE);
             }
         }
 
@@ -115,7 +118,7 @@ public class DataFragment extends Fragment {
                 listView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
             } else {
-
+                empty.setVisibility(View.VISIBLE);
             }
         }
     }
